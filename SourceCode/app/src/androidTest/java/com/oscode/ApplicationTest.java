@@ -1,4 +1,4 @@
-package com.opcode;
+package com.oscode;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

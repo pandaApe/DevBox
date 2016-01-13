@@ -1,4 +1,4 @@
-package com.opcode;
+package com.oscode;
 
 import org.junit.Test;
 
