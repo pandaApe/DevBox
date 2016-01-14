@@ -41,5 +41,11 @@ dependencies {
     //avoscloud-sns 为 LeanCloud 第三方登录包
     compile 'cn.leancloud.android:avoscloud-sns:v3.+@aar'
     compile 'cn.leancloud.android:qq-sdk:1.6.1-leancloud'
+
     compile project(':Libraries:DroidPlugin')
+
+    compile 'com.ogaclejapan.smarttablayout:library:1.6.0@aar'
+
+    //Optional: see how to use the utility.
+    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.6.0@aar'
 }
