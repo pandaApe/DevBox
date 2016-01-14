@@ -6,14 +6,18 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.SaveCallback;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import com.oscode.R;
+import com.oscode.model.OSCodeLib;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,6 +54,15 @@ public class MainActivity extends AppCompatActivity {
 
         viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
         viewPagerTab.setViewPager(viewPager);
+
+        OSCodeLib code = new OSCodeLib();
+        code.setAuthor("new");
+        code.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(AVException e) {
+                Log.d("Tag", "done: ________-----------------");
+            }
+        });
 
     }
 
