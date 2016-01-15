@@ -1,152 +1,194 @@
 package com.oscode.model;
 
-import android.annotation.SuppressLint;
-
 import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;
 
-import java.util.Date;
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
 
 /**
  * Created by whailong on 14/1/16.
  */
-@SuppressLint("ParcelCreator")
 @AVClassName("OSCodeLib")
 public class OSCodeLib extends AVObject {
 
-    private String libName;
-    private String author;
-    private String thumbAddress;
-    private String type;
-    private String[] tags;
-    private String descriptionEN;
-    private String descriptionCN;
-    private String githubAddress;
-    private String license;
-    private String size;
-    private Date lastUpdate;
-    private String minSDKVersion;
-    private int collectionCounter;
-    private int downloadCounter;
-    private int viewCounter;
+//    private String libName;
+//    private String author;
+//    private String thumbAddress;
+//    private String type;
+//    private String[] tags;
+//    private String descriptionEN;
+//    private String descriptionCN;
+//    private String githubAddress;
+//    private String license;
+//    private String size;
+//    private String minSDKVersion;
+//    private int collectionCount;
+//    private int downloadCount;
+//    private int viewCount;
+
+
+    public OSCodeLib() {
+        super();
+        this.put("viewCount", 0);
+        this.put("collectionCount", 0);
+        this.put("downloadCount", 0);
+    }
 
     public String getLibName() {
-        return libName;
+        return this.getString("libName");
     }
 
     public void setLibName(String libName) {
-        this.libName = libName;
+        this.put("libName", libName);
     }
 
     public String getAuthor() {
-        return author;
+        return this.getString("author");
     }
 
     public void setAuthor(String author) {
-        this.author = author;
+        this.put("author", author);
     }
 
     public String getThumbAddress() {
-        return thumbAddress;
+        return this.getString("thumbAddress");
     }
 
     public void setThumbAddress(String thumbAddress) {
-        this.thumbAddress = thumbAddress;
+        this.put("thumbAddress", thumbAddress);
     }
 
     public String getType() {
-        return type;
+        return this.getString("type");
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.put("type", type);
     }
 
-    public String[] getTags() {
-        return tags;
+    public ArrayList<String> getTags() {
+        ArrayList<String> list = new ArrayList<String>();
+        JSONArray jsonArray = this.getJSONArray("tags");
+        if (jsonArray != null) {
+            int len = jsonArray.length();
+            for (int i = 0; i < len; i++) {
+                try {
+                    list.add(jsonArray.get(i).toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return list;
     }
 
-    public void setTags(String[] tags) {
-        this.tags = tags;
+    public void setTags(ArrayList<String> tags) {
+        JSONArray jsonArray = new JSONArray(tags);
+        this.put("tags", jsonArray);
     }
 
     public String getDescriptionEN() {
-        return descriptionEN;
+        return this.getString("descriptionEN");
     }
 
     public void setDescriptionEN(String descriptionEN) {
-        this.descriptionEN = descriptionEN;
+        this.put("descriptionEN", descriptionEN);
     }
 
     public String getDescriptionCN() {
-        return descriptionCN;
+        return this.getString("descriptionCN");
     }
 
     public void setDescriptionCN(String descriptionCN) {
-        this.descriptionCN = descriptionCN;
+        this.put("descriptionCN", descriptionCN);
     }
 
     public String getGithubAddress() {
-        return githubAddress;
+        return this.getString("githubAddress");
     }
 
     public void setGithubAddress(String githubAddress) {
-        this.githubAddress = githubAddress;
+        this.put("githubAddress", githubAddress);
     }
 
     public String getLicense() {
-        return license;
+        return this.getString("license");
     }
 
     public void setLicense(String license) {
-        this.license = license;
+        this.put("license", license);
     }
 
     public String getSize() {
-        return size;
+        return this.getString("size");
     }
 
     public void setSize(String size) {
-        this.size = size;
-    }
-
-    public Date getLastUpdate() {
-        return lastUpdate;
-    }
-
-    public void setLastUpdate(Date lastUpdate) {
-        this.lastUpdate = lastUpdate;
+        this.put("size", size);
     }
 
     public String getMinSDKVersion() {
-        return minSDKVersion;
+        return this.getString("minSDKVersion");
     }
 
     public void setMinSDKVersion(String minSDKVersion) {
-        this.minSDKVersion = minSDKVersion;
+        this.put("minSDKVersion", minSDKVersion);
     }
 
-    public int getCollectionCounter() {
-        return collectionCounter;
+    public int getCollectionCount() {
+        return this.getInt("collectionCount");
     }
 
-    public void setCollectionCounter(int collectionCounter) {
-        this.collectionCounter = collectionCounter;
+    public int increaseCollectionCount() {
+        this.increment("collectionCount");
+        return this.getCollectionCount();
     }
 
-    public int getDownloadCounter() {
-        return downloadCounter;
+    public int decreaseCollectionCount() {
+        this.increment("collectionCount", -1);
+        return this.getCollectionCount();
     }
 
-    public void setDownloadCounter(int downloadCounter) {
-        this.downloadCounter = downloadCounter;
+    public void setCollectionCount(int collectionCount) {
+        this.put("collectionCount", collectionCount);
     }
 
-    public int getViewCounter() {
-        return viewCounter;
+    public int getDownloadCount() {
+        return this.getInt("downloadCount");
     }
 
-    public void setViewCounter(int viewCounter) {
-        this.viewCounter = viewCounter;
+    public int increaseDownloadCount() {
+        this.increment("downloadCount");
+        return this.getDownloadCount();
+    }
+
+    public int decreaseDownloadCount() {
+        this.increment("downloadCount", -1);
+        return this.getDownloadCount();
+    }
+
+    public void setDownloadCount(int downloadCount) {
+        this.put("downloadCount", downloadCount);
+    }
+
+    public int getViewCount() {
+        return this.getInt("viewCount");
+    }
+
+    public int increaseViewCount() {
+        this.increment("viewCount");
+        return this.getViewCount();
+    }
+
+    public int decreaseViewCount() {
+        this.increment("viewCount", -1);
+        return this.getViewCount();
+    }
+
+    public void setViewCount(int viewCount) {
+        this.put("viewCount", viewCount);
     }
 }
