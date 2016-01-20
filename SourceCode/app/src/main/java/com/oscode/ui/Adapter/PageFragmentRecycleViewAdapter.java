@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.oscode.R;
+import com.oscode.model.CodeType;
+
+import java.util.ArrayList;
 
 /**
  * Created by whailong on 15/1/16.
@@ -15,27 +18,28 @@ import com.oscode.R;
 public class PageFragmentRecycleViewAdapter extends RecyclerView.Adapter<PageFragmentRecycleViewAdapter.NormalTextViewHolder> {
     private LayoutInflater mLayoutInflater;
     private Context mContext;
-    private String[] mTitles;
+    private ArrayList<CodeType> codeTypes;
 
-    public PageFragmentRecycleViewAdapter(Context context) {
-        mTitles = new String[]{"0", "1", "2", "3",};
+    public PageFragmentRecycleViewAdapter(Context context, ArrayList<CodeType> codeTypes) {
+        this.codeTypes = codeTypes;
         this.mContext = context;
         this.mLayoutInflater = LayoutInflater.from(context);
     }
 
     @Override
     public NormalTextViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new NormalTextViewHolder(mLayoutInflater.inflate(R.layout.item_types_recycleview, parent, false));
+        return new NormalTextViewHolder(mLayoutInflater.inflate(R.layout.item_types, parent, false));
     }
 
     @Override
     public void onBindViewHolder(NormalTextViewHolder holder, int position) {
-        holder.tvType.setText(mTitles[position]);
+        String str = codeTypes.get(position).getNameCN() + "(" + codeTypes.get(position).getNameEn() + ")";
+        holder.tvType.setText(str);
     }
 
     @Override
     public int getItemCount() {
-        return mTitles.length;
+        return codeTypes.size();
     }
 
     public static class NormalTextViewHolder extends RecyclerView.ViewHolder {
