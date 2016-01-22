@@ -1,6 +1,7 @@
 package com.oscode.model;
 
 import com.avos.avoscloud.AVClassName;
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 
 import org.json.JSONArray;
@@ -28,6 +29,8 @@ public class OSCodeLib extends AVObject {
 //    private int collectionCount;
 //    private int downloadCount;
 //    private int viewCount;
+//    private AVFile libApkFile;
+//    private AVFile libPreImage;
 
 
     public OSCodeLib() {
@@ -35,6 +38,22 @@ public class OSCodeLib extends AVObject {
         this.put("viewCount", 0);
         this.put("collectionCount", 0);
         this.put("downloadCount", 0);
+    }
+
+    public AVFile getLibApkFile() {
+        return getAVFile("libApkFile");
+    }
+
+    public void setLibApkFile(AVFile libApkFile) {
+        this.put("libApkFile", libApkFile);
+    }
+
+    public AVFile getLibPreImage() {
+        return getAVFile("libPreImage");
+    }
+
+    public void setLibPreImage(AVFile libPreImage) {
+        this.put("libPreImage", libPreImage);
     }
 
     public String getLibName() {

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.oscode.R;
-import com.oscode.model.CodeType;
+import com.oscode.model.OSCodeType;
 
 import java.util.ArrayList;
 
@@ -18,10 +18,10 @@ import java.util.ArrayList;
 public class PageFragmentRecycleViewAdapter extends RecyclerView.Adapter<PageFragmentRecycleViewAdapter.NormalTextViewHolder> {
     private LayoutInflater mLayoutInflater;
     private Context mContext;
-    private ArrayList<CodeType> codeTypes;
+    private ArrayList<OSCodeType> OSCodeTypes;
 
-    public PageFragmentRecycleViewAdapter(Context context, ArrayList<CodeType> codeTypes) {
-        this.codeTypes = codeTypes;
+    public PageFragmentRecycleViewAdapter(Context context, ArrayList<OSCodeType> OSCodeTypes) {
+        this.OSCodeTypes = OSCodeTypes;
         this.mContext = context;
         this.mLayoutInflater = LayoutInflater.from(context);
     }
@@ -33,13 +33,13 @@ public class PageFragmentRecycleViewAdapter extends RecyclerView.Adapter<PageFra
 
     @Override
     public void onBindViewHolder(NormalTextViewHolder holder, int position) {
-        String str = codeTypes.get(position).getNameCN() + "(" + codeTypes.get(position).getNameEn() + ")";
+        String str = OSCodeTypes.get(position).getNameCN() + "(" + OSCodeTypes.get(position).getNameEn() + ")";
         holder.tvType.setText(str);
     }
 
     @Override
     public int getItemCount() {
-        return codeTypes.size();
+        return OSCodeTypes.size();
     }
 
     public static class NormalTextViewHolder extends RecyclerView.ViewHolder {
