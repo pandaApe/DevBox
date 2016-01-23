@@ -15,13 +15,15 @@
             android:src="@mipmap/temp" />
 
         <TextView
+            android:id="@+id/tv_libName"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
             android:paddingLeft="10dp"
-            android:text="This Lib Name"
+            android:text="This is Lib Name"
             android:textColor="#fff"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
     </RelativeLayout>
 

@@ -47,7 +47,7 @@ public class LibFragRVAdapter extends RecyclerView.Adapter<LibFragRVAdapter.Code
             @Override
             public void onClick(View v, int position) {
                 Intent intent = new Intent(context, LibDetailActivity.class);
-                intent.putExtra("position", position);
+                intent.putExtra("selectedItem", codeLibs.get(position));
                 context.startActivity(intent);
             }
         });
