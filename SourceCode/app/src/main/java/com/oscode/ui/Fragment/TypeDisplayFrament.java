@@ -14,7 +14,7 @@ import com.avos.avoscloud.FindCallback;
 import com.oscode.R;
 import com.oscode.model.OSCodeType;
 import com.oscode.service.GetTypeListService;
-import com.oscode.ui.Adapter.PageFragmentRecycleViewAdapter;
+import com.oscode.ui.Adapter.TypeFragRVAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ import java.util.List;
 public class TypeDisplayFrament extends Fragment {
     private ArrayList<OSCodeType> codeTypes;
     private RecyclerView recyclerView;
-    private PageFragmentRecycleViewAdapter adapter;
+    private TypeFragRVAdapter adapter;
 
     public static TypeDisplayFrament newInstance(int num) {
         TypeDisplayFrament f = new TypeDisplayFrament();
@@ -53,7 +53,7 @@ public class TypeDisplayFrament extends Fragment {
 
         setupView(view);
 
-        setupServerData();
+//        setupServerData();
     }
 
     private void setupServerData() {
@@ -70,7 +70,7 @@ public class TypeDisplayFrament extends Fragment {
     private void setupView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclyView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new PageFragmentRecycleViewAdapter(getActivity(), codeTypes);
+        adapter = new TypeFragRVAdapter(getActivity(), codeTypes);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));//这里用线性显示 类似于list view
         recyclerView.setAdapter(adapter);
     }

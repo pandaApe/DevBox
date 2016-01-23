@@ -27,6 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.Activity.LibDetailActivity" />
 
         <!-- 反馈组件（若使用该功能，需添加以下声明）START -->
         <activity android:name="com.avos.avoscloud.feedback.ThreadActivity"></activity>

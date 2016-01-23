@@ -15,12 +15,12 @@ import java.util.ArrayList;
 /**
  * Created by whailong on 15/1/16.
  */
-public class PageFragmentRecycleViewAdapter extends RecyclerView.Adapter<PageFragmentRecycleViewAdapter.NormalTextViewHolder> {
+public class TypeFragRVAdapter extends RecyclerView.Adapter<TypeFragRVAdapter.NormalTextViewHolder> {
     private LayoutInflater mLayoutInflater;
     private Context mContext;
     private ArrayList<OSCodeType> OSCodeTypes;
 
-    public PageFragmentRecycleViewAdapter(Context context, ArrayList<OSCodeType> OSCodeTypes) {
+    public TypeFragRVAdapter(Context context, ArrayList<OSCodeType> OSCodeTypes) {
         this.OSCodeTypes = OSCodeTypes;
         this.mContext = context;
         this.mLayoutInflater = LayoutInflater.from(context);
@@ -28,12 +28,12 @@ public class PageFragmentRecycleViewAdapter extends RecyclerView.Adapter<PageFra
 
     @Override
     public NormalTextViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new NormalTextViewHolder(mLayoutInflater.inflate(R.layout.item_types, parent, false));
+        return new NormalTextViewHolder(mLayoutInflater.inflate(R.layout.item_type, parent, false));
     }
 
     @Override
     public void onBindViewHolder(NormalTextViewHolder holder, int position) {
-        String str = OSCodeTypes.get(position).getNameCN() + "(" + OSCodeTypes.get(position).getNameEn() + ")";
+        String str = OSCodeTypes.get(position).getFullTitle();
         holder.tvType.setText(str);
     }
 
