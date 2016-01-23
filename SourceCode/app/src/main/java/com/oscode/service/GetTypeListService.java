@@ -13,6 +13,4 @@ public class GetTypeListService {
         AVQuery<OSCodeType> query = AVQuery.getQuery(OSCodeType.class);
         query.findInBackground(callBack);
     }
-
-
 }

@@ -22,6 +22,9 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
     private TextView tvGithubAddress;
     private TextView tvVersion;
     private TextView tvLibName;
+    private TextView tvLastUpdate;
+    private TextView tvAuthor;
+    private TextView tvLicense;
 
     private OSCodeLib codeLib;
 
@@ -37,6 +40,9 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
         tvGithubAddress = (TextView) findViewById(R.id.tv_githubAddress);
         tvVersion = (TextView) findViewById(R.id.tv_version);
         tvLibName = (TextView) findViewById(R.id.tv_libName);
+        tvAuthor = (TextView) findViewById(R.id.tv_author);
+        tvLicense = (TextView) findViewById(R.id.tv_license);
+        tvLastUpdate = (TextView) findViewById(R.id.tv_LastUpdate);
 
         btnCollect.setOnClickListener(this);
         btnDownload.setOnClickListener(this);
@@ -48,13 +54,19 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
         tvDescription.setText(codeLib.getDescriptionCN());
         tvGithubAddress.setText(codeLib.getGithubAddress());
         tvVersion.setText(codeLib.getMinSDKVersion());
+        tvAuthor.setText(codeLib.getAuthor());
+        tvLicense.setText(codeLib.getLicense());
+        btnDownload.setText("下载(" + codeLib.getSize() + "MB)");
 
+        codeLib.increaseViewCount();
+        codeLib.saveInBackground();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_collect:
+
                 break;
 
             case R.id.btn_download:
