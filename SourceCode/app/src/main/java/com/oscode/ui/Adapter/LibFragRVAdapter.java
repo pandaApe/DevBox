@@ -58,7 +58,10 @@ public class LibFragRVAdapter extends RecyclerView.Adapter<LibFragRVAdapter.Code
     public void onBindViewHolder(LibFragRVAdapter.CodeLibViewHolder holder, int position) {
         OSCodeLib codeLib = codeLibs.get(position);
         holder.tvLibName.setText(codeLib.getLibName());
-        ImageLoader.getInstance().displayImage(codeLib.getLicense(), holder.ivLibPreFace, this.options);
+//        Log.i("0-", "_______>" + (codeLib == null));
+//        Log.i("getLibPreImage-","_______>"+ (codeLib.getLibPreImage()== null));
+//        Log.i("getLibName-","_______>"+ codeLib.getLibName());
+        ImageLoader.getInstance().displayImage(codeLib.getLibPreImage().getUrl(), holder.ivLibPreFace, this.options);
     }
 
     @Override

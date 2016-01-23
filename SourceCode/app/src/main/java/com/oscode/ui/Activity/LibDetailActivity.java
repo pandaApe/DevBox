@@ -27,8 +27,7 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
         btnCollect.setOnClickListener(this);
         btnDownload.setOnClickListener(this);
         btnShare.setOnClickListener(this);
-
-//
+        
 //        OSCodeLib codeLib = new OSCodeLib();
 //        codeLib.setLibName("libName");
 //        codeLib.setAuthor("author");
@@ -47,25 +46,8 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
 //            }
 //        });
 
+
     }
-
-
-//    private String libName;
-//    private String author;
-//    private String type;
-//    private String[] tags;
-//    private String descriptionEN;
-//    private String descriptionCN;
-//    private String githubAddress;
-//    private String license;
-//    private String size;
-//    private String minSDKVersion;
-//    private int collectionCount;
-//    private int downloadCount;
-//    private int viewCount;
-//    private AVFile libApkFile;
-//    private AVFile libPreImage;
-
 
     @Override
     public void onClick(View v) {
