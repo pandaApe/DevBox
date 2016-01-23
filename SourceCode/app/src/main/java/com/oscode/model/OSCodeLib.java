@@ -17,7 +17,6 @@ public class OSCodeLib extends AVObject {
 
 //    private String libName;
 //    private String author;
-//    private String thumbAddress;
 //    private String type;
 //    private String[] tags;
 //    private String descriptionEN;
@@ -70,14 +69,6 @@ public class OSCodeLib extends AVObject {
 
     public void setAuthor(String author) {
         this.put("author", author);
-    }
-
-    public String getThumbAddress() {
-        return this.getString("thumbAddress");
-    }
-
-    public void setThumbAddress(String thumbAddress) {
-        this.put("thumbAddress", thumbAddress);
     }
 
     public String getType() {
