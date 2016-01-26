@@ -43,7 +43,7 @@ public class TypeDisplayFrament extends Fragment {
 
         codeTypes = new ArrayList<>();
 
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i <= 50; i++) {
             OSCodeType OSCodeType = new OSCodeType();
             OSCodeType.setNameCN("列表_" + i);
             OSCodeType.setNameEn("Listview_" + i);

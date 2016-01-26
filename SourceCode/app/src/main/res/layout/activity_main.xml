@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".ui.MainActivity">
+    android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -17,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         <com.ogaclejapan.smarttablayout.SmartTabLayout
@@ -33,7 +32,8 @@
             app:stl_indicatorCornerRadius="1.5dp"
             app:stl_indicatorInterpolation="smart"
             app:stl_indicatorThickness="3dp"
-            app:stl_underlineColor="@color/transparent" />
+            app:stl_underlineColor="@color/transparent"
+            app:tabGravity="fill" />
 
     </android.support.design.widget.AppBarLayout>
 
