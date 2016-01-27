@@ -89,7 +89,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        android:layout_marginLeft="10dp"
                         android:orientation="vertical">
 
                         <TextView
@@ -120,12 +120,12 @@
                     android:layout_margin="5dp"
                     android:textColor="@color/white"
                     android:textSize="18sp"
+                    app:cpb_colorIndicator="#8f3e97"
+                    app:cpb_colorIndicatorBackground="#338f3e97"
+                    app:cpb_colorProgress="#00000000"
                     app:cpb_selectorComplete="@drawable/cpb_idle_state_selector_full_complete"
                     app:cpb_selectorError="@drawable/cpb_idle_state_selector_full_error"
                     app:cpb_selectorIdle="@drawable/cpb_idle_state_selector_full"
-                    app:cpb_colorProgress="#00000000"
-                    app:cpb_colorIndicator="#8f3e97"
-                    app:cpb_colorIndicatorBackground="#338f3e97"
                     app:cpb_textComplete="完成"
                     app:cpb_textError="错误"
                     app:cpb_textIdle="下载" />

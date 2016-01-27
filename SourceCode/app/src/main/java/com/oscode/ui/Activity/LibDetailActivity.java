@@ -5,14 +5,22 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.GetDataCallback;
+import com.avos.avoscloud.ProgressCallback;
 import com.dd.CircularProgressButton;
 import com.oscode.R;
 import com.oscode.model.OSCodeLib;
+
+import org.kymjs.kjframe.utils.FileUtils;
+
+import java.io.File;
 
 
 /**
@@ -33,6 +41,7 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
     private ImageView ivHeader;
 
     private OSCodeLib codeLib;
+    private String filePath;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +65,16 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
 //        btnCollect.setOnClickListener(this);
         btnDownload.setOnClickListener(this);
 //        btnShare.setOnClickListener(this);
+        String fileFolder = FileUtils.getSDCardPath() + File.separator + "OSCode" + File.separator;
+        String fileName = "lib.apk";
+        filePath = fileFolder + File.separator + fileName;
+        if (new File(filePath).exists()) {
+            btnDownload.setProgress(100);
+            btnDownload.setCompleteText("已下载");
+        } else {
+            btnDownload.setProgress(0);
+
+        }
 
         codeLib = getIntent().getParcelableExtra("selectedItem");
 
@@ -85,40 +104,44 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
 //            case R.id.btn_collect:
-
+//
 //                break;
-//
-//            case R.id.btn_download:
-//
-//                codeLib.getLibApkFile().getDataInBackground(new GetDataCallback() {
-//                    @Override
-//                    public void done(byte[] bytes, AVException e) {
-//                        Log.v("Done--->", "____>");
-//                        String fileFolder = FileUtils.getSDCardPath() + File.separator + "OSCode" + File.separator;
-//                        String fileName = "lib.apk";
-//
-//                        FileUtils.saveFileCache(bytes, FileUtils.getSDCardPath() + File.separator + "OSCode" + File.separator, "lib.apk");
-////                        int PluginManager.getInstance().installPackage(String filepath, int flags);
+
+            case R.id.btn_download:
+
+                if (new File(filePath).exists()) {
+                    return;
+                }
+                codeLib.getLibApkFile().getDataInBackground(new GetDataCallback() {
+                    @Override
+                    public void done(byte[] bytes, AVException e) {
+                        Log.v("Done--->", "____>");
+
+                        FileUtils.saveFileCache(bytes, FileUtils.getSDCardPath() + File.separator + "OSCode" + File.separator, "lib.apk");
+//                        int PluginManager.getInstance().installPackage(String filepath, int flags);
 //                        try {
 //                            PluginManager.getInstance().installPackage(fileFolder + fileName, 0);
 //                        } catch (RemoteException e1) {
 //                            e1.printStackTrace();
 //                        }
-//                    }
-//                }, new ProgressCallback() {
-//                    @Override
-//                    public void done(Integer integer) {
-//                        btnDownload.setText("" + integer);
-//           s         }
-//                });
-//
-//                break;
-//
+                        btnDownload.setProgress(100);
+
+                    }
+                }, new ProgressCallback() {
+                    @Override
+                    public void done(Integer integer) {
+                        btnDownload.setProgress(integer);
+                    }
+                });
+                codeLib.increaseDownloadCount();
+                codeLib.saveInBackground();
+                break;
+
 //            case R.id.btn_share:
-//
+
 //                String fileFolder = FileUtils.getSDCardPath() + File.separator + "OSCode" + File.separator;
 //                String fileName = "lib.apk";
-//
+
 //                try {
 //                    int ints = PluginManager.getInstance().installPackage(fileFolder + fileName, 0);
 //                    Log.v("tag--->", "-->" + ints);
@@ -132,7 +155,7 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
 
         }
 
-        new FalseProgress((CircularProgressButton) v).execute(100);
+
     }
 
 
