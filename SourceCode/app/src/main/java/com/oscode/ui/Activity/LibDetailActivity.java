@@ -1,5 +1,6 @@
 package com.oscode.ui.Activity;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dd.CircularProgressButton;
 import com.oscode.R;
 import com.oscode.model.OSCodeLib;
 
@@ -18,7 +20,7 @@ import com.oscode.model.OSCodeLib;
  */
 public class LibDetailActivity extends AppCompatActivity implements View.OnClickListener {
     private Button btnCollect;
-    private Button btnDownload;
+    private CircularProgressButton btnDownload;
     private Button btnShare;
 
     private TextView tvDescription;
@@ -41,7 +43,7 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 //        btnCollect = (Button) findViewById(R.id.btn_collect);
-//        btnDownload = (Button) findViewById(R.id.btn_download);
+        btnDownload = (CircularProgressButton) findViewById(R.id.btn_download);
 //        btnShare = (Button) findViewById(R.id.btn_share);
         ivHeader = (ImageView) findViewById(R.id.iv_header);
         tvDescription = (TextView) findViewById(R.id.tv_lib_discription);
@@ -52,7 +54,7 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
         tvLastUpdate = (TextView) findViewById(R.id.tv_LastUpdate);
 
 //        btnCollect.setOnClickListener(this);
-//        btnDownload.setOnClickListener(this);
+        btnDownload.setOnClickListener(this);
 //        btnShare.setOnClickListener(this);
 
         codeLib = getIntent().getParcelableExtra("selectedItem");
@@ -107,7 +109,7 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
 //                    @Override
 //                    public void done(Integer integer) {
 //                        btnDownload.setText("" + integer);
-//                    }
+//           s         }
 //                });
 //
 //                break;
@@ -126,6 +128,44 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
 //                Intent intent = new Intent().setClassName(this, "com.daimajia.slider.demo.MainActivity");
 //                this.startActivity(intent);
 //                break;
+
+
+        }
+
+        new FalseProgress((CircularProgressButton) v).execute(100);
+    }
+
+
+    private class FalseProgress extends AsyncTask<Integer, Integer, Integer> {
+
+        private CircularProgressButton cpb;
+
+        public FalseProgress(CircularProgressButton cpb) {
+            this.cpb = cpb;
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... params) {
+            for (int progress = 0; progress < 100; progress += 5) {
+                publishProgress(progress);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return params[0];
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            cpb.setProgress(result);
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            int progress = values[0];
+            cpb.setProgress(progress);
         }
     }
 

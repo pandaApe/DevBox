@@ -82,8 +82,8 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="6">
 
                     <LinearLayout
@@ -112,11 +112,22 @@
 
                 </android.support.v7.widget.CardView>
 
-                <Button
+                <com.dd.CircularProgressButton
+                    android:id="@+id/btn_download"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="DownLoad" />
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:cpb_selectorComplete="@drawable/cpb_idle_state_selector_full_complete"
+                    app:cpb_selectorError="@drawable/cpb_idle_state_selector_full_error"
+                    app:cpb_selectorIdle="@drawable/cpb_idle_state_selector_full"
+                    app:cpb_colorProgress="#00000000"
+                    app:cpb_colorIndicator="#8f3e97"
+                    app:cpb_colorIndicatorBackground="#338f3e97"
+                    app:cpb_textComplete="完成"
+                    app:cpb_textError="错误"
+                    app:cpb_textIdle="下载" />
             </LinearLayout>
 
             <TextView

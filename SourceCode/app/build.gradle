@@ -54,4 +54,5 @@ dependencies {
 
     compile 'org.kymjs.kjframe:kjframe:2.6'
 
+    compile 'com.github.dmytrodanylyk.circular-progress-button:library:1.1.3'
 }
