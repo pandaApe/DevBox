@@ -1,15 +1,17 @@
 package com.oscode.ui.Activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,14 +38,10 @@ import java.util.Date;
  * Created by whailong on 23/1/16.
  */
 public class LibDetailActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button btnCollect;
     private CircularProgressButton btnDownload;
-    private Button btnShare;
-
     private TextView tvDescription;
     private TextView tvGithubAddress;
     private TextView tvVersion;
-    private TextView tvLibName;
     private TextView tvLastUpdateDate;
     private TextView tvLastUpdateMsg;
     private TextView tvAuthor;
@@ -53,6 +51,7 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
     private OSCodeLib codeLib;
     private ApkItem apkItem;
     private ApkOperator operator;
+    private CardView cvGithubAddress;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +61,14 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LibDetailActivity.this.finish();
+            }
+        });
+
+        cvGithubAddress = (CardView) findViewById(R.id.cv_githubAddress);
         btnDownload = (CircularProgressButton) findViewById(R.id.btn_download);
         ivHeader = (ImageView) findViewById(R.id.iv_header);
         tvDescription = (TextView) findViewById(R.id.tv_lib_discription);
@@ -73,6 +80,7 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
         tvLastUpdateMsg = (TextView) findViewById(R.id.tv_LastUpdateMsg);
 
         btnDownload.setOnClickListener(this);
+        cvGithubAddress.setOnClickListener(this);
 
         codeLib = getIntent().getParcelableExtra("selectedItem");
 
@@ -92,7 +100,7 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
 
         tvDescription.setText(codeLib.getDescriptionCN());
         tvGithubAddress.setText(codeLib.getGithubAddress());
-        tvVersion.setText(codeLib.getMinSDKVersion());
+        tvVersion.setText("API " + codeLib.getMinSDKVersion());
         tvAuthor.setText(codeLib.getAuthor());
         tvLicense.setText(codeLib.getLicense());
 
@@ -116,7 +124,7 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
                     e.printStackTrace();
                 }
                 LibDetailActivity.this.tvLastUpdateMsg.setText(committerName + ":" + msgStr);
-                LibDetailActivity.this.tvLastUpdateDate.setText(DateUtils.getRelativeTimeSpanString(date.getTime()));
+                LibDetailActivity.this.tvLastUpdateDate.setText(DateUtils.getRelativeDateTimeString(LibDetailActivity.this, date.getTime(), DateUtils.DAY_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL));
                 Log.v("*******", committerName + "------" + commitDate + "------" + msgStr);
             }
 
@@ -144,11 +152,7 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
                         final String folderPath = FileUtils.getSDCardPath() + File.separator + "OSCode" + File.separator;
 
                         FileUtils.saveFileCache(bytes, folderPath, apkName);
-
-
                         operator.installApk(apkItem);
-
-
                         btnDownload.setProgress(100);
 
                     }
@@ -161,6 +165,9 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
                 codeLib.increaseDownloadCount();
                 codeLib.saveInBackground();
                 break;
+            case R.id.cv_githubAddress:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(codeLib.getGithubAddress()));
+                startActivity(browserIntent);
         }
     }
 
@@ -176,6 +183,8 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
 
 
                 break;
+
+
         }
         return super.onOptionsItemSelected(item);
     }
