@@ -56,12 +56,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="描述："-->
-                <!--android:textSize="21sp" />-->
-
                 <TextView
                     android:id="@+id/tv_lib_discription"
                     android:layout_width="match_parent"
@@ -87,7 +81,7 @@
                     android:layout_weight="6">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:orientation="vertical">
@@ -95,26 +89,29 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Github地址：" />
+                            android:text="最低兼容："
+                            android:textSize="17sp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:layout_marginLeft="5dp"
+
                             android:background="#cccccc" />
 
                         <TextView
-                            android:id="@+id/tv_githubAddress"
+                            android:id="@+id/tv_version"
                             android:layout_width="match_parent"
+                            android:layout_marginBottom="5dp"
                             android:layout_height="wrap_content"
-                            android:text="http//:github.com" />
+                            android:layout_marginTop="5dp"
+                            android:text="14" />
                     </LinearLayout>
 
                 </android.support.v7.widget.CardView>
 
                 <com.dd.CircularProgressButton
                     android:id="@+id/btn_download"
-                    android:layout_width="100dp"
+                    android:layout_width="150dp"
                     android:layout_height="41dp"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="5dp"
@@ -131,85 +128,141 @@
                     app:cpb_textIdle="下载" />
             </LinearLayout>
 
-            <TextView
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="最低版本："
-                android:textSize="21sp" />
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp">
 
-            <TextView
-                android:id="@+id/tv_version"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="14" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="最后更新："
-                android:textSize="21sp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="5dp"
+                        android:text="Github地址："
+                        android:textSize="17sp" />
 
-            <TextView
-                android:id="@+id/tv_LastUpdate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="14" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#cccccc" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="作者："
-                android:textSize="21sp" />
+                    <TextView
+                        android:id="@+id/tv_githubAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="http//:github.com" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
-            <TextView
-                android:id="@+id/tv_author"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="14" />
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="License："
-                android:textSize="21sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_license"
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="最后更新："
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#cccccc" />
+
+                    <TextView
+                        android:id="@+id/tv_LastUpdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="14" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="14" />
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="作者："
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#cccccc" />
+
+                    <TextView
+                        android:id="@+id/tv_author"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="14" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="License："
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#cccccc" />
+
+                    <TextView
+                        android:id="@+id/tv_license"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="14" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="50dp"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:orientation="horizontal">-->
-
-    <!--<Button-->
-    <!--android:id="@+id/btn_collect"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_weight="1"-->
-    <!--android:text="收藏" />-->
-
-    <!--<Button-->
-    <!--android:id="@+id/btn_download"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_weight="5"-->
-    <!--android:text="下载" />-->
-
-    <!--<Button-->
-    <!--android:id="@+id/btn_share"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_weight="1"-->
-    <!--android:text="分享" />-->
-    <!--</LinearLayout>-->
 </android.support.design.widget.CoordinatorLayout>

@@ -118,7 +118,7 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
                         Log.v("Done--->", "____>");
 
                         FileUtils.saveFileCache(bytes, FileUtils.getSDCardPath() + File.separator + "OSCode" + File.separator, "lib.apk");
-//                        int PluginManager.getInstance().installPackage(String filepath, int flags);
+//                         PluginManager.getInstance().installPackage(String filepath, int flags);
 //                        try {
 //                            PluginManager.getInstance().installPackage(fileFolder + fileName, 0);
 //                        } catch (RemoteException e1) {
