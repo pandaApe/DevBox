@@ -1,6 +1,5 @@
 package com.oscode.ui.Activity;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -70,10 +69,9 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
         filePath = fileFolder + File.separator + fileName;
         if (new File(filePath).exists()) {
             btnDownload.setProgress(100);
-            btnDownload.setCompleteText("已下载");
+            btnDownload.setCompleteText("打开");
         } else {
             btnDownload.setProgress(0);
-
         }
 
         codeLib = getIntent().getParcelableExtra("selectedItem");
@@ -157,39 +155,4 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
 
 
     }
-
-
-    private class FalseProgress extends AsyncTask<Integer, Integer, Integer> {
-
-        private CircularProgressButton cpb;
-
-        public FalseProgress(CircularProgressButton cpb) {
-            this.cpb = cpb;
-        }
-
-        @Override
-        protected Integer doInBackground(Integer... params) {
-            for (int progress = 0; progress < 100; progress += 5) {
-                publishProgress(progress);
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            return params[0];
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            cpb.setProgress(result);
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            int progress = values[0];
-            cpb.setProgress(progress);
-        }
-    }
-
 }
