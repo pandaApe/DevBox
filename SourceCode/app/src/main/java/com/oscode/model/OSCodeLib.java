@@ -132,13 +132,13 @@ public class OSCodeLib extends AVObject {
         this.put("license", license);
     }
 
-    public String getSize() {
-        return this.getString("size");
-    }
-
-    public void setSize(String size) {
-        this.put("size", size);
-    }
+//    public String getSize() {
+//        return this.getString("size");
+//    }
+//
+//    public void setSize(String size) {
+//        this.put("size", size);
+//    }
 
     public String getMinSDKVersion() {
         return this.getString("minSDKVersion");

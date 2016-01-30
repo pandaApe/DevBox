@@ -16,15 +16,11 @@ import com.morgoo.droidplugin.pm.PluginManager;
  */
 public class ApkOperator {
 
-    public static final int TYPE_STORE = 0; // 存储Apk
-    public static final int TYPE_START = 1; // 启动Apk
-
     private Activity mActivity;       // 绑定Dialog
     private RemoveCallback mCallback; // 删除Item的回调
 
-    public ApkOperator(Activity activity, RemoveCallback callback) {
+    public ApkOperator(Activity activity) {
         mActivity = activity;
-        mCallback = callback;
     }
 
     // 删除Apk
@@ -33,7 +29,7 @@ public class ApkOperator {
         builder.setTitle("警告");
         builder.setMessage("你确定要删除" + item.title + "么？");
 //        builder.setNegativeButton("删除", (dialog, which) -> {
-//            if (new File(item.apkFile).delete()) {
+//            if (new File(item.apkFilePath).delete()) {
 //                mCallback.removeItem(item);
 //                Toast.makeText(mActivity, "删除成功", Toast.LENGTH_SHORT).show();
 //            } else {
@@ -60,7 +56,7 @@ public class ApkOperator {
         }
 
         try {
-            int result = PluginManager.getInstance().installPackage(item.apkFile, 0);
+            int result = PluginManager.getInstance().installPackage(item.apkFilePath, 0);
             boolean isRequestPermission = (result == PluginManager.INSTALL_FAILED_NO_REQUESTEDPERMISSION);
             if (isRequestPermission) {
                 return "权限不足";
@@ -77,7 +73,7 @@ public class ApkOperator {
     private boolean isApkInstall(ApkItem apkItem) {
         PackageInfo info = null;
         try {
-            info = PluginManager.getInstance().getPackageInfo(apkItem.packageInfo.packageName, 0);
+            info = PluginManager.getInstance().getPackageInfo(apkItem.getPackageInfo().packageName, 0);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -109,9 +105,9 @@ public class ApkOperator {
     // 打开Apk
     public void openApk(final ApkItem item) {
         PackageManager pm = mActivity.getPackageManager();
-        Intent intent = pm.getLaunchIntentForPackage(item.packageInfo.packageName);
+        Intent intent = pm.getLaunchIntentForPackage(item.getPackageInfo().packageName);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        mActivity.startActivity(intent);
+        item.context.startActivity(intent);
     }
 
     // 删除Item回调, Adapter调用删除Item

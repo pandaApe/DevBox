@@ -70,9 +70,9 @@
             </android.support.v7.widget.CardView>
 
             <LinearLayout
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="wrap_content"
@@ -101,11 +101,11 @@
 
                         <TextView
                             android:id="@+id/tv_version"
-                            android:gravity="center_vertical"
                             android:layout_width="match_parent"
-                            android:layout_marginBottom="5dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
                             android:layout_marginTop="5dp"
+                            android:gravity="center_vertical"
                             android:text="14" />
                     </LinearLayout>
 
@@ -115,8 +115,8 @@
                     android:id="@+id/btn_download"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
-                    android:layout_margin="5dp"
                     android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     app:cpb_colorIndicator="#8f3e97"
@@ -190,12 +190,26 @@
                         android:background="#cccccc" />
 
                     <TextView
-                        android:id="@+id/tv_LastUpdate"
+                        android:id="@+id/tv_LastUpdateDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="bottom"
+                        android:text="14" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="#cccccc" />
+
+                    <TextView
+                        android:id="@+id/tv_LastUpdateMsg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:layout_marginTop="5dp"
-                        android:text="14" />
+                        android:layout_marginLeft="5dp"
+                        android:text="msg" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 

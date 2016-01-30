@@ -1,8 +1,13 @@
 package com.oscode.model;
 
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+
+import org.kymjs.kjframe.utils.FileUtils;
+
+import java.io.File;
 
 /**
  * Apk项的条目
@@ -15,14 +20,13 @@ public class ApkItem {
     public CharSequence title; // 标题
     public String versionName; // 版本名称
     public int versionCode; // 版本号
-    public String apkFile; // Apk路径
-    public PackageInfo packageInfo; // 包信息
+    public String apkFilePath; // Apk路径
 
-    public ApkItem(PackageManager pm, PackageInfo pi, String path) {
-
-        // 必须设置, 否则title无法获取
-        pi.applicationInfo.sourceDir = path;
-        pi.applicationInfo.publicSourceDir = path;
+    public PackageInfo getPackageInfo() {
+        PackageManager pm = context.getPackageManager();
+        PackageInfo pi = pm.getPackageArchiveInfo(apkFilePath, PackageManager.GET_SIGNATURES);
+        pi.applicationInfo.sourceDir = apkFilePath;
+        pi.applicationInfo.publicSourceDir = apkFilePath;
 
         try {
             icon = pm.getApplicationIcon(pi.applicationInfo);
@@ -36,7 +40,24 @@ public class ApkItem {
         }
         versionName = pi.versionName;
         versionCode = pi.versionCode;
-        apkFile = path;
         packageInfo = pi;
+        return packageInfo;
+    }
+
+    private PackageInfo packageInfo; // 包信息
+    public Context context;
+
+    public ApkItem(Context context, OSCodeLib lib) {
+        this.context = context;
+
+
+        String apkName = lib.getLibName().replace(" ", "");
+        String path = FileUtils.getSDCardPath() + File.separator + "OSCode" + File.separator + apkName + ".apk";
+        apkFilePath = path;
+
+    }
+
+    public boolean exists() {
+        return new File(apkFilePath).exists();
     }
 }
