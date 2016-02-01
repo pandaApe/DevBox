@@ -3,11 +3,13 @@ package com.oscode.ui.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.avos.avoscloud.AVAnalytics;
+import com.avos.avoscloud.feedback.FeedbackAgent;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.oscode.R;
+import com.oscode.model.CodeLib;
 import com.oscode.ui.Adapter.TabViewPageAdapter;
 import com.oscode.ui.Fragment.AccountFragment;
 import com.oscode.ui.Fragment.LibDisplayFragment;
@@ -15,11 +17,12 @@ import com.oscode.ui.Fragment.TypeDisplayFrament;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private TabViewPageAdapter adapter;
     private SmartTabLayout viewPagerTab;
     private ViewPager viewPager;
+    private CodeLib newLib;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,18 +53,21 @@ public class MainActivity extends AppCompatActivity {
         viewPagerTab.setViewPager(viewPager);
         viewPager.setCurrentItem(1);
         viewPager.setOffscreenPageLimit(4);
+
+        new FeedbackAgent(this).sync();
+
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//
-//        return super.onOptionsItemSelected(item);
-//    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AVAnalytics.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AVAnalytics.onPause(this);
+    }
 }

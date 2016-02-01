@@ -13,17 +13,15 @@ import java.util.ArrayList;
  * Created by whailong on 14/1/16.
  */
 @AVClassName("OSCodeLib")
-public class OSCodeLib extends AVObject {
+public class CodeLib extends AVObject {
 
 //    private String libName;
 //    private String author;
-//    private String type;
 //    private String[] tags;
 //    private String descriptionEN;
 //    private String descriptionCN;
 //    private String githubAddress;
 //    private String license;
-//    private String size;
 //    private String minSDKVersion;
 //    private int collectionCount;
 //    private int downloadCount;
@@ -31,8 +29,7 @@ public class OSCodeLib extends AVObject {
 //    private AVFile libApkFile;
 //    private AVFile libPreImage;
 
-
-    public OSCodeLib() {
+    public CodeLib() {
         super();
         this.put("viewCount", 0);
         this.put("collectionCount", 0);
@@ -69,14 +66,6 @@ public class OSCodeLib extends AVObject {
 
     public void setAuthor(String author) {
         this.put("author", author);
-    }
-
-    public String getType() {
-        return this.getString("type");
-    }
-
-    public void setType(String type) {
-        this.put("type", type);
     }
 
     public ArrayList<String> getTags() {
@@ -132,14 +121,6 @@ public class OSCodeLib extends AVObject {
         this.put("license", license);
     }
 
-//    public String getSize() {
-//        return this.getString("size");
-//    }
-//
-//    public void setSize(String size) {
-//        this.put("size", size);
-//    }
-
     public String getMinSDKVersion() {
         return this.getString("minSDKVersion");
     }
@@ -162,10 +143,6 @@ public class OSCodeLib extends AVObject {
         return this.getCollectionCount();
     }
 
-    public void setCollectionCount(int collectionCount) {
-        this.put("collectionCount", collectionCount);
-    }
-
     public int getDownloadCount() {
         return this.getInt("downloadCount");
     }
@@ -180,10 +157,6 @@ public class OSCodeLib extends AVObject {
         return this.getDownloadCount();
     }
 
-    public void setDownloadCount(int downloadCount) {
-        this.put("downloadCount", downloadCount);
-    }
-
     public int getViewCount() {
         return this.getInt("viewCount");
     }
@@ -196,9 +169,5 @@ public class OSCodeLib extends AVObject {
     public int decreaseViewCount() {
         this.increment("viewCount", -1);
         return this.getViewCount();
-    }
-
-    public void setViewCount(int viewCount) {
-        this.put("viewCount", viewCount);
     }
 }

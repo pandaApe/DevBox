@@ -8,8 +8,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!-- 基础模块 END -->
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
+    <!-- 基础模块 END -->
     <application
         android:name=".OSCodeApplication"
         android:allowBackup="true"
@@ -32,7 +33,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 反馈组件（若使用该功能，需添加以下声明）START -->
-        <activity android:name="com.avos.avoscloud.feedback.ThreadActivity"></activity>
+        <activity
+            android:name="com.avos.avoscloud.feedback.ThreadActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+        <activity
+            android:name=".ui.Activity.CollectionAndDownloadActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
     </application>
 

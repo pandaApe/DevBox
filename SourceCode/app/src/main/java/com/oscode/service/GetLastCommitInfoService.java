@@ -2,7 +2,7 @@ package com.oscode.service;
 
 import android.util.Log;
 
-import com.oscode.model.OSCodeLib;
+import com.oscode.model.CodeLib;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,9 +14,9 @@ import org.kymjs.kjframe.http.HttpCallBack;
  * Created by whailong on 30/1/16.
  */
 public class GetLastCommitInfoService {
-    private OSCodeLib codeLib;
+    private CodeLib codeLib;
 
-    public void setCodeLib(OSCodeLib codeLib) {
+    public void setCodeLib(CodeLib codeLib) {
         this.codeLib = codeLib;
     }
 

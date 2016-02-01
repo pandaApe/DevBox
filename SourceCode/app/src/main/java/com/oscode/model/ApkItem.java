@@ -47,7 +47,7 @@ public class ApkItem {
     private PackageInfo packageInfo; // 包信息
     public Context context;
 
-    public ApkItem(Context context, OSCodeLib lib) {
+    public ApkItem(Context context, CodeLib lib) {
         this.context = context;
 
 

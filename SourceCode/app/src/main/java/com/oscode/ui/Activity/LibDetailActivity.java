@@ -4,17 +4,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.GetDataCallback;
 import com.avos.avoscloud.ProgressCallback;
@@ -22,9 +21,11 @@ import com.dd.CircularProgressButton;
 import com.oscode.R;
 import com.oscode.model.ApkItem;
 import com.oscode.model.ApkOperator;
-import com.oscode.model.OSCodeLib;
+import com.oscode.model.CodeLib;
+import com.oscode.model.LocalAVObject;
 import com.oscode.service.GetLastCommitInfoService;
 
+import org.kymjs.kjframe.KJDB;
 import org.kymjs.kjframe.utils.FileUtils;
 
 import java.io.File;
@@ -37,7 +38,7 @@ import java.util.Date;
 /**
  * Created by whailong on 23/1/16.
  */
-public class LibDetailActivity extends AppCompatActivity implements View.OnClickListener {
+public class LibDetailActivity extends BaseActivity implements View.OnClickListener {
     private CircularProgressButton btnDownload;
     private TextView tvDescription;
     private TextView tvGithubAddress;
@@ -48,10 +49,12 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
     private TextView tvLicense;
     private ImageView ivHeader;
 
-    private OSCodeLib codeLib;
+    private CodeLib codeLib;
     private ApkItem apkItem;
     private ApkOperator operator;
     private CardView cvGithubAddress;
+    private LocalAVObject localLibCode;
+    private KJDB kjdb;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,6 +86,9 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
         cvGithubAddress.setOnClickListener(this);
 
         codeLib = getIntent().getParcelableExtra("selectedItem");
+
+        kjdb = KJDB.create(this);
+        localLibCode = kjdb.findById(codeLib.getObjectId(), LocalAVObject.class);
 
         apkItem = new ApkItem(this, codeLib);
         if (apkItem.exists()) {
@@ -125,7 +131,7 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
                 }
                 LibDetailActivity.this.tvLastUpdateMsg.setText(committerName + ":" + msgStr);
                 LibDetailActivity.this.tvLastUpdateDate.setText(DateUtils.getRelativeDateTimeString(LibDetailActivity.this, date.getTime(), DateUtils.DAY_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL));
-                Log.v("*******", committerName + "------" + commitDate + "------" + msgStr);
+
             }
 
             @Override
@@ -133,6 +139,19 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
 
             }
         });
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AVAnalytics.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AVAnalytics.onPause(this);
     }
 
     @Override
@@ -177,13 +196,18 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
         switch (id) {
             case R.id.action_share:
 
-
                 break;
             case R.id.action_collect:
 
+                localLibCode = kjdb.findById(codeLib.getObjectId(), LocalAVObject.class);
+                if (localLibCode == null)
+                    kjdb.save(new LocalAVObject(codeLib.getObjectId(), codeLib.toString()));
+                else
+                    kjdb.delete(localLibCode);
 
+                int resourceId = localLibCode == null ? R.drawable.ic_heart_outline : R.drawable.ic_heart;
+                item.setIcon(resourceId);
                 break;
-
 
         }
         return super.onOptionsItemSelected(item);
@@ -191,7 +215,38 @@ public class LibDetailActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         getMenuInflater().inflate(R.menu.menu_detail_aty, menu);
+        int resourceId = localLibCode == null ? R.drawable.ic_heart_outline : R.drawable.ic_heart;
+        menu.findItem(R.id.action_collect).setIcon(resourceId);
+//        createNewLib();
         return true;
     }
+
+
+    private void createNewLib() {
+
+//        CodeLib newLib = new CodeLib();
+//        newLib.setLibName("MaterialViewPager");
+//        newLib.setAuthor("florent37");
+//        newLib.setDescriptionCN("A Material Design ViewPager easy to use library");
+//
+//        newLib.setGithubAddress("https://github.com/florent37/MaterialViewPager");
+//        newLib.setLicense("Apache 2.0");
+//        newLib.setMinSDKVersion("14");
+//
+//
+//        newLib.saveInBackground();
+
+//        CodeType codeType = new CodeType();
+//        codeType.setTypeCNDescription("ProgressBar");
+//        codeType.setParentType("控件");
+//        codeType.addCodeLib(codeLib);
+//        codeType.saveInBackground();
+
+//        new AVQuery<CodeType>().getInBackground();
+
+    }
+
+
 }

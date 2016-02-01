@@ -2,6 +2,7 @@ package com.oscode.ui.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +13,7 @@ import android.view.ViewGroup;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.FindCallback;
 import com.oscode.R;
-import com.oscode.model.OSCodeLib;
+import com.oscode.model.CodeLib;
 import com.oscode.service.GetLibListService;
 import com.oscode.ui.Adapter.LibFragRVAdapter;
 
@@ -23,10 +24,10 @@ import java.util.List;
  * Created by whailong on 14/1/16.
  */
 public class LibDisplayFragment extends Fragment {
-    private ArrayList<OSCodeLib> codeLibs;
+    private ArrayList<CodeLib> codeLibs;
     private RecyclerView recyclerView;
     private LibFragRVAdapter adapter;
-
+    private ContentLoadingProgressBar progressBarContainer;
 
     /**
      * Create a new instance of CountingFragment, providing "num"
@@ -53,13 +54,15 @@ public class LibDisplayFragment extends Fragment {
         adapter = new LibFragRVAdapter(getActivity(), codeLibs);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerView.setAdapter(adapter);
-
-        new GetLibListService().doGetLibListQueryWithCompletion(new FindCallback<OSCodeLib>() {
+        progressBarContainer = (ContentLoadingProgressBar) view.findViewById(R.id.clprogressBar);
+        progressBarContainer.show();
+        new GetLibListService().doGetLibListQueryWithCompletion(new FindCallback<CodeLib>() {
             @Override
-            public void done(List<OSCodeLib> list, AVException e) {
+            public void done(List<CodeLib> list, AVException e) {
                 LibDisplayFragment.this.codeLibs.clear();
                 LibDisplayFragment.this.codeLibs.addAll(list);
                 LibDisplayFragment.this.adapter.notifyDataSetChanged();
+                LibDisplayFragment.this.progressBarContainer.hide();
             }
         });
     }

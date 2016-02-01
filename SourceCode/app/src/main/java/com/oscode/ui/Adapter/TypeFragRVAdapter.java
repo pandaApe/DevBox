@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.oscode.R;
-import com.oscode.model.OSCodeType;
+import com.oscode.model.CodeType;
 
 import java.util.ArrayList;
 
@@ -18,10 +18,10 @@ import java.util.ArrayList;
 public class TypeFragRVAdapter extends RecyclerView.Adapter<TypeFragRVAdapter.NormalTextViewHolder> {
     private LayoutInflater mLayoutInflater;
     private Context mContext;
-    private ArrayList<OSCodeType> OSCodeTypes;
+    private ArrayList<CodeType> CodeTypes;
 
-    public TypeFragRVAdapter(Context context, ArrayList<OSCodeType> OSCodeTypes) {
-        this.OSCodeTypes = OSCodeTypes;
+    public TypeFragRVAdapter(Context context, ArrayList<CodeType> CodeTypes) {
+        this.CodeTypes = CodeTypes;
         this.mContext = context;
         this.mLayoutInflater = LayoutInflater.from(context);
     }
@@ -33,13 +33,13 @@ public class TypeFragRVAdapter extends RecyclerView.Adapter<TypeFragRVAdapter.No
 
     @Override
     public void onBindViewHolder(NormalTextViewHolder holder, int position) {
-        String str = OSCodeTypes.get(position).getFullTitle();
+        String str = CodeTypes.get(position).getFullTitle();
         holder.tvType.setText(str);
     }
 
     @Override
     public int getItemCount() {
-        return OSCodeTypes.size();
+        return CodeTypes.size();
     }
 
     public static class NormalTextViewHolder extends RecyclerView.ViewHolder {

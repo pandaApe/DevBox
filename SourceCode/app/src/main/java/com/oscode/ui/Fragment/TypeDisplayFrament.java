@@ -2,6 +2,7 @@ package com.oscode.ui.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +13,7 @@ import android.view.ViewGroup;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.FindCallback;
 import com.oscode.R;
-import com.oscode.model.OSCodeType;
+import com.oscode.model.CodeType;
 import com.oscode.service.GetTypeListService;
 import com.oscode.ui.Adapter.TypeFragRVAdapter;
 
@@ -23,9 +24,10 @@ import java.util.List;
  * Created by whailong on 22/1/16.
  */
 public class TypeDisplayFrament extends Fragment {
-    private ArrayList<OSCodeType> codeTypes;
+    private ArrayList<CodeType> codeTypes;
     private RecyclerView recyclerView;
     private TypeFragRVAdapter adapter;
+    private ContentLoadingProgressBar progressBarContainer;
 
     public static TypeDisplayFrament newInstance(int num) {
         TypeDisplayFrament f = new TypeDisplayFrament();
@@ -43,26 +45,19 @@ public class TypeDisplayFrament extends Fragment {
 
         codeTypes = new ArrayList<>();
 
-        for (int i = 0; i <= 50; i++) {
-            OSCodeType OSCodeType = new OSCodeType();
-            OSCodeType.setNameCN("列表_" + i);
-            OSCodeType.setNameEn("Listview_" + i);
-            codeTypes.add(OSCodeType);
-        }
-
-
         setupView(view);
 
-//        setupServerData();
+        setupServerData();
     }
 
     private void setupServerData() {
-        new GetTypeListService().doGetTypeListQueryWithCompletion(new FindCallback<OSCodeType>() {
+        new GetTypeListService().doGetTypeListQueryWithCompletion(new FindCallback<CodeType>() {
             @Override
-            public void done(List<OSCodeType> list, AVException e) {
+            public void done(List<CodeType> list, AVException e) {
                 codeTypes.clear();
                 codeTypes.addAll(list);
                 adapter.notifyDataSetChanged();
+                progressBarContainer.hide();
             }
         });
     }
@@ -73,5 +68,8 @@ public class TypeDisplayFrament extends Fragment {
         adapter = new TypeFragRVAdapter(getActivity(), codeTypes);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));//这里用线性显示 类似于list view
         recyclerView.setAdapter(adapter);
+
+        progressBarContainer = (ContentLoadingProgressBar) view.findViewById(R.id.clprogressBar);
+        progressBarContainer.show();
     }
 }
