@@ -129,6 +129,7 @@ public class LibDetailActivity extends BaseActivity implements View.OnClickListe
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+
                 LibDetailActivity.this.tvLastUpdateMsg.setText(committerName + ":" + msgStr);
                 LibDetailActivity.this.tvLastUpdateDate.setText(DateUtils.getRelativeDateTimeString(LibDetailActivity.this, date.getTime(), DateUtils.DAY_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL));
 
@@ -163,6 +164,9 @@ public class LibDetailActivity extends BaseActivity implements View.OnClickListe
                     operator.openApk(apkItem);
                     return;
                 }
+
+                codeLib.increaseDownloadCount();
+                codeLib.saveInBackground();
 
                 codeLib.getLibApkFile().getDataInBackground(new GetDataCallback() {
                     @Override
@@ -200,11 +204,14 @@ public class LibDetailActivity extends BaseActivity implements View.OnClickListe
             case R.id.action_collect:
 
                 localLibCode = kjdb.findById(codeLib.getObjectId(), LocalAVObject.class);
-                if (localLibCode == null)
+                if (localLibCode == null) {
                     kjdb.save(new LocalAVObject(codeLib.getObjectId(), codeLib.toString()));
-                else
+                    codeLib.increaseCollectionCount();
+                } else {
                     kjdb.delete(localLibCode);
-
+                    codeLib.decreaseCollectionCount();
+                }
+                codeLib.saveInBackground();
                 int resourceId = localLibCode == null ? R.drawable.ic_heart_outline : R.drawable.ic_heart;
                 item.setIcon(resourceId);
                 break;
