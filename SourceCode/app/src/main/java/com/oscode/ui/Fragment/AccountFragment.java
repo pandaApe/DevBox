@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.avos.avoscloud.feedback.FeedbackAgent;
 import com.oscode.R;
-import com.oscode.ui.Activity.CollectionAndDownloadActivity;
+import com.oscode.ui.Activity.CDActivity;
 
 
 /**
@@ -54,7 +54,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.cv_collction:
-                getActivity().startActivity(new Intent(getContext(), CollectionAndDownloadActivity.class));
+                getActivity().startActivity(new Intent(getContext(), CDActivity.class));
                 break;
 
             case R.id.cv_feedback:

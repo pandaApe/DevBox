@@ -37,7 +37,7 @@
             android:name="com.avos.avoscloud.feedback.ThreadActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity
-            android:name=".ui.Activity.CollectionAndDownloadActivity"
+            android:name=".ui.Activity.CDActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
     </application>

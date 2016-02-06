@@ -9,7 +9,6 @@ import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.feedback.FeedbackAgent;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.oscode.R;
-import com.oscode.model.CodeLib;
 import com.oscode.ui.Adapter.TabViewPageAdapter;
 import com.oscode.ui.Fragment.AccountFragment;
 import com.oscode.ui.Fragment.LibDisplayFragment;
@@ -22,7 +21,6 @@ public class MainActivity extends BaseActivity {
     private TabViewPageAdapter adapter;
     private SmartTabLayout viewPagerTab;
     private ViewPager viewPager;
-    private CodeLib newLib;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +53,7 @@ public class MainActivity extends BaseActivity {
         viewPager.setOffscreenPageLimit(4);
 
         new FeedbackAgent(this).sync();
-
     }
-
 
     @Override
     protected void onResume() {

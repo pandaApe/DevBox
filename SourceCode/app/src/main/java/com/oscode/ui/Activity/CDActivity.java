@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CollectionAndDownloadActivity extends BaseActivity {
+public class CDActivity extends BaseActivity {
 
     private RecyclerView recyclerView;
     private Toolbar toolbar;
@@ -29,7 +29,7 @@ public class CollectionAndDownloadActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_collection_and_download);
+        setContentView(R.layout.activity_cd);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -38,7 +38,7 @@ public class CollectionAndDownloadActivity extends BaseActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CollectionAndDownloadActivity.this.finish();
+                CDActivity.this.finish();
             }
         });
 
