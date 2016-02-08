@@ -1,4 +1,4 @@
-package com.oscode;
+package com.devbox;
 
 import org.junit.Test;
 

@@ -1,0 +1,75 @@
+package com.devbox.ui.Fragment;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.ContentLoadingProgressBar;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.FindCallback;
+import com.devbox.R;
+import com.devbox.action.GetTypeListService;
+import com.devbox.model.CodeType;
+import com.devbox.ui.Adapter.TypeFragRVAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by whailong on 22/1/16.
+ */
+public class TypeDisplayFrament extends Fragment {
+    private ArrayList<CodeType> codeTypes;
+    private RecyclerView recyclerView;
+    private TypeFragRVAdapter adapter;
+    private ContentLoadingProgressBar progressBarContainer;
+
+    public static TypeDisplayFrament newInstance(int num) {
+        TypeDisplayFrament f = new TypeDisplayFrament();
+        return f;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_lib, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        codeTypes = new ArrayList<>();
+
+        setupView(view);
+
+        setupServerData();
+    }
+
+    private void setupServerData() {
+        new GetTypeListService().doGetTypeListQueryWithCompletion(new FindCallback<CodeType>() {
+            @Override
+            public void done(List<CodeType> list, AVException e) {
+                codeTypes.clear();
+                codeTypes.addAll(list);
+                adapter.notifyDataSetChanged();
+                progressBarContainer.hide();
+            }
+        });
+    }
+
+    private void setupView(View view) {
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclyView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new TypeFragRVAdapter(getActivity(), codeTypes);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));//这里用线性显示 类似于list view
+        recyclerView.setAdapter(adapter);
+
+        progressBarContainer = (ContentLoadingProgressBar) view.findViewById(R.id.clprogressBar);
+        progressBarContainer.show();
+    }
+}
