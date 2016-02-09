@@ -5,7 +5,7 @@ package com.devbox.action;
  * @CreatedAt: 7/2/16 14:50.
  * @Email: whailong2010@gmail.com
  */
-public interface ActionCallback<T> {
+public interface HttpCallback<T> {
 
     void onSuccess(T data);
 

@@ -1,6 +1,7 @@
 package com.devbox.ui.Fragment;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,27 +11,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.FindCallback;
 import com.devbox.R;
-import com.devbox.action.GetTypeListService;
+import com.devbox.action.AppActionImpl;
+import com.devbox.action.ErrorEvent;
+import com.devbox.action.HttpCallback;
 import com.devbox.model.CodeType;
 import com.devbox.ui.Adapter.TypeListAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by whailong on 22/1/16.
  */
-public class TypeDisplayFrament extends Fragment {
+public class TypeListFrament extends Fragment {
     private ArrayList<CodeType> codeTypes;
     private RecyclerView recyclerView;
     private TypeListAdapter adapter;
     private ContentLoadingProgressBar progressBarContainer;
 
-    public static TypeDisplayFrament newInstance(int num) {
-        TypeDisplayFrament f = new TypeDisplayFrament();
+    public static TypeListFrament newInstance(int num) {
+        TypeListFrament f = new TypeListFrament();
         return f;
     }
 
@@ -51,12 +53,28 @@ public class TypeDisplayFrament extends Fragment {
     }
 
     private void setupServerData() {
-        new GetTypeListService().doGetTypeListQueryWithCompletion(new FindCallback<CodeType>() {
+
+        new AppActionImpl(getActivity()).getTypeList(new HttpCallback<ArrayList<CodeType>>() {
             @Override
-            public void done(List<CodeType> list, AVException e) {
+            public void onSuccess(ArrayList<CodeType> list) {
                 codeTypes.clear();
                 codeTypes.addAll(list);
                 adapter.notifyDataSetChanged();
+                progressBarContainer.hide();
+            }
+
+            @Override
+            public void onFailure(String errorEvent, final String errorMsg) {
+                if (errorEvent.equalsIgnoreCase(ErrorEvent.NETWORKERROR)) {
+
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            Snackbar.make(recyclerView, errorMsg, Snackbar.LENGTH_LONG).show();
+                        }
+                    }, 500);
+
+                }
                 progressBarContainer.hide();
             }
         });

@@ -18,7 +18,8 @@ import com.avos.avoscloud.GetDataCallback;
 import com.avos.avoscloud.ProgressCallback;
 import com.dd.CircularProgressButton;
 import com.devbox.R;
-import com.devbox.action.GetLastCommitInfoService;
+import com.devbox.action.AppActionImpl;
+import com.devbox.action.GetLastCommitInfoCallback;
 import com.devbox.model.ApkItem;
 import com.devbox.model.CodeLib;
 import com.devbox.model.LocalAVObject;
@@ -66,6 +67,7 @@ public class LibDetailActivity extends BaseActivity {
     @Bind(R.id.tv_license)
     TextView tvLicense;
 
+    public static final String SELECTEDITEM = "selectedItem";
     private CodeLib codeLib;
     private ApkItem apkItem;
     private OSPluginManager operator;
@@ -86,8 +88,7 @@ public class LibDetailActivity extends BaseActivity {
             }
         });
 
-
-        codeLib = getIntent().getParcelableExtra("selectedItem");
+        codeLib = getIntent().getParcelableExtra(SELECTEDITEM);
 
         kjdb = KJDB.create(this);
         localLibCode = kjdb.findById(codeLib.getObjectId(), LocalAVObject.class);
@@ -98,9 +99,7 @@ public class LibDetailActivity extends BaseActivity {
             btnDownload.setCompleteText("打开");
         } else {
             btnDownload.setProgress(0);
-            double size = codeLib.getLibApkFile().getSize() / 1000.0 / 1000.0;
-            double sizeFinal = Math.round(size * 100) / 100.0;
-            btnDownload.setText("下载(" + sizeFinal + "MB)");
+            btnDownload.setText(codeLib.getApkFileSizeStr());
         }
 
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
@@ -115,13 +114,9 @@ public class LibDetailActivity extends BaseActivity {
         codeLib.increaseViewCount();
         codeLib.saveInBackground();
         operator = new OSPluginManager(this);
-
-        GetLastCommitInfoService service = new GetLastCommitInfoService();
-        service.setCodeLib(codeLib);
-        service.getGetLastCommitInfoWithCompletgion(new GetLastCommitInfoService.GetLastCommitCallBack() {
+        new AppActionImpl(this).getLastCommitInfo(codeLib.getGithubAddress(), new GetLastCommitInfoCallback() {
             @Override
             public void onSuccess(String committerName, String commitDate, String msgStr) {
-
 
                 Calendar calendar = Calendar.getInstance();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
@@ -138,7 +133,14 @@ public class LibDetailActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure() {
+            public void onSuccess(String data) {
+
+            }
+
+            @Override
+            public void onFailure(String errorEvent, String errorMsg) {
+                LibDetailActivity.this.tvLastUpdateMsg.setText("加载失败");
+                LibDetailActivity.this.tvLastUpdateDate.setText("加载失败");
 
             }
         });

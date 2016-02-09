@@ -7,7 +7,7 @@ package com.devbox.action;
  */
 public class ErrorEvent {
 
-    public static final String PARAM_NUMM = "PARAM_NUMM";
+    public static final String PARAM_NULL = "PARAM_NULL";
     public static final String PARAM_ILLEGAL = "PARAM_ILLEGAL";
     public static final String NETWORKERROR = "NETWORKERROR";
     public static final String LEANCLOUDERROR = "LEANCLOUDERROR";

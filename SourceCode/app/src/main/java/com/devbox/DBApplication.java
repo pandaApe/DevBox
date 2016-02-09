@@ -45,7 +45,7 @@ public class DBApplication extends Application {
                 versionCode(10).//自定义版本号
                 build();
 
-        Bugtags.start("d57e9f0603a064754c5875c1a7a1fbd7", this, Bugtags.BTGInvocationEventBubble, options);
+//        Bugtags.start("d57e9f0603a064754c5875c1a7a1fbd7", this, Bugtags.BTGInvocationEventBubble, options);
     }
 
     @Override

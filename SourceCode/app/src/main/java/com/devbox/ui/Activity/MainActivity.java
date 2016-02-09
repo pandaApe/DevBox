@@ -9,8 +9,8 @@ import com.avos.avoscloud.feedback.FeedbackAgent;
 import com.devbox.R;
 import com.devbox.ui.Adapter.TabViewPageAdapter;
 import com.devbox.ui.Fragment.AccountFragment;
-import com.devbox.ui.Fragment.LibDisplayFragment;
-import com.devbox.ui.Fragment.TypeDisplayFrament;
+import com.devbox.ui.Fragment.LibListFragment;
+import com.devbox.ui.Fragment.TypeListFrament;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import java.util.ArrayList;
@@ -43,9 +43,9 @@ public class MainActivity extends BaseActivity {
 
     private void initView() {
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(TypeDisplayFrament.newInstance(0));
-        fragments.add(LibDisplayFragment.newInstance(1));
-        fragments.add(LibDisplayFragment.newInstance(2));
+        fragments.add(TypeListFrament.newInstance(0));
+        fragments.add(LibListFragment.newInstance(1));
+        fragments.add(LibListFragment.newInstance(2));
         fragments.add(AccountFragment.newInstance(3));
 
         String[] titles = getResources().getStringArray(R.array.tabTitles);

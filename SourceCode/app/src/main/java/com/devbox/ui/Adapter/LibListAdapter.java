@@ -47,7 +47,7 @@ public class LibListAdapter extends RecyclerView.Adapter<LibListAdapter.CodeLibV
             @Override
             public void onClick(View v, int position) {
                 Intent intent = new Intent(context, LibDetailActivity.class);
-                intent.putExtra("selectedItem", codeLibs.get(position));
+                intent.putExtra(LibDetailActivity.SELECTEDITEM, codeLibs.get(position));
                 context.startActivity(intent);
             }
         });

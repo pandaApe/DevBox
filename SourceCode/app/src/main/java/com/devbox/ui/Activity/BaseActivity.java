@@ -75,7 +75,7 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        Bugtags.onDispatchTouchEvent(this, event);
+//        Bugtags.onDispatchTouchEvent(this, event);
         return super.dispatchTouchEvent(event);
     }
 
@@ -94,13 +94,13 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Bugtags.onResume(this);
+//        Bugtags.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Bugtags.onPause(this);
+//        Bugtags.onPause(this);
     }
 
 }

@@ -170,4 +170,10 @@ public class CodeLib extends AVObject {
         this.increment("viewCount", -1);
         return this.getViewCount();
     }
+
+    public String getApkFileSizeStr() {
+        double size = this.getLibApkFile().getSize() / 1000.0 / 1000.0;
+        double sizeFinal = Math.round(size * 100) / 100.0;
+        return "下载(" + sizeFinal + "MB)";
+    }
 }
