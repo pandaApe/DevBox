@@ -15,12 +15,12 @@ import java.util.ArrayList;
 /**
  * Created by whailong on 15/1/16.
  */
-public class TypeFragRVAdapter extends RecyclerView.Adapter<TypeFragRVAdapter.NormalTextViewHolder> {
+public class TypeListAdapter extends RecyclerView.Adapter<TypeListAdapter.NormalTextViewHolder> {
     private LayoutInflater mLayoutInflater;
     private Context mContext;
     private ArrayList<CodeType> CodeTypes;
 
-    public TypeFragRVAdapter(Context context, ArrayList<CodeType> CodeTypes) {
+    public TypeListAdapter(Context context, ArrayList<CodeType> CodeTypes) {
         this.CodeTypes = CodeTypes;
         this.mContext = context;
         this.mLayoutInflater = LayoutInflater.from(context);

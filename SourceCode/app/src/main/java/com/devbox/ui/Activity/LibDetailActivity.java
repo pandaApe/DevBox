@@ -33,25 +33,42 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 
 /**
  * Created by whailong on 23/1/16.
  */
-public class LibDetailActivity extends BaseActivity implements View.OnClickListener {
-    private CircularProgressButton btnDownload;
-    private TextView tvDescription;
-    private TextView tvGithubAddress;
-    private TextView tvVersion;
-    private TextView tvLastUpdateDate;
-    private TextView tvLastUpdateMsg;
-    private TextView tvAuthor;
-    private TextView tvLicense;
-    private ImageView ivHeader;
+public class LibDetailActivity extends BaseActivity {
+
+    @Bind(R.id.iv_header)
+    ImageView ivHeader;
+    @Bind(R.id.collapsing_toolbar)
+    CollapsingToolbarLayout collapsingToolbar;
+    @Bind(R.id.tv_lib_discription)
+    TextView tvLibDiscription;
+    @Bind(R.id.tv_version)
+    TextView tvVersion;
+    @Bind(R.id.btn_download)
+    CircularProgressButton btnDownload;
+    @Bind(R.id.tv_githubAddress)
+    TextView tvGithubAddress;
+    @Bind(R.id.cv_githubAddress)
+    CardView cvGithubAddress;
+    @Bind(R.id.tv_LastUpdateDate)
+    TextView tvLastUpdateDate;
+    @Bind(R.id.tv_LastUpdateMsg)
+    TextView tvLastUpdateMsg;
+    @Bind(R.id.tv_author)
+    TextView tvAuthor;
+    @Bind(R.id.tv_license)
+    TextView tvLicense;
 
     private CodeLib codeLib;
     private ApkItem apkItem;
     private OSPluginManager operator;
-    private CardView cvGithubAddress;
     private LocalAVObject localLibCode;
     private KJDB kjdb;
 
@@ -59,6 +76,7 @@ public class LibDetailActivity extends BaseActivity implements View.OnClickListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_libdetail);
+        ButterKnife.bind(this);
 
         setToolbarDisplayHomeAsUpEnabledAndClickListenner(true, new View.OnClickListener() {
 
@@ -68,20 +86,6 @@ public class LibDetailActivity extends BaseActivity implements View.OnClickListe
             }
         });
 
-
-        cvGithubAddress = (CardView) findViewById(R.id.cv_githubAddress);
-        btnDownload = (CircularProgressButton) findViewById(R.id.btn_download);
-        ivHeader = (ImageView) findViewById(R.id.iv_header);
-        tvDescription = (TextView) findViewById(R.id.tv_lib_discription);
-        tvGithubAddress = (TextView) findViewById(R.id.tv_githubAddress);
-        tvVersion = (TextView) findViewById(R.id.tv_version);
-        tvAuthor = (TextView) findViewById(R.id.tv_author);
-        tvLicense = (TextView) findViewById(R.id.tv_license);
-        tvLastUpdateDate = (TextView) findViewById(R.id.tv_LastUpdateDate);
-        tvLastUpdateMsg = (TextView) findViewById(R.id.tv_LastUpdateMsg);
-
-        btnDownload.setOnClickListener(this);
-        cvGithubAddress.setOnClickListener(this);
 
         codeLib = getIntent().getParcelableExtra("selectedItem");
 
@@ -102,7 +106,7 @@ public class LibDetailActivity extends BaseActivity implements View.OnClickListe
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(codeLib.getLibName());
 
-        tvDescription.setText(codeLib.getDescriptionCN());
+        tvLibDiscription.setText(codeLib.getDescriptionCN());
         tvGithubAddress.setText(codeLib.getGithubAddress());
         tvVersion.setText("API " + codeLib.getMinSDKVersion());
         tvAuthor.setText(codeLib.getAuthor());
@@ -153,7 +157,7 @@ public class LibDetailActivity extends BaseActivity implements View.OnClickListe
         AVAnalytics.onPause(this);
     }
 
-    @Override
+    @OnClick({R.id.btn_download, R.id.cv_githubAddress})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_download:

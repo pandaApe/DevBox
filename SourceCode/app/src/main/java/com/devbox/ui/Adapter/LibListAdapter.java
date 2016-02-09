@@ -20,13 +20,13 @@ import java.util.ArrayList;
 /**
  * Created by whailong on 23/1/16.
  */
-public class LibFragRVAdapter extends RecyclerView.Adapter<LibFragRVAdapter.CodeLibViewHolder> {
+public class LibListAdapter extends RecyclerView.Adapter<LibListAdapter.CodeLibViewHolder> {
     private final DisplayImageOptions options;
     private Context context;
     private ArrayList<CodeLib> codeLibs;
     private LayoutInflater layoutInflater;
 
-    public LibFragRVAdapter(Context context, ArrayList<CodeLib> codeLibs) {
+    public LibListAdapter(Context context, ArrayList<CodeLib> codeLibs) {
         this.context = context;
         this.codeLibs = codeLibs;
         layoutInflater = LayoutInflater.from(context);
@@ -41,7 +41,7 @@ public class LibFragRVAdapter extends RecyclerView.Adapter<LibFragRVAdapter.Code
     }
 
     @Override
-    public LibFragRVAdapter.CodeLibViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+    public LibListAdapter.CodeLibViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         CodeLibViewHolder viewHolder = new CodeLibViewHolder(layoutInflater.inflate(R.layout.item_lib, parent, false));
         viewHolder.setOnClickListenner(new CodeLibViewHolder.ItemOnClickListenner() {
             @Override
@@ -55,7 +55,7 @@ public class LibFragRVAdapter extends RecyclerView.Adapter<LibFragRVAdapter.Code
     }
 
     @Override
-    public void onBindViewHolder(LibFragRVAdapter.CodeLibViewHolder holder, int position) {
+    public void onBindViewHolder(LibListAdapter.CodeLibViewHolder holder, int position) {
         CodeLib codeLib = codeLibs.get(position);
         holder.tvLibName.setText(codeLib.getLibName());
         ImageLoader.getInstance().displayImage(codeLib.getLibPreImage().getUrl(), holder.ivLibPreFace, this.options);

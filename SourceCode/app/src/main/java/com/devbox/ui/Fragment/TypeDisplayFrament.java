@@ -15,7 +15,7 @@ import com.avos.avoscloud.FindCallback;
 import com.devbox.R;
 import com.devbox.action.GetTypeListService;
 import com.devbox.model.CodeType;
-import com.devbox.ui.Adapter.TypeFragRVAdapter;
+import com.devbox.ui.Adapter.TypeListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ import java.util.List;
 public class TypeDisplayFrament extends Fragment {
     private ArrayList<CodeType> codeTypes;
     private RecyclerView recyclerView;
-    private TypeFragRVAdapter adapter;
+    private TypeListAdapter adapter;
     private ContentLoadingProgressBar progressBarContainer;
 
     public static TypeDisplayFrament newInstance(int num) {
@@ -65,7 +65,7 @@ public class TypeDisplayFrament extends Fragment {
     private void setupView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclyView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new TypeFragRVAdapter(getActivity(), codeTypes);
+        adapter = new TypeListAdapter(getActivity(), codeTypes);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));//这里用线性显示 类似于list view
         recyclerView.setAdapter(adapter);
 

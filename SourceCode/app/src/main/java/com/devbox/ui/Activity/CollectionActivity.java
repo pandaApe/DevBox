@@ -10,7 +10,7 @@ import com.avos.avoscloud.AVAnalytics;
 import com.devbox.R;
 import com.devbox.model.CodeLib;
 import com.devbox.model.LocalAVObject;
-import com.devbox.ui.Adapter.LibFragRVAdapter;
+import com.devbox.ui.Adapter.LibListAdapter;
 
 import org.kymjs.kjframe.KJDB;
 
@@ -21,7 +21,7 @@ import java.util.List;
 public class CollectionActivity extends BaseActivity {
 
     private RecyclerView recyclerView;
-    private LibFragRVAdapter adapter;
+    private LibListAdapter adapter;
     private ArrayList<CodeLib> codeLibs;
 
     @Override
@@ -49,11 +49,10 @@ public class CollectionActivity extends BaseActivity {
             }
         }
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclyView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        adapter = new LibFragRVAdapter(this, codeLibs);
+        adapter = new LibListAdapter(this, codeLibs);
         recyclerView.setAdapter(adapter);
 
     }

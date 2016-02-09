@@ -6,7 +6,7 @@
 
     <android.support.v4.widget.ContentLoadingProgressBar
         android:id="@+id/clprogressBar"
-        style="?android:attr/progressBarStyleSmall"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_centerInParent="true" />

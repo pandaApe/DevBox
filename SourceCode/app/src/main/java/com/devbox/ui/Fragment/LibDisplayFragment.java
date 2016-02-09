@@ -15,24 +15,26 @@ import com.avos.avoscloud.FindCallback;
 import com.devbox.R;
 import com.devbox.action.GetLibListService;
 import com.devbox.model.CodeLib;
-import com.devbox.ui.Adapter.LibFragRVAdapter;
+import com.devbox.ui.Adapter.LibListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by whailong on 14/1/16.
  */
 public class LibDisplayFragment extends Fragment {
-    private ArrayList<CodeLib> codeLibs;
-    private RecyclerView recyclerView;
-    private LibFragRVAdapter adapter;
-    private ContentLoadingProgressBar progressBarContainer;
+    @Bind(R.id.clprogressBar)
+    ContentLoadingProgressBar progressBarContainer;
+    @Bind(R.id.recyclyView)
+    RecyclerView recyclerView;
+    private ArrayList<CodeLib> codeLibs = new ArrayList<>();
 
-    /**
-     * Create a new instance of CountingFragment, providing "num"
-     * as an argument.
-     */
+    private LibListAdapter adapter;
+
     public static LibDisplayFragment newInstance(int num) {
         LibDisplayFragment f = new LibDisplayFragment();
         return f;
@@ -40,22 +42,20 @@ public class LibDisplayFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_lib, container, false);
+        View view = inflater.inflate(R.layout.fragment_lib, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        codeLibs = new ArrayList<>();
-
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclyView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new LibFragRVAdapter(getActivity(), codeLibs);
+        adapter = new LibListAdapter(getActivity(), codeLibs);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerView.setAdapter(adapter);
-        progressBarContainer = (ContentLoadingProgressBar) view.findViewById(R.id.clprogressBar);
-        progressBarContainer.show();
+
         new GetLibListService().doGetLibListQueryWithCompletion(new FindCallback<CodeLib>() {
             @Override
             public void done(List<CodeLib> list, AVException e) {
@@ -65,5 +65,11 @@ public class LibDisplayFragment extends Fragment {
                 LibDisplayFragment.this.progressBarContainer.hide();
             }
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }
