@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.ContentLoadingProgressBar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,11 +29,13 @@ import butterknife.ButterKnife;
 /**
  * Created by whailong on 14/1/16.
  */
-public class LibListFragment extends Fragment {
+public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     @Bind(R.id.clprogressBar)
     ContentLoadingProgressBar progressBarContainer;
     @Bind(R.id.recyclyView)
     RecyclerView recyclerView;
+    @Bind(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
     private ArrayList<CodeLib> codeLibs = new ArrayList<>();
 
     private LibListAdapter adapter;
@@ -57,7 +60,13 @@ public class LibListFragment extends Fragment {
         adapter = new LibListAdapter(getActivity(), codeLibs);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerView.setAdapter(adapter);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
+        requestServerData();
+
+    }
+
+    private void requestServerData() {
         new AppActionImpl(getActivity()).getLibList("", 0, new HttpCallback<ArrayList<CodeLib>>() {
             @Override
             public void onSuccess(ArrayList<CodeLib> list) {
@@ -66,6 +75,7 @@ public class LibListFragment extends Fragment {
                 LibListFragment.this.adapter.notifyDataSetChanged();
                 LibListFragment.this.progressBarContainer.hide();
 
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
@@ -80,15 +90,20 @@ public class LibListFragment extends Fragment {
                     }, 500);
 
                 }
+                swipeRefreshLayout.setRefreshing(false);
                 LibListFragment.this.progressBarContainer.hide();
             }
         });
-
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void onRefresh() {
+        requestServerData();
     }
 }

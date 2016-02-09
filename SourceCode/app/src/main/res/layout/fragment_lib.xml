@@ -10,9 +10,16 @@
         android:layout_height="70dp"
         android:layout_centerInParent="true" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclyView"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerHorizontal="true" />
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclyView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>
