@@ -17,10 +17,15 @@ import org.kymjs.kjframe.KJDB;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 
 public class CollectionActivity extends BaseActivity {
 
-    private RecyclerView recyclerView;
+    @Bind(R.id.recyclyView)
+    RecyclerView recyclerView;
+
     private LibListAdapter adapter;
     private ArrayList<CodeLib> codeLibs;
 
@@ -28,6 +33,7 @@ public class CollectionActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection);
+        ButterKnife.bind(this);
 
         this.setToolbarTitle("收藏");
         this.setToolbarDisplayHomeAsUpEnabledAndClickListenner(true, new View.OnClickListener() {
@@ -36,7 +42,6 @@ public class CollectionActivity extends BaseActivity {
                 CollectionActivity.this.finish();
             }
         });
-
 
         KJDB kjdb = KJDB.create(this);
         List<LocalAVObject> list = kjdb.findAll(LocalAVObject.class);
@@ -51,10 +56,8 @@ public class CollectionActivity extends BaseActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-
         adapter = new LibListAdapter(this, codeLibs);
         recyclerView.setAdapter(adapter);
-
     }
 
     @Override
