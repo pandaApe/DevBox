@@ -6,7 +6,6 @@ import android.content.Context;
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
-import com.bugtags.library.Bugtags;
 import com.bugtags.library.BugtagsOptions;
 import com.devbox.model.CodeLib;
 import com.devbox.model.CodeType;
@@ -15,6 +14,8 @@ import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+
+import cn.sharesdk.framework.ShareSDK;
 
 /**
  * Created by whailong on 13/1/16.
@@ -26,6 +27,7 @@ public class DBApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        ShareSDK.initSDK(getApplicationContext());
 
         AVObject.registerSubclass(CodeLib.class);
         AVObject.registerSubclass(CodeType.class);
@@ -36,6 +38,8 @@ public class DBApplication extends Application {
         //这里必须在super.onCreate方法之后，顺序不能变
         PluginHelper.getInstance().applicationOnCreate(getBaseContext());
         initImageLoader(getBaseContext());
+
+
         BugtagsOptions options = new BugtagsOptions.Builder().
                 trackingLocation(true).//是否获取位置
                 trackingCrashLog(true).//是否收集crash
@@ -69,5 +73,11 @@ public class DBApplication extends Application {
 
         // Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(config.build());
+    }
+
+    @Override
+    public void onTerminate() {
+        ShareSDK.stopSDK(this);
+        super.onTerminate();
     }
 }

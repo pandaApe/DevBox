@@ -198,12 +198,13 @@ public class LibDetailActivity extends BaseActivity {
         }
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_share:
-
+                startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.action_collect:
 
