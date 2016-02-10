@@ -2,6 +2,7 @@ package com.devbox.action;
 
 import com.devbox.model.CodeLib;
 import com.devbox.model.CodeType;
+import com.devbox.model.User;
 
 import java.util.ArrayList;
 
@@ -19,4 +20,5 @@ public interface AppAction {
 
     void getLastCommitInfo(String gitHubAddress,GetLastCommitInfoCallback callback);
 
+    void loginWithUserNameAndPassword(String userName,String passwor,HttpCallback<User> callback);
 }

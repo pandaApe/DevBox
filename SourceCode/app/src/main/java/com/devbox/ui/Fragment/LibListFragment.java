@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.devbox.R;
 import com.devbox.action.AppActionImpl;
-import com.devbox.action.ErrorEvent;
+import com.devbox.action.AppException;
 import com.devbox.action.HttpCallback;
 import com.devbox.model.CodeLib;
 import com.devbox.ui.Adapter.LibListAdapter;
@@ -68,31 +68,28 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     private void requestServerData() {
         new AppActionImpl(getActivity()).getLibList("", 0, new HttpCallback<ArrayList<CodeLib>>() {
-            @Override
-            public void onSuccess(ArrayList<CodeLib> list) {
-                LibListFragment.this.codeLibs.clear();
-                LibListFragment.this.codeLibs.addAll(list);
-                LibListFragment.this.adapter.notifyDataSetChanged();
-                LibListFragment.this.progressBarContainer.hide();
-
-                swipeRefreshLayout.setRefreshing(false);
-            }
 
             @Override
-            public void onFailure(String errorEvent, final String errorMsg) {
-                if (errorEvent.equalsIgnoreCase(ErrorEvent.NETWORKERROR)) {
+            public void done(ArrayList<CodeLib> list, final AppException e) {
+                if (e == null) {
+                    LibListFragment.this.codeLibs.clear();
+                    LibListFragment.this.codeLibs.addAll(list);
+                    LibListFragment.this.adapter.notifyDataSetChanged();
+                } else if (e.getCode() == AppException.NETWORK_ERROR) {
 
                     new Timer().schedule(new TimerTask() {
                         @Override
                         public void run() {
-                            Snackbar.make(getView(), errorMsg, Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(recyclerView, e.getMessage(), Snackbar.LENGTH_LONG).show();
                         }
                     }, 500);
 
                 }
-                swipeRefreshLayout.setRefreshing(false);
+
                 LibListFragment.this.progressBarContainer.hide();
+                swipeRefreshLayout.setRefreshing(false);
             }
+
         });
     }
 

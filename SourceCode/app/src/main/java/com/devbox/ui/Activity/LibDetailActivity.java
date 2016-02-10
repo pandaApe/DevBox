@@ -19,6 +19,7 @@ import com.avos.avoscloud.ProgressCallback;
 import com.dd.CircularProgressButton;
 import com.devbox.R;
 import com.devbox.action.AppActionImpl;
+import com.devbox.action.AppException;
 import com.devbox.action.GetLastCommitInfoCallback;
 import com.devbox.model.ApkItem;
 import com.devbox.model.CodeLib;
@@ -115,32 +116,29 @@ public class LibDetailActivity extends BaseActivity {
         codeLib.saveInBackground();
         operator = new OSPluginManager(this);
         new AppActionImpl(this).getLastCommitInfo(codeLib.getGithubAddress(), new GetLastCommitInfoCallback() {
-            @Override
-            public void onSuccess(String committerName, String commitDate, String msgStr) {
 
-                Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-                Date date = null;
-                try {
-                    date = dateFormat.parse(commitDate);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+            @Override
+            public void done(String committerName, String commitDate, String msgStr, AppException e) {
+
+                if (e == null) {
+                    Calendar calendar = Calendar.getInstance();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                    Date date = null;
+                    try {
+                        date = dateFormat.parse(commitDate);
+                    } catch (ParseException ep) {
+                        ep.printStackTrace();
+                    }
+
+                    LibDetailActivity.this.tvLastUpdateMsg.setText(committerName + ":" + msgStr);
+                    LibDetailActivity.this.tvLastUpdateDate.setText(DateUtils.getRelativeDateTimeString(LibDetailActivity.this, date.getTime(), DateUtils.DAY_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL));
+
+                } else {
+
+                    LibDetailActivity.this.tvLastUpdateMsg.setText("加载失败");
+                    LibDetailActivity.this.tvLastUpdateDate.setText("加载失败");
+
                 }
-
-                LibDetailActivity.this.tvLastUpdateMsg.setText(committerName + ":" + msgStr);
-                LibDetailActivity.this.tvLastUpdateDate.setText(DateUtils.getRelativeDateTimeString(LibDetailActivity.this, date.getTime(), DateUtils.DAY_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL));
-
-            }
-
-            @Override
-            public void onSuccess(String data) {
-
-            }
-
-            @Override
-            public void onFailure(String errorEvent, String errorMsg) {
-                LibDetailActivity.this.tvLastUpdateMsg.setText("加载失败");
-                LibDetailActivity.this.tvLastUpdateDate.setText("加载失败");
 
             }
         });

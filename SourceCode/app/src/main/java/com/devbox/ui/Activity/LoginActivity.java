@@ -7,6 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
 import com.devbox.R;
 
 import java.util.HashMap;
@@ -31,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnWeiboLogin;
     @Bind(R.id.btnWeChatLogin)
     Button btnWeChatLogin;
-    private Platform weibo;
+
 
 
     @Override
@@ -39,17 +42,21 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        AVUser.loginBySMSCodeInBackground("", "", new LogInCallback<AVUser>() {
+            @Override
+            public void done(AVUser avUser, AVException e) {
 
-        weibo = ShareSDK.getPlatform(QQ.NAME);
+            }
+        });
 
     }
 
     @OnClick(R.id.btnQQLogin)
     public void viewClicked(View view) {
-
-        weibo.SSOSetting(false);
-        weibo.showUser(null);
-        weibo.setPlatformActionListener(new PlatformActionListener() {
+        Platform qqPlatform = ShareSDK.getPlatform(QQ.NAME);
+        qqPlatform.SSOSetting(false);
+        qqPlatform.showUser(null);
+        qqPlatform.setPlatformActionListener(new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
                 Log.e("tag", "onComplete-->" + i);
@@ -68,9 +75,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
 
-                Log.e("getUserId--->",platform.getDb().getUserId());
-                Log.e("getToken--->",platform.getDb().getToken());
-                Log.e("getExpiresTime--->",""+platform.getDb().getExpiresTime());
+                Log.e("getUserId--->", platform.getDb().getUserId());
+                Log.e("getToken--->", platform.getDb().getToken());
+                Log.e("getExpiresTime--->", "" + platform.getDb().getExpiresTime());
             }
 
             @Override
@@ -84,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        weibo.authorize();
+        qqPlatform.authorize();
 //移除授权
 //weibo.removeAccount(true);
     }

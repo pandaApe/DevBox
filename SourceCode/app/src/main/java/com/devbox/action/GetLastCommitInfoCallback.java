@@ -7,7 +7,13 @@ package com.devbox.action;
  * @CreatedAt: 9/2/16 20:23.
  * @Email: whailong2010@gmail.com
  */
-public interface GetLastCommitInfoCallback extends HttpCallback<String> {
+public abstract class GetLastCommitInfoCallback implements HttpCallback<String> {
 
-    void onSuccess(String committerName, String commitDate, String msgStr);
+    public void done(String committerName, String commitDate, String msgStr, AppException e) {
+    }
+
+    @Override
+    public void done(String data, AppException e) {
+        
+    }
 }

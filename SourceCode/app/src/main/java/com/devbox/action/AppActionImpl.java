@@ -8,6 +8,7 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.devbox.model.CodeLib;
 import com.devbox.model.CodeType;
+import com.devbox.model.User;
 import com.devbox.utils.DBConfig;
 
 import org.json.JSONArray;
@@ -43,25 +44,18 @@ public class AppActionImpl implements AppAction {
     public void getLibList(String typeStr, int currentPage, final HttpCallback<ArrayList<CodeLib>> callback) {
 
         if (!checkNet() && callback != null) {
-            callback.onFailure(ErrorEvent.NETWORKERROR, "网络未连接");
+            callback.done(null, new AppException(AppException.NETWORK_ERROR, "网络未连接"));
             return;
         }
 
         if (currentPage < 0 && callback != null) {
-            callback.onFailure(ErrorEvent.PARAM_ILLEGAL, "页码不正确");
+            callback.done(null, new AppException(AppException.PARAM_ILLEGAL, "页码不正确"));
             return;
         }
 
 
-
-
-
-
         AVQuery<CodeLib> query = AVQuery.getQuery(CodeLib.class);
         query.addDescendingOrder("createdAt");
-
-
-
 
 
         query.findInBackground(new FindCallback<CodeLib>() {
@@ -69,9 +63,10 @@ public class AppActionImpl implements AppAction {
             public void done(List<CodeLib> list, AVException e) {
                 if (callback != null) {
                     if (e == null)
-                        callback.onSuccess(new ArrayList<>(list));
+                        callback.done(new ArrayList<>(list), null);
+
                     else
-                        callback.onFailure(ErrorEvent.LEANCLOUDERROR, e.toString());
+                        callback.done(null, new AppException(e.getCode(), e.getMessage()));
                 }
             }
         });
@@ -82,7 +77,7 @@ public class AppActionImpl implements AppAction {
     @Override
     public void getTypeList(final HttpCallback<ArrayList<CodeType>> callback) {
         if (!checkNet() && callback != null) {
-            callback.onFailure(ErrorEvent.NETWORKERROR, "网络未连接");
+            callback.done(null, new AppException(AppException.NETWORK_ERROR, "网络未连接"));
             return;
         }
 
@@ -93,11 +88,11 @@ public class AppActionImpl implements AppAction {
             public void done(List<CodeType> list, AVException e) {
 
                 if (callback != null) {
-                    if (e == null) {
-                        callback.onSuccess(new ArrayList<>(list));
-                    } else {
-                        callback.onFailure(ErrorEvent.LEANCLOUDERROR, e.toString());
-                    }
+                    if (e == null)
+                        callback.done(new ArrayList<>(list), null);
+
+                    else
+                        callback.done(null, new AppException(e.getCode(), e.getMessage()));
                 }
             }
         });
@@ -107,12 +102,12 @@ public class AppActionImpl implements AppAction {
     public void getLastCommitInfo(String gitHubAddress, final GetLastCommitInfoCallback callback) {
 
         if (!checkNet() && callback != null) {
-            callback.onFailure(ErrorEvent.NETWORKERROR, "网络未连接");
+            callback.done(null, new AppException(AppException.NETWORK_ERROR, "网络未连接"));
             return;
         }
 
         if (TextUtils.isEmpty(gitHubAddress) && callback != null) {
-            callback.onFailure(ErrorEvent.PARAM_NULL, "github 地址不正确");
+            callback.done(null, new AppException(AppException.PARAM_ILLEGAL, "github 地址不正确"));
             return;
         }
 
@@ -129,7 +124,7 @@ public class AppActionImpl implements AppAction {
                 super.onSuccess(t);
                 try {
                     JSONArray jsonArray = new JSONArray(t);
-                    for (int i = 0; i <= jsonArray.length(); i++) {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if (jsonObject.getString("name").equals("master")) {
                             JSONObject insideJsonObj = jsonObject.getJSONObject("commit");
@@ -142,7 +137,8 @@ public class AppActionImpl implements AppAction {
                                     super.onFailure(errorNo, strMsg);
 
                                     if (callback != null) {
-                                        callback.onFailure("HTTPERROR-" + errorNo, strMsg);
+                                        callback.done(null, null, null, new AppException(errorNo, strMsg));
+
                                     }
                                 }
 
@@ -160,14 +156,14 @@ public class AppActionImpl implements AppAction {
                                         String messageStr = commitJson.getString("message");
 
                                         if (callback != null) {
-                                            callback.onSuccess(committerName, commitDate, messageStr);
+                                            callback.done(committerName, commitDate, messageStr, null);
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
 
-                                        if (callback != null) {
-                                            callback.onFailure("JSONParseError", "Json解析出错");
-                                        }
+                                        if (callback != null)
+                                            callback.done(null, null, null, new AppException(AppException.INVALID_JSON, "Json解析出错"));
+
                                     }
                                 }
                             });
@@ -177,7 +173,7 @@ public class AppActionImpl implements AppAction {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     if (callback != null) {
-                        callback.onFailure("JSONParseError", "Json解析出错");
+                        callback.done(null, null, null, new AppException(AppException.INVALID_JSON, "Json解析出错"));
                     }
                 }
 
@@ -188,10 +184,15 @@ public class AppActionImpl implements AppAction {
                 super.onFailure(errorNo, strMsg);
 
                 if (callback != null) {
-                    callback.onFailure("HTTPERROR-" + errorNo, strMsg);
+                    callback.done(null,null,null, new AppException(errorNo, strMsg));
                 }
             }
         });
+
+    }
+
+    @Override
+    public void loginWithUserNameAndPassword(String userName, String passwor, HttpCallback<User> callback) {
 
     }
 }

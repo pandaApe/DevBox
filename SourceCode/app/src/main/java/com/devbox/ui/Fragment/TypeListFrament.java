@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.devbox.R;
 import com.devbox.action.AppActionImpl;
-import com.devbox.action.ErrorEvent;
+import com.devbox.action.AppException;
 import com.devbox.action.HttpCallback;
 import com.devbox.model.CodeType;
 import com.devbox.ui.Adapter.TypeListAdapter;
@@ -55,28 +55,27 @@ public class TypeListFrament extends Fragment {
     private void setupServerData() {
 
         new AppActionImpl(getActivity()).getTypeList(new HttpCallback<ArrayList<CodeType>>() {
-            @Override
-            public void onSuccess(ArrayList<CodeType> list) {
-                codeTypes.clear();
-                codeTypes.addAll(list);
-                adapter.notifyDataSetChanged();
-                progressBarContainer.hide();
-            }
 
             @Override
-            public void onFailure(String errorEvent, final String errorMsg) {
-                if (errorEvent.equalsIgnoreCase(ErrorEvent.NETWORKERROR)) {
+            public void done(ArrayList<CodeType> list, final AppException e) {
+                if (e == null) {
+                    codeTypes.clear();
+                    codeTypes.addAll(list);
+                    adapter.notifyDataSetChanged();
+
+                } else if (e.getCode() == AppException.NETWORK_ERROR) {
 
                     new Timer().schedule(new TimerTask() {
                         @Override
                         public void run() {
-                            Snackbar.make(recyclerView, errorMsg, Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(recyclerView, e.getMessage(), Snackbar.LENGTH_LONG).show();
                         }
                     }, 500);
 
                 }
                 progressBarContainer.hide();
             }
+
         });
     }
 

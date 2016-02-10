@@ -7,8 +7,6 @@ package com.devbox.action;
  */
 public interface HttpCallback<T> {
 
-    void onSuccess(T data);
-
-    void onFailure(String errorEvent, String errorMsg);
+    void done(T data,AppException e);
 
 }
