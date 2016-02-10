@@ -19,7 +19,13 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
+    compile files('src/main/libs/MobCommons.jar')
+    compile files('src/main/libs/MobTools.jar')
+    compile files('src/main/libs/ShareSDK-Core-2.6.6.jar')
+    compile files('src/main/libs/ShareSDK-QQ-2.6.6.jar')
+    compile files('src/main/libs/ShareSDK-QZone-2.6.6.jar')
+    compile files('src/main/libs/ShareSDK-SinaWeibo-2.6.6.jar')
 }
