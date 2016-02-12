@@ -2,6 +2,7 @@ package com.devbox.model;
 
 import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVRelation;
 
 /**
  * Created by whailong on 20/1/16.
@@ -56,6 +57,10 @@ public class CodeType extends AVObject {
 
     public void addCodeLib(CodeLib codeLib) {
         getRelation("codeLibs").add(codeLib);
+    }
+
+    public AVRelation<CodeLib> getCodeLibsRelation() {
+        return getRelation("codeLibs");
     }
 
     public String getFullTitle() {

@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
+import com.avos.avoscloud.GetCallback;
 import com.devbox.model.CodeLib;
 import com.devbox.model.CodeType;
 import com.devbox.model.User;
@@ -41,7 +42,7 @@ public class AppActionImpl implements AppAction {
     }
 
     @Override
-    public void getLibList(String typeStr, int currentPage, final HttpCallback<ArrayList<CodeLib>> callback) {
+    public void getLibList(String typeStr, final int currentPage, final HttpCallback<ArrayList<CodeLib>> callback) {
 
         if (!checkNet() && callback != null) {
             callback.done(null, new AppException(AppException.NETWORK_ERROR, "网络未连接"));
@@ -53,23 +54,54 @@ public class AppActionImpl implements AppAction {
             return;
         }
 
+        if (TextUtils.isEmpty(typeStr)) {
+            AVQuery<CodeLib> query = AVQuery.getQuery(CodeLib.class);
+            query.addDescendingOrder("createdAt");
 
-        AVQuery<CodeLib> query = AVQuery.getQuery(CodeLib.class);
-        query.addDescendingOrder("createdAt");
+            query.findInBackground(new FindCallback<CodeLib>() {
+                @Override
+                public void done(List<CodeLib> list, AVException e) {
+                    if (callback != null) {
+                        if (e == null)
+                            callback.done(new ArrayList<>(list), null);
 
-
-        query.findInBackground(new FindCallback<CodeLib>() {
-            @Override
-            public void done(List<CodeLib> list, AVException e) {
-                if (callback != null) {
-                    if (e == null)
-                        callback.done(new ArrayList<>(list), null);
-
-                    else
-                        callback.done(null, new AppException(e.getCode(), e.getMessage()));
+                        else
+                            callback.done(null, new AppException(e.getCode(), e.getMessage()));
+                    }
                 }
-            }
-        });
+            });
+        } else {
+
+            AVQuery<CodeType> query = AVQuery.getQuery(CodeType.class);
+            query.whereEqualTo("typeENDescription", typeStr);
+            query.getFirstInBackground(new GetCallback<CodeType>() {
+                @Override
+                public void done(CodeType codeType, AVException e) {
+
+                    AVQuery<CodeLib> libQuery = codeType.getCodeLibsRelation().getQuery();
+
+                    libQuery.addDescendingOrder("createdAt");
+                    libQuery.limit(10);
+                    libQuery.setSkip((currentPage - 1) * 10);
+
+                    libQuery.findInBackground(new FindCallback<CodeLib>() {
+                        @Override
+                        public void done(List<CodeLib> list, AVException e) {
+                            if (callback != null) {
+                                if (e == null)
+                                    callback.done(new ArrayList<>(list), null);
+                                else
+                                    callback.done(null, new AppException(e.getCode(), e.getMessage()));
+                            }
+                        }
+                    });
+
+
+                }
+            });
+
+
+        }
 
     }
 
@@ -184,7 +216,7 @@ public class AppActionImpl implements AppAction {
                 super.onFailure(errorNo, strMsg);
 
                 if (callback != null) {
-                    callback.done(null,null,null, new AppException(errorNo, strMsg));
+                    callback.done(null, null, null, new AppException(errorNo, strMsg));
                 }
             }
         });
