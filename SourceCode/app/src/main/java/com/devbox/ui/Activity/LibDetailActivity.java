@@ -24,6 +24,7 @@ import com.devbox.action.GetLastCommitInfoCallback;
 import com.devbox.model.ApkItem;
 import com.devbox.model.CodeLib;
 import com.devbox.model.LocalAVObject;
+import com.devbox.model.User;
 import com.devbox.utils.OSPluginManager;
 
 import org.kymjs.kjframe.KJDB;
@@ -206,17 +207,26 @@ public class LibDetailActivity extends BaseActivity {
                 break;
             case R.id.action_collect:
 
-                localLibCode = kjdb.findById(codeLib.getObjectId(), LocalAVObject.class);
-                if (localLibCode == null) {
-                    kjdb.save(new LocalAVObject(codeLib.getObjectId(), codeLib.toString()));
-                    codeLib.increaseCollectionCount();
-                } else {
-                    kjdb.delete(localLibCode);
-                    codeLib.decreaseCollectionCount();
+//                localLibCode = kjdb.findById(codeLib.getObjectId(), LocalAVObject.class);
+//                if (localLibCode == null) {
+//                    kjdb.save(new LocalAVObject(codeLib.getObjectId(), codeLib.toString()));
+//                    codeLib.increaseCollectionCount();
+//                } else {
+//                    kjdb.delete(localLibCode);
+//                    codeLib.decreaseCollectionCount();
+//                }
+//                codeLib.saveInBackground();
+//                int resourceId = localLibCode == null ? R.drawable.ic_heart_outline : R.drawable.ic_heart;
+//                item.setIcon(resourceId);
+
+
+                if (User.getCurrentUser() == null) {
+
+                    startActivity(new Intent(this, LoginActivity.class));
+
+
                 }
-                codeLib.saveInBackground();
-                int resourceId = localLibCode == null ? R.drawable.ic_heart_outline : R.drawable.ic_heart;
-                item.setIcon(resourceId);
+
                 break;
 
         }
@@ -258,5 +268,10 @@ public class LibDetailActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+
+    }
 }

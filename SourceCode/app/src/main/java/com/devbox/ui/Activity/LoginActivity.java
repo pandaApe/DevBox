@@ -3,6 +3,7 @@ package com.devbox.ui.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +14,6 @@ import com.avos.avoscloud.LogInCallback;
 import com.devbox.R;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -21,6 +21,7 @@ import butterknife.OnClick;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
 
 /**
@@ -32,69 +33,83 @@ public class LoginActivity extends AppCompatActivity {
     Button btnQQLogin;
     @Bind(R.id.btnWeiboLogin)
     Button btnWeiboLogin;
-    @Bind(R.id.btnWeChatLogin)
-    Button btnWeChatLogin;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        AVUser.loginBySMSCodeInBackground("", "", new LogInCallback<AVUser>() {
-            @Override
-            public void done(AVUser avUser, AVException e) {
-
-            }
-        });
-
     }
 
     @OnClick(R.id.btnQQLogin)
     public void viewClicked(View view) {
-        Platform qqPlatform = ShareSDK.getPlatform(QQ.NAME);
-        qqPlatform.SSOSetting(false);
-        qqPlatform.showUser(null);
-        qqPlatform.setPlatformActionListener(new PlatformActionListener() {
-            @Override
-            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                Log.e("tag", "onComplete-->" + i);
+        int viewId = view.getId();
 
+        Platform platform = null;
+        String snsType = null;
+        if (viewId == R.id.btnQQLogin) {
+            platform = ShareSDK.getPlatform(QQ.NAME);
+            snsType = AVUser.AVThirdPartyUserAuth.SNS_TENCENT_WEIBO;
 
-                //第二种方法：
-                if (hashMap != null && i == 8) {
-                    Iterator itor = hashMap.keySet().iterator();
+        } else {
+            platform = ShareSDK.getPlatform(SinaWeibo.NAME);
+            snsType = AVUser.AVThirdPartyUserAuth.SNS_SINA_WEIBO;
+        }
 
-                    while (itor.hasNext()) {
-                        String key = (String) itor.next();
+        String userId = platform.getDb().getUserId();
+        if (!TextUtils.isEmpty(userId)) {
+            doLogin(platform, snsType);
 
-                        Log.e("tag", key + "-->" + hashMap.get(key));
+        } else {
 
-                    }
+            platform.SSOSetting(false);
+            platform.showUser(null);
+            final String finalSnsType = snsType;
+            platform.setPlatformActionListener(new PlatformActionListener() {
+                @Override
+                public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                    if (i == Platform.ACTION_USER_INFOR)
+                        doLogin(platform, finalSnsType);
                 }
 
+                @Override
+                public void onError(Platform platform, int i, Throwable throwable) {
+                    Log.e("tag", "onError-->" + throwable.toString());
+                }
 
-                Log.e("getUserId--->", platform.getDb().getUserId());
-                Log.e("getToken--->", platform.getDb().getToken());
-                Log.e("getExpiresTime--->", "" + platform.getDb().getExpiresTime());
-            }
+                @Override
+                public void onCancel(Platform platform, int i) {
+                    Log.e("tag", "onCancel");
+                }
+            });
+
+            platform.authorize();
+        }
+
+    }
+
+    private void doLogin(final Platform platform, String snsType) {
+        //绑定第三方的授权信息
+        AVUser.AVThirdPartyUserAuth auth =
+                new AVUser.AVThirdPartyUserAuth(platform.getDb().getToken(), String.valueOf(platform.getDb()
+                        .getExpiresTime()), snsType, platform.getDb()
+                        .getUserId());
+        AVUser.loginWithAuthData(auth, new LogInCallback<AVUser>() {
 
             @Override
-            public void onError(Platform platform, int i, Throwable throwable) {
-                Log.e("tag", "onError-->" + throwable.toString());
-            }
+            public void done(AVUser user, AVException e) {
+                if (e == null) {
+                    Log.i("---->", "恭喜你，已经和我们的 AVUser 绑定成功");
 
-            @Override
-            public void onCancel(Platform platform, int i) {
-                Log.e("tag", "onCancel");
+                    user.put("nickName", platform.getDb().getUserName());
+                    user.saveInBackground();
+                } else {
+                    e.printStackTrace();
+                }
             }
         });
-
-        qqPlatform.authorize();
-//移除授权
-//weibo.removeAccount(true);
     }
+
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 

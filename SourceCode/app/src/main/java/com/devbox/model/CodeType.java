@@ -61,4 +61,6 @@ public class CodeType extends AVObject {
     public String getFullTitle() {
         return this.getTypeCNDescription();
     }
+
+
 }

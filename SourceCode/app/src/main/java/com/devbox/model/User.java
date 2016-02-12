@@ -11,5 +11,13 @@ import com.avos.avoscloud.AVUser;
  */
 public class User extends AVUser {
 
+    private String nickName;
 
+    public String getNickName() {
+        return getString("nickName");
+    }
+
+    public void setNickName(String nickName) {
+        this.put("nickName", nickName);
+    }
 }
