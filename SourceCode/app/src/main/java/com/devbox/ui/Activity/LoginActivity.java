@@ -2,7 +2,6 @@ package com.devbox.ui.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +26,7 @@ import cn.sharesdk.tencent.qq.QQ;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     @Bind(R.id.btnQQLogin)
     Button btnQQLogin;
@@ -39,6 +38,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
+        setToolbarDisplayHomeAsUpEnabledAndClickListenner(true, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginActivity.this.finish();
+            }
+        });
     }
 
     @OnClick(R.id.btnQQLogin)
@@ -54,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             platform = ShareSDK.getPlatform(SinaWeibo.NAME);
             snsType = AVUser.AVThirdPartyUserAuth.SNS_SINA_WEIBO;
+
         }
 
         String userId = platform.getDb().getUserId();
@@ -70,6 +77,8 @@ public class LoginActivity extends AppCompatActivity {
                 public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
                     if (i == Platform.ACTION_USER_INFOR)
                         doLogin(platform, finalSnsType);
+
+
                 }
 
                 @Override
@@ -103,6 +112,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     user.put("nickName", platform.getDb().getUserName());
                     user.saveInBackground();
+
+
                 } else {
                     e.printStackTrace();
                 }
