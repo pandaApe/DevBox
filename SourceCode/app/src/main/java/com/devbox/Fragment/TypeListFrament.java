@@ -1,4 +1,4 @@
-package com.devbox.ui.Fragment;
+package com.devbox.Fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -12,11 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.devbox.R;
-import com.devbox.action.AppActionImpl;
-import com.devbox.action.AppException;
-import com.devbox.action.HttpCallback;
-import com.devbox.model.CodeType;
-import com.devbox.ui.Adapter.TypeListAdapter;
+import com.devbox.Engine.WebActionImpl;
+import com.devbox.Engine.AppException;
+import com.devbox.Engine.HttpCallback;
+import com.devbox.Entity.CodeType;
+import com.devbox.Adapter.TypeListAdapter;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -54,7 +54,7 @@ public class TypeListFrament extends Fragment {
 
     private void setupServerData() {
 
-        new AppActionImpl(getActivity()).getTypeList(new HttpCallback<ArrayList<CodeType>>() {
+        new WebActionImpl(getActivity()).getTypeList(new HttpCallback<ArrayList<CodeType>>() {
 
             @Override
             public void done(ArrayList<CodeType> list, final AppException e) {

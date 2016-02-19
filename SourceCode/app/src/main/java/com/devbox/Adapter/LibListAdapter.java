@@ -1,4 +1,4 @@
-package com.devbox.ui.Adapter;
+package com.devbox.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.devbox.R;
-import com.devbox.model.CodeLib;
-import com.devbox.ui.Activity.LibDetailActivity;
+import com.devbox.Entity.CodeLib;
+import com.devbox.Activity.LibDetailActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 

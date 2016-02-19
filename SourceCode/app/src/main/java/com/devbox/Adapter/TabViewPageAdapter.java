@@ -1,4 +1,4 @@
-package com.devbox.ui.Adapter;
+package com.devbox.Adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

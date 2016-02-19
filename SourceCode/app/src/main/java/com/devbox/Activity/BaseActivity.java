@@ -1,4 +1,4 @@
-package com.devbox.ui.Activity;
+package com.devbox.Activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bugtags.library.Bugtags;
 import com.devbox.DBApplication;
 import com.devbox.R;
 
@@ -83,7 +82,6 @@ public class BaseActivity extends AppCompatActivity {
         this.mActionBar.setDisplayHomeAsUpEnabled(enabled);
         toolbar.setNavigationOnClickListener(listener);
     }
-
 
     protected void setToolbarTitle(CharSequence text) {
 

@@ -1,4 +1,4 @@
-package com.devbox.ui.Fragment;
+package com.devbox.Fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -13,11 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.devbox.R;
-import com.devbox.action.AppActionImpl;
-import com.devbox.action.AppException;
-import com.devbox.action.HttpCallback;
-import com.devbox.model.CodeLib;
-import com.devbox.ui.Adapter.LibListAdapter;
+import com.devbox.Engine.WebActionImpl;
+import com.devbox.Engine.AppException;
+import com.devbox.Engine.HttpCallback;
+import com.devbox.Entity.CodeLib;
+import com.devbox.Adapter.LibListAdapter;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -67,7 +67,7 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
     }
 
     private void requestServerData() {
-        new AppActionImpl(getActivity()).getLibList("", 0, new HttpCallback<ArrayList<CodeLib>>() {
+        new WebActionImpl(getActivity()).getLibList("", 0, new HttpCallback<ArrayList<CodeLib>>() {
 
             @Override
             public void done(ArrayList<CodeLib> list, final AppException e) {

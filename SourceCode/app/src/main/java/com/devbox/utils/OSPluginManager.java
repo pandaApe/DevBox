@@ -6,7 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.RemoteException;
 
-import com.devbox.model.ApkItem;
+import com.devbox.Entity.ApkItem;
 
 public class OSPluginManager {
 

@@ -1,4 +1,4 @@
-package com.devbox.ui.Fragment;
+package com.devbox.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.avos.avoscloud.feedback.FeedbackAgent;
 import com.devbox.R;
-import com.devbox.ui.Activity.CollectionActivity;
+import com.devbox.Activity.CollectionActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

@@ -1,4 +1,4 @@
-package com.devbox.ui.Activity;
+package com.devbox.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;

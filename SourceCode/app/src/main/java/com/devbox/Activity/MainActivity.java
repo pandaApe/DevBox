@@ -1,4 +1,4 @@
-package com.devbox.ui.Activity;
+package com.devbox.Activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,10 +7,10 @@ import android.support.v4.view.ViewPager;
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.feedback.FeedbackAgent;
 import com.devbox.R;
-import com.devbox.ui.Adapter.TabViewPageAdapter;
-import com.devbox.ui.Fragment.AccountFragment;
-import com.devbox.ui.Fragment.LibListFragment;
-import com.devbox.ui.Fragment.TypeListFrament;
+import com.devbox.Adapter.TabViewPageAdapter;
+import com.devbox.Fragment.AccountFragment;
+import com.devbox.Fragment.LibListFragment;
+import com.devbox.Fragment.TypeListFrament;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import java.util.ArrayList;

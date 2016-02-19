@@ -1,4 +1,4 @@
-package com.devbox.ui.Activity;
+package com.devbox.Activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -8,9 +8,9 @@ import android.view.View;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.devbox.R;
-import com.devbox.model.CodeLib;
-import com.devbox.model.LocalAVObject;
-import com.devbox.ui.Adapter.LibListAdapter;
+import com.devbox.Entity.CodeLib;
+import com.devbox.Entity.LocalAVObject;
+import com.devbox.Adapter.LibListAdapter;
 
 import org.kymjs.kjframe.KJDB;
 

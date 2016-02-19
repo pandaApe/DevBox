@@ -1,4 +1,4 @@
-package com.devbox.model;
+package com.devbox.Entity;
 
 import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;

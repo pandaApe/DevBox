@@ -1,4 +1,4 @@
-package com.devbox.model;
+package com.devbox.Entity;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;

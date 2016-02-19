@@ -1,4 +1,4 @@
-package com.devbox.model;
+package com.devbox.Entity;
 
 /**
  * Created by whailong on 31/1/16.

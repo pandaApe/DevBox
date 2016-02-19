@@ -1,4 +1,4 @@
-package com.devbox.ui.Adapter;
+package com.devbox.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.devbox.R;
-import com.devbox.model.CodeType;
+import com.devbox.Entity.CodeType;
 
 import java.util.ArrayList;
 

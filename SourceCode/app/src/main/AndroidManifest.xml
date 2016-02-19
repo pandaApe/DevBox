@@ -22,7 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.Activity.MainActivity"
+            android:name=".Activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -32,10 +32,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.Activity.LibDetailActivity"
+            android:name=".Activity.LibDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.Activity.CollectionActivity"
+            android:name=".Activity.CollectionActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 反馈组件（若使用该功能，需添加以下声明）START -->
@@ -43,7 +43,7 @@
             android:name="com.avos.avoscloud.feedback.ThreadActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity
-            android:name=".ui.Activity.LoginActivity"
+            android:name=".Activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
     </application>

@@ -1,4 +1,4 @@
-package com.devbox.ui.Activity;
+package com.devbox.Activity;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -18,13 +18,13 @@ import com.avos.avoscloud.GetDataCallback;
 import com.avos.avoscloud.ProgressCallback;
 import com.dd.CircularProgressButton;
 import com.devbox.R;
-import com.devbox.action.AppActionImpl;
-import com.devbox.action.AppException;
-import com.devbox.action.GetLastCommitInfoCallback;
-import com.devbox.model.ApkItem;
-import com.devbox.model.CodeLib;
-import com.devbox.model.LocalAVObject;
-import com.devbox.model.User;
+import com.devbox.Engine.WebActionImpl;
+import com.devbox.Engine.AppException;
+import com.devbox.Engine.GetLastCommitInfoCallback;
+import com.devbox.Entity.ApkItem;
+import com.devbox.Entity.CodeLib;
+import com.devbox.Entity.LocalAVObject;
+import com.devbox.Entity.User;
 import com.devbox.utils.OSPluginManager;
 
 import org.kymjs.kjframe.KJDB;
@@ -116,7 +116,7 @@ public class LibDetailActivity extends BaseActivity {
         codeLib.increaseViewCount();
         codeLib.saveInBackground();
         operator = new OSPluginManager(this);
-        new AppActionImpl(this).getLastCommitInfo(codeLib.getGithubAddress(), new GetLastCommitInfoCallback() {
+        new WebActionImpl(this).getLastCommitInfo(codeLib.getGithubAddress(), new GetLastCommitInfoCallback() {
 
             @Override
             public void done(String committerName, String commitDate, String msgStr, AppException e) {

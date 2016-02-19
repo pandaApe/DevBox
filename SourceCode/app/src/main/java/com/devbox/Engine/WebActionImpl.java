@@ -1,4 +1,4 @@
-package com.devbox.action;
+package com.devbox.Engine;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -7,9 +7,9 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.GetCallback;
-import com.devbox.model.CodeLib;
-import com.devbox.model.CodeType;
-import com.devbox.model.User;
+import com.devbox.Entity.CodeLib;
+import com.devbox.Entity.CodeType;
+import com.devbox.Entity.User;
 import com.devbox.utils.DBConfig;
 
 import org.json.JSONArray;
@@ -29,11 +29,11 @@ import java.util.List;
  * @CreatedAt: 9/2/16 19:29.
  * @Email: whailong2010@gmail.com
  */
-public class AppActionImpl implements AppAction {
+public class WebActionImpl extends AppAction {
 
     private Context context;
 
-    public AppActionImpl(Context context) {
+    public WebActionImpl(Context context) {
         this.context = context;
     }
 
@@ -99,12 +99,8 @@ public class AppActionImpl implements AppAction {
 
                 }
             });
-
-
         }
-
     }
-
 
     @Override
     public void getTypeList(final HttpCallback<ArrayList<CodeType>> callback) {
@@ -130,16 +126,15 @@ public class AppActionImpl implements AppAction {
         });
     }
 
-    @Override
     public void getLastCommitInfo(String gitHubAddress, final GetLastCommitInfoCallback callback) {
 
         if (!checkNet() && callback != null) {
-            callback.done(null, new AppException(AppException.NETWORK_ERROR, "网络未连接"));
+//            callback.done(null, new AppException(AppException.NETWORK_ERROR, "网络未连接"));
             return;
         }
 
         if (TextUtils.isEmpty(gitHubAddress) && callback != null) {
-            callback.done(null, new AppException(AppException.PARAM_ILLEGAL, "github 地址不正确"));
+//            callback.done(null, new AppException(AppException.PARAM_ILLEGAL, "github 地址不正确"));
             return;
         }
 
@@ -220,11 +215,16 @@ public class AppActionImpl implements AppAction {
                 }
             }
         });
-
     }
+
 
     @Override
     public void loginWithUserNameAndPassword(String userName, String passwor, HttpCallback<User> callback) {
 
+
+
+
+
     }
+
 }
