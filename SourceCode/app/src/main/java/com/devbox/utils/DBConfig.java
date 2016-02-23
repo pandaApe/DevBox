@@ -9,6 +9,11 @@ package com.devbox.utils;
  */
 public class DBConfig {
 
+    public static final boolean ISDEBUGMODE = true;
+
+
     public static final String ReposInfoUrl = "https://api.github.com/repos/AUTHOR/NAME/branches";
     public static final String LastCommitInfoUrl = "https://api.github.com/repos/AUTHOR/NAME/git/commits/SHAVALUE";
+
+
 }

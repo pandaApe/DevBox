@@ -88,7 +88,6 @@ public class BaseActivity extends AppCompatActivity {
         this.mActionBar.setTitle(text);
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();

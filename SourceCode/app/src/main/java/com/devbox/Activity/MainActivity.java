@@ -40,7 +40,6 @@ public class MainActivity extends BaseActivity {
         new FeedbackAgent(this).sync();
     }
 
-
     private void initView() {
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(TypeListFrament.newInstance(0));
@@ -53,7 +52,6 @@ public class MainActivity extends BaseActivity {
 
         adapter = new TabViewPageAdapter(getSupportFragmentManager(), fragments);
         adapter.titles = tabTitles;
-
 
         viewPager.setAdapter(adapter);
 

@@ -224,7 +224,6 @@ public class LibDetailActivity extends BaseActivity {
 
                     startActivity(new Intent(this, LoginActivity.class));
 
-
                 }
 
                 break;
@@ -239,33 +238,7 @@ public class LibDetailActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.menu_detail_aty, menu);
         int resourceId = localLibCode == null ? R.drawable.ic_heart_outline : R.drawable.ic_heart;
         menu.findItem(R.id.action_collect).setIcon(resourceId);
-//        createNewLib();
         return true;
-    }
-
-
-    private void createNewLib() {
-
-//        CodeLib newLib = new CodeLib();
-//        newLib.setLibName("MaterialViewPager");
-//        newLib.setAuthor("florent37");
-//        newLib.setDescriptionCN("A Material Design ViewPager easy to use library");
-//
-//        newLib.setGithubAddress("https://github.com/florent37/MaterialViewPager");
-//        newLib.setLicense("Apache 2.0");
-//        newLib.setMinSDKVersion("14");
-//
-//
-//        newLib.saveInBackground();
-
-//        CodeType codeType = new CodeType();
-//        codeType.setTypeCNDescription("ProgressBar");
-//        codeType.setParentType("控件");
-//        codeType.addCodeLib(codeLib);
-//        codeType.saveInBackground();
-
-//        new AVQuery<CodeType>().getInBackground();
-
     }
 
     @Override

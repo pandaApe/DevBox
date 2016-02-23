@@ -56,7 +56,6 @@ public class OSPluginManager {
         return info != null;
     }
 
-
     // 打开Apk
     public void openApk(final ApkItem item) {
         PackageManager pm = mActivity.getPackageManager();

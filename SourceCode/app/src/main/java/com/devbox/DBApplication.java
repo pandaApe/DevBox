@@ -11,6 +11,8 @@ import com.bugtags.library.BugtagsOptions;
 import com.devbox.Entity.CodeLib;
 import com.devbox.Entity.CodeType;
 import com.devbox.Entity.User;
+import com.devbox.utils.DBConfig;
+import com.devbox.utils.LogUtil;
 import com.morgoo.droidplugin.PluginHelper;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -27,6 +29,9 @@ public class DBApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+
+        LogUtil.ISDEBUG = DBConfig.ISDEBUGMODE;
 
         setupShareSDK();
 

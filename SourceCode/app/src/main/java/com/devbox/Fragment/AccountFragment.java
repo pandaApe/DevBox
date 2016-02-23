@@ -11,13 +11,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.avos.avoscloud.feedback.FeedbackAgent;
-import com.devbox.R;
 import com.devbox.Activity.CollectionActivity;
+import com.devbox.Entity.User;
+import com.devbox.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
 
 /**
  * Created by whailong on 15/1/16.
@@ -59,9 +59,7 @@ public class AccountFragment extends Fragment {
             case R.id.cv_feedback:
                 FeedbackAgent agent = new FeedbackAgent(getActivity());
                 agent.startDefaultThreadActivity();
-
                 break;
-
         }
     }
 
@@ -70,4 +68,17 @@ public class AccountFragment extends Fragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+
+    @Override
+    public void onResume() {
+
+        if (User.getCurrentUser() != null) {
+            this.tvNickName.setText(User.getCurrentUser().getString("nickName"));
+
+        } else {
+            this.tvNickName.setText("点击登录");
+        }
+        super.onResume();
+    }
+
 }

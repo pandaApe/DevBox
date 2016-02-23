@@ -42,7 +42,7 @@ public class LoginActivity extends BaseActivity {
         setToolbarDisplayHomeAsUpEnabledAndClickListenner(true, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginActivity.this.finish();
+
             }
         });
     }
@@ -94,7 +94,6 @@ public class LoginActivity extends BaseActivity {
 
             platform.authorize();
         }
-
     }
 
     private void doLogin(final Platform platform, String snsType) {
@@ -103,6 +102,7 @@ public class LoginActivity extends BaseActivity {
                 new AVUser.AVThirdPartyUserAuth(platform.getDb().getToken(), String.valueOf(platform.getDb()
                         .getExpiresTime()), snsType, platform.getDb()
                         .getUserId());
+
         AVUser.loginWithAuthData(auth, new LogInCallback<AVUser>() {
 
             @Override
@@ -112,8 +112,7 @@ public class LoginActivity extends BaseActivity {
 
                     user.put("nickName", platform.getDb().getUserName());
                     user.saveInBackground();
-
-
+                    LoginActivity.this.finish();
                 } else {
                     e.printStackTrace();
                 }
@@ -123,8 +122,10 @@ public class LoginActivity extends BaseActivity {
 
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        Log.d("tag", "requestCode-->" + requestCode + "\nresultCode" + resultCode);
         super.onActivityResult(requestCode, resultCode, data);
+
+
     }
 }
 
