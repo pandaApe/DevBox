@@ -16,6 +16,14 @@
         "source": "/Users/whailong/Documents/Android-Workplace/DevBox/DevBox/DroidPlugin/build/intermediates/bundles/debug/res/drawable-xxhdpi-v4/plugin_activity_loading.xml"
     },
     {
+        "merged": "/Users/whailong/Desktop/DevBox/DevBox/DroidPlugin/build/intermediates/res/merged/androidTest/debug/drawable-xxhdpi-v4/plugin_activity_loading.xml",
+        "source": "/Users/whailong/Desktop/DevBox/DevBox/DroidPlugin/build/intermediates/bundles/debug/res/drawable-xxhdpi-v4/plugin_activity_loading.xml"
+    },
+    {
+        "merged": "/Users/whailong/Desktop/DevBox/DevBox/DroidPlugin/build/intermediates/res/merged/androidTest/debug/drawable-xxhdpi-v4/plugin_activity_loading_bitmap.9.png",
+        "source": "/Users/whailong/Desktop/DevBox/DevBox/DroidPlugin/build/intermediates/bundles/debug/res/drawable-xxhdpi-v4/plugin_activity_loading_bitmap.9.png"
+    },
+    {
         "merged": "/Users/whailong/Documents/Android-Workplace/OpenSourceCode/SourceCode/DroidPlugin/build/intermediates/res/merged/androidTest/debug/drawable-xxhdpi-v4/plugin_activity_loading_bitmap.9.png",
         "source": "/Users/whailong/Documents/Android-Workplace/OpenSourceCode/SourceCode/DroidPlugin/build/intermediates/bundles/debug/res/drawable-xxhdpi-v4/plugin_activity_loading_bitmap.9.png"
     },
