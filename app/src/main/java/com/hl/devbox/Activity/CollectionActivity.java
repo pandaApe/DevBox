@@ -9,7 +9,6 @@ import android.view.View;
 import com.avos.avoscloud.AVAnalytics;
 import com.hl.devbox.Adapter.LibListAdapter;
 import com.hl.devbox.Entity.CodeLib;
-import com.hl.devbox.Entity.LocalAVObject;
 import com.hl.devbox.R;
 
 import org.kymjs.kjframe.KJDB;

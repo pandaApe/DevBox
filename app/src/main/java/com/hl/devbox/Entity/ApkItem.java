@@ -47,11 +47,11 @@ public class ApkItem {
     private PackageInfo packageInfo; // 包信息
     public Context context;
 
-    public ApkItem(Context context, CodeLib lib) {
+    public ApkItem(Context context, Library lib) {
         this.context = context;
 
-        String apkName = lib.getLibName().replace(" ", "");
-        String path = FileUtils.getSDCardPath() + File.separator + "OSCode" + File.separator + apkName + ".apk";
+        String apkName = lib.getName().replace(" ", "");
+        String path = FileUtils.getSDCardPath() + File.separator + "DevBox" + File.separator + apkName + ".apk";
         apkFilePath = path;
 
     }

@@ -7,7 +7,13 @@ package com.hl.devbox.Engine;
  */
 public abstract class HttpCallback<T> {
 
-    public void done(T data, AppException e) {
+    public void onSucess(T data) {
+    }
+
+    public void onFailure(AppException e) {
+    }
+
+    public void onSucess() {
     }
 
 }

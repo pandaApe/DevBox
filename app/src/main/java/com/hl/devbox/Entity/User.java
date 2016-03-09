@@ -1,6 +1,6 @@
 package com.hl.devbox.Entity;
 
-import com.avos.avoscloud.AVUser;
+import org.kymjs.kjframe.database.annotate.Id;
 
 /**
  * Description:
@@ -9,15 +9,34 @@ import com.avos.avoscloud.AVUser;
  * @CreatedAt: 11/2/16 00:18.
  * @Email: whailong2010@gmail.com
  */
-public class User extends AVUser {
+public class User {
 
+    @Id
+    private String objectId;
     private String nickName;
+    private String userId;
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
 
     public String getNickName() {
-        return getString("nickName");
+        return nickName;
     }
 
     public void setNickName(String nickName) {
-        this.put("nickName", nickName);
+        this.nickName = nickName;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

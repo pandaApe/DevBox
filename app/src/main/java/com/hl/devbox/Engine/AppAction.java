@@ -1,7 +1,8 @@
 package com.hl.devbox.Engine;
 
-import com.hl.devbox.Entity.CodeLib;
-import com.hl.devbox.Entity.CodeType;
+import android.graphics.Bitmap;
+
+import com.hl.devbox.Entity.Library;
 import com.hl.devbox.Entity.User;
 
 import java.util.ArrayList;
@@ -14,16 +15,28 @@ import java.util.ArrayList;
 public abstract class AppAction {
 
     // Web
-    public void getLibList(String typeStr, int currentPage, HttpCallback<ArrayList<CodeLib>> callback) {
+    public void getLibraryList(String typeStr, int currentPage, HttpCallback<ArrayList<Library>> callback) {
     }
 
-    public void getTypeList(HttpCallback<ArrayList<CodeType>> callback) {
+    public void increaseViewCount(HttpCallback callback) {
+    }
+
+    public void updateCollectionCount(int amount, HttpCallback callback) {
+    }
+
+    public void getLibImage(Library lib, HttpCallback<Bitmap> callback) {
+    }
+
+    public void getApkFile(Library lib, HttpCallback<byte[]> callback) {
+    }
+
+    public void getTypeList(HttpCallback<ArrayList<Library>> callback) {
     }
 
     public void getLastCommitInfo(String gitHubAddress, GetLastCommitInfoCallback callback) {
     }
 
-    public void loginWithUserNameAndPassword(String userName, String passwor, HttpCallback<User> callback) {
+    public void login(String userName, String passwor, HttpCallback<User> callback) {
     }
 
 

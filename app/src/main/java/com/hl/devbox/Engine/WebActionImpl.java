@@ -3,12 +3,14 @@ package com.hl.devbox.Engine;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.GetCallback;
-import com.hl.devbox.Entity.CodeLib;
-import com.hl.devbox.Entity.CodeType;
+
+import com.hl.devbox.Entity.Library;
 import com.hl.devbox.Entity.User;
 import com.hl.devbox.utils.DBConfig;
 
@@ -42,20 +44,23 @@ public class WebActionImpl extends AppAction {
     }
 
     @Override
-    public void getLibList(String typeStr, final int currentPage, final HttpCallback<ArrayList<CodeLib>> callback) {
+    public void getLibList(String typeStr, final int currentPage, final HttpCallback<ArrayList<Library>> callback) {
 
         if (!checkNet() && callback != null) {
-            callback.done(null, new AppException(AppException.NETWORK_ERROR, "网络未连接"));
+            callback.onFailure(new AppException(AppException.NETWORK_ERROR, "网络未连接"));
             return;
         }
 
         if (currentPage < 0 && callback != null) {
-            callback.done(null, new AppException(AppException.PARAM_ILLEGAL, "页码不正确"));
+            callback.onFailure(new AppException(AppException.PARAM_ILLEGAL, "页码不正确"));
             return;
         }
 
         if (TextUtils.isEmpty(typeStr)) {
-            AVQuery<CodeLib> query = AVQuery.getQuery(CodeLib.class);
+
+            JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET,)
+
+            AVQuery<Library> query = AVQuery.getQuery(Library.class);
             query.addDescendingOrder("createdAt");
 
             query.findInBackground(new FindCallback<CodeLib>() {
@@ -63,10 +68,10 @@ public class WebActionImpl extends AppAction {
                 public void done(List<CodeLib> list, AVException e) {
                     if (callback != null) {
                         if (e == null)
-                            callback.done(new ArrayList<>(list), null);
+                            callback.onSucess(new ArrayList<>(list), null);
 
                         else
-                            callback.done(null, new AppException(e.getCode(), e.getMessage()));
+                            callback.onSucess(null, new AppException(e.getCode(), e.getMessage()));
                     }
                 }
             });
@@ -89,9 +94,9 @@ public class WebActionImpl extends AppAction {
                         public void done(List<CodeLib> list, AVException e) {
                             if (callback != null) {
                                 if (e == null)
-                                    callback.done(new ArrayList<>(list), null);
+                                    callback.onSucess(new ArrayList<>(list), null);
                                 else
-                                    callback.done(null, new AppException(e.getCode(), e.getMessage()));
+                                    callback.onSucess(null, new AppException(e.getCode(), e.getMessage()));
                             }
                         }
                     });
@@ -105,7 +110,7 @@ public class WebActionImpl extends AppAction {
     @Override
     public void getTypeList(final HttpCallback<ArrayList<CodeType>> callback) {
         if (!checkNet() && callback != null) {
-            callback.done(null, new AppException(AppException.NETWORK_ERROR, "网络未连接"));
+            callback.onSucess(null, new AppException(AppException.NETWORK_ERROR, "网络未连接"));
             return;
         }
 
@@ -117,10 +122,10 @@ public class WebActionImpl extends AppAction {
 
                 if (callback != null) {
                     if (e == null)
-                        callback.done(new ArrayList<>(list), null);
+                        callback.onSucess(new ArrayList<>(list), null);
 
                     else
-                        callback.done(null, new AppException(e.getCode(), e.getMessage()));
+                        callback.onSucess(null, new AppException(e.getCode(), e.getMessage()));
                 }
             }
         });
@@ -129,12 +134,12 @@ public class WebActionImpl extends AppAction {
     public void getLastCommitInfo(String gitHubAddress, final GetLastCommitInfoCallback callback) {
 
         if (!checkNet() && callback != null) {
-//            callback.done(null, new AppException(AppException.NETWORK_ERROR, "网络未连接"));
+//            callback.onSucess(null, new AppException(AppException.NETWORK_ERROR, "网络未连接"));
             return;
         }
 
         if (TextUtils.isEmpty(gitHubAddress) && callback != null) {
-//            callback.done(null, new AppException(AppException.PARAM_ILLEGAL, "github 地址不正确"));
+//            callback.onSucess(null, new AppException(AppException.PARAM_ILLEGAL, "github 地址不正确"));
             return;
         }
 

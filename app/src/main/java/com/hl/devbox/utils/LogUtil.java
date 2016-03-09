@@ -18,15 +18,15 @@ public class LogUtil {
     public static <T> void log(T c, String msg) {
         if (ISDEBUG)
             if (c instanceof Activity)
-                Log.i(((Activity) c).getClass().getSimpleName(), msg);
+                Log.d(((Activity) c).getClass().getSimpleName(), msg);
             else if (c instanceof Fragment)
-                Log.i(((Fragment) c).getClass().getSimpleName(), msg);
+                Log.d(((Fragment) c).getClass().getSimpleName(), msg);
 
     }
 
     public static void log(String msg) {
         if (ISDEBUG)
-            Log.i("AppLog", msg);
+            Log.d("AppLog", msg);
 
     }
 

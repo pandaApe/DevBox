@@ -1,0 +1,49 @@
+package com.hl.devbox.Entity;
+
+import org.kymjs.kjframe.database.annotate.Id;
+
+/**
+ * Created by whailong on 20/1/16.
+ */
+
+public class Type {
+
+    private int numCount;
+
+    @Id
+    private String enDescription;
+    private String cnDescription;
+    private String parentType;
+
+    public int getNumCount() {
+        return numCount;
+    }
+
+    public void setNumCount(int numCount) {
+        this.numCount = numCount;
+    }
+
+    public String getEnDescription() {
+        return enDescription;
+    }
+
+    public void setEnDescription(String enDescription) {
+        this.enDescription = enDescription;
+    }
+
+    public String getCnDescription() {
+        return cnDescription;
+    }
+
+    public void setCnDescription(String cnDescription) {
+        this.cnDescription = cnDescription;
+    }
+
+    public String getParentType() {
+        return parentType;
+    }
+
+    public void setParentType(String parentType) {
+        this.parentType = parentType;
+    }
+}
