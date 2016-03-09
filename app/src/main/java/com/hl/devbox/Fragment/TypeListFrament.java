@@ -57,7 +57,7 @@ public class TypeListFrament extends Fragment {
         new WebActionImpl(getActivity()).getTypeList(new HttpCallback<ArrayList<CodeType>>() {
 
             @Override
-            public void done(ArrayList<CodeType> list, final AppException e) {
+            public void onSucess(ArrayList<CodeType> list, final AppException e) {
                 if (e == null) {
                     codeTypes.clear();
                     codeTypes.addAll(list);

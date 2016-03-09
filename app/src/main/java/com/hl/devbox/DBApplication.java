@@ -30,8 +30,12 @@ public class DBApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+<<<<<<< abc71246b844cbab9263e9c5351c73bfe2cd5e7c
 
         LogUtil.ISDEBUG = Config.ISDEBUGMODE;
+=======
+        LogUtil.ISDEBUG = DBConfig.ISDEBUGMODE;
+>>>>>>> added a new branch
 
         setupShareSDK();
 

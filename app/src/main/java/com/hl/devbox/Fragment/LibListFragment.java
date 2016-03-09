@@ -70,7 +70,7 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
         new WebActionImpl(getActivity()).getLibList("", 0, new HttpCallback<ArrayList<CodeLib>>() {
 
             @Override
-            public void done(ArrayList<CodeLib> list, final AppException e) {
+            public void onSucess(ArrayList<CodeLib> list, final AppException e) {
                 if (e == null) {
                     LibListFragment.this.codeLibs.clear();
                     LibListFragment.this.codeLibs.addAll(list);

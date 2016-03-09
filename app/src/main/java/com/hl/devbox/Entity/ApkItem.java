@@ -47,12 +47,17 @@ public class ApkItem {
     private PackageInfo packageInfo; // 包信息
     public Context context;
 
-    public ApkItem(Context context, CodeLib lib) {
+    public ApkItem(Context context, Library lib) {
         this.context = context;
 
+<<<<<<< abc71246b844cbab9263e9c5351c73bfe2cd5e7c
         String apkName = lib.getLibName().replace(" ", "") + ".apk";
         String path = Config.AppFolder + apkName;
 
+=======
+        String apkName = lib.getName().replace(" ", "");
+        String path = FileUtils.getSDCardPath() + File.separator + "DevBox" + File.separator + apkName + ".apk";
+>>>>>>> added a new branch
         apkFilePath = path;
 
     }
