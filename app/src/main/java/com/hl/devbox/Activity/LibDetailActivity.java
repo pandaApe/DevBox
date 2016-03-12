@@ -12,16 +12,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.avos.avoscloud.AVAnalytics;
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.GetDataCallback;
-import com.avos.avoscloud.ProgressCallback;
 import com.dd.CircularProgressButton;
 import com.hl.devbox.Engine.AppException;
 import com.hl.devbox.Engine.GetLastCommitInfoCallback;
 import com.hl.devbox.Engine.WebActionImpl;
 import com.hl.devbox.Entity.ApkItem;
-import com.hl.devbox.Entity.CodeLib;
+import com.hl.devbox.Entity.Library;
 import com.hl.devbox.Entity.User;
 import com.hl.devbox.R;
 import com.hl.devbox.utils.OSPluginManager;
@@ -68,10 +64,10 @@ public class LibDetailActivity extends BaseActivity {
     TextView tvLicense;
 
     public static final String SELECTEDITEM = "selectedItem";
-    private CodeLib codeLib;
+    private Library codeLib;
     private ApkItem apkItem;
     private OSPluginManager operator;
-    private LocalAVObject localLibCode;
+//    private LocalAVObject localLibCode;
     private KJDB kjdb;
 
     @Override
@@ -91,7 +87,7 @@ public class LibDetailActivity extends BaseActivity {
         codeLib = getIntent().getParcelableExtra(SELECTEDITEM);
 
         kjdb = KJDB.create(this);
-        localLibCode = kjdb.findById(codeLib.getObjectId(), LocalAVObject.class);
+//        localLibCode = kjdb.findById(codeLib.getObjectId(), LocalAVObject.class);
 
         apkItem = new ApkItem(this, codeLib);
         if (apkItem.exists()) {
@@ -99,20 +95,20 @@ public class LibDetailActivity extends BaseActivity {
             btnDownload.setCompleteText("打开");
         } else {
             btnDownload.setProgress(0);
-            btnDownload.setText(codeLib.getApkFileSizeStr());
+//            btnDownload.setText(codeLib.getApkFileSizeStr());
         }
 
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle(codeLib.getLibName());
+//        collapsingToolbar.setTitle(codeLib.getLibName());
 
-        tvLibDiscription.setText(codeLib.getDescriptionCN());
+//        tvLibDiscription.setText(codeLib.getDescriptionCN());
         tvGithubAddress.setText(codeLib.getGithubAddress());
-        tvVersion.setText("API " + codeLib.getMinSDKVersion());
+//        tvVersion.setText("API " + codeLib.getMinSDKVersion());
         tvAuthor.setText(codeLib.getAuthor());
         tvLicense.setText(codeLib.getLicense());
 
-        codeLib.increaseViewCount();
-        codeLib.saveInBackground();
+//        codeLib.increaseViewCount();
+//        codeLib.saveInBackground();
         operator = new OSPluginManager(this);
         new WebActionImpl(this).getLastCommitInfo(codeLib.getGithubAddress(), new GetLastCommitInfoCallback() {
 
@@ -143,18 +139,6 @@ public class LibDetailActivity extends BaseActivity {
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AVAnalytics.onResume(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        AVAnalytics.onPause(this);
-    }
-
     @OnClick({R.id.btn_download, R.id.cv_githubAddress})
     public void onClick(View v) {
         switch (v.getId()) {
@@ -165,28 +149,28 @@ public class LibDetailActivity extends BaseActivity {
                     return;
                 }
 
-                codeLib.increaseDownloadCount();
-                codeLib.saveInBackground();
+//                codeLib.increaseDownloadCount();
+//                codeLib.saveInBackground();
 
-                codeLib.getLibApkFile().getDataInBackground(new GetDataCallback() {
-                    @Override
-                    public void done(byte[] bytes, AVException e) {
-                        final String apkName = codeLib.getLibName().replace(" ", "") + ".apk";
-                        final String folderPath = FileUtils.getSDCardPath() + File.separator + "OSCode" + File.separator;
-
-                        FileUtils.saveFileCache(bytes, folderPath, apkName);
-                        operator.installApk(apkItem);
-                        btnDownload.setProgress(100);
-
-                    }
-                }, new ProgressCallback() {
-                    @Override
-                    public void done(Integer integer) {
-                        btnDownload.setProgress(integer);
-                    }
-                });
-                codeLib.increaseDownloadCount();
-                codeLib.saveInBackground();
+//                codeLib.getLibApkFile().getDataInBackground(new GetDataCallback() {
+//                    @Override
+//                    public void done(byte[] bytes, AVException e) {
+//                        final String apkName = codeLib.getLibName().replace(" ", "") + ".apk";
+//                        final String folderPath = FileUtils.getSDCardPath() + File.separator + "OSCode" + File.separator;
+//
+//                        FileUtils.saveFileCache(bytes, folderPath, apkName);
+//                        operator.installApk(apkItem);
+//                        btnDownload.setProgress(100);
+//
+//                    }
+//                }, new ProgressCallback() {
+//                    @Override
+//                    public void done(Integer integer) {
+//                        btnDownload.setProgress(integer);
+//                    }
+//                });
+//                codeLib.increaseDownloadCount();
+//                codeLib.saveInBackground();
                 break;
             case R.id.cv_githubAddress:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(codeLib.getGithubAddress()));
@@ -216,11 +200,11 @@ public class LibDetailActivity extends BaseActivity {
 //                item.setIcon(resourceId);
 
 
-                if (User.getCurrentUser() == null) {
-
-                    startActivity(new Intent(this, LoginActivity.class));
-
-                }
+//                if (User.getCurrentUser() == null) {
+//
+//                    startActivity(new Intent(this, LoginActivity.class));
+//
+//                }
 
                 break;
 
@@ -232,8 +216,8 @@ public class LibDetailActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_detail_aty, menu);
-        int resourceId = localLibCode == null ? R.drawable.ic_heart_outline : R.drawable.ic_heart;
-        menu.findItem(R.id.action_collect).setIcon(resourceId);
+//        int resourceId = localLibCode == null ? R.drawable.ic_heart_outline : R.drawable.ic_heart;
+//        menu.findItem(R.id.action_collect).setIcon(resourceId);
         return true;
     }
 

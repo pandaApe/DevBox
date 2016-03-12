@@ -7,9 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.LogInCallback;
 import com.hl.devbox.R;
 
 import java.util.HashMap;
@@ -55,11 +52,11 @@ public class LoginActivity extends BaseActivity {
         String snsType = null;
         if (viewId == R.id.btnQQLogin) {
             platform = ShareSDK.getPlatform(QQ.NAME);
-            snsType = AVUser.AVThirdPartyUserAuth.SNS_TENCENT_WEIBO;
+//            snsType = AVUser.AVThirdPartyUserAuth.SNS_TENCENT_WEIBO;
 
         } else {
             platform = ShareSDK.getPlatform(SinaWeibo.NAME);
-            snsType = AVUser.AVThirdPartyUserAuth.SNS_SINA_WEIBO;
+//            snsType = AVUser.AVThirdPartyUserAuth.SNS_SINA_WEIBO;
 
         }
 
@@ -98,26 +95,26 @@ public class LoginActivity extends BaseActivity {
 
     private void doLogin(final Platform platform, String snsType) {
         //绑定第三方的授权信息
-        AVUser.AVThirdPartyUserAuth auth =
-                new AVUser.AVThirdPartyUserAuth(platform.getDb().getToken(), String.valueOf(platform.getDb()
-                        .getExpiresTime()), snsType, platform.getDb()
-                        .getUserId());
-
-        AVUser.loginWithAuthData(auth, new LogInCallback<AVUser>() {
-
-            @Override
-            public void done(AVUser user, AVException e) {
-                if (e == null) {
-                    Log.i("---->", "恭喜你，已经和我们的 AVUser 绑定成功");
-
-                    user.put("nickName", platform.getDb().getUserName());
-                    user.saveInBackground();
-                    LoginActivity.this.finish();
-                } else {
-                    e.printStackTrace();
-                }
-            }
-        });
+//        AVUser.AVThirdPartyUserAuth auth =
+//                new AVUser.AVThirdPartyUserAuth(platform.getDb().getToken(), String.valueOf(platform.getDb()
+//                        .getExpiresTime()), snsType, platform.getDb()
+//                        .getUserId());
+//
+//        AVUser.loginWithAuthData(auth, new LogInCallback<AVUser>() {
+//
+//            @Override
+//            public void done(AVUser user, AVException e) {
+//                if (e == null) {
+//                    Log.i("---->", "恭喜你，已经和我们的 AVUser 绑定成功");
+//
+//                    user.put("nickName", platform.getDb().getUserName());
+//                    user.saveInBackground();
+//                    LoginActivity.this.finish();
+//                } else {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
     }
 
 
