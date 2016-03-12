@@ -4,9 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
-import com.avos.avoscloud.AVAnalytics;
-import com.avos.avoscloud.feedback.FeedbackAgent;
 import com.hl.devbox.Adapter.TabViewPageAdapter;
+import com.hl.devbox.Engine.WebActionImpl;
 import com.hl.devbox.Fragment.AccountFragment;
 import com.hl.devbox.Fragment.LibListFragment;
 import com.hl.devbox.Fragment.TypeListFrament;
@@ -37,7 +36,8 @@ public class MainActivity extends BaseActivity {
 
         initView();
 
-        new FeedbackAgent(this).sync();
+
+        new WebActionImpl(this).getLibList(null,1,null);
     }
 
     private void initView() {
@@ -61,15 +61,4 @@ public class MainActivity extends BaseActivity {
         viewPager.setOffscreenPageLimit(4);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AVAnalytics.onResume(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        AVAnalytics.onPause(this);
-    }
 }

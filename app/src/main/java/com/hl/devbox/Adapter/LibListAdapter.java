@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hl.devbox.Activity.LibDetailActivity;
-import com.hl.devbox.Entity.CodeLib;
+import com.hl.devbox.Entity.Library;
 import com.hl.devbox.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -23,10 +23,10 @@ import java.util.ArrayList;
 public class LibListAdapter extends RecyclerView.Adapter<LibListAdapter.CodeLibViewHolder> {
     private final DisplayImageOptions options;
     private Context context;
-    private ArrayList<CodeLib> codeLibs;
+    private ArrayList<Library> codeLibs;
     private LayoutInflater layoutInflater;
 
-    public LibListAdapter(Context context, ArrayList<CodeLib> codeLibs) {
+    public LibListAdapter(Context context, ArrayList<Library> codeLibs) {
         this.context = context;
         this.codeLibs = codeLibs;
         layoutInflater = LayoutInflater.from(context);
@@ -47,7 +47,7 @@ public class LibListAdapter extends RecyclerView.Adapter<LibListAdapter.CodeLibV
             @Override
             public void onClick(View v, int position) {
                 Intent intent = new Intent(context, LibDetailActivity.class);
-                intent.putExtra(LibDetailActivity.SELECTEDITEM, codeLibs.get(position));
+//                intent.putExtra(LibDetailActivity.SELECTEDITEM, codeLibs.get(position));
                 context.startActivity(intent);
             }
         });
@@ -56,9 +56,9 @@ public class LibListAdapter extends RecyclerView.Adapter<LibListAdapter.CodeLibV
 
     @Override
     public void onBindViewHolder(LibListAdapter.CodeLibViewHolder holder, int position) {
-        CodeLib codeLib = codeLibs.get(position);
-        holder.tvLibName.setText(codeLib.getLibName());
-        ImageLoader.getInstance().displayImage(codeLib.getLibPreImage().getUrl(), holder.ivLibPreFace, this.options);
+        Library codeLib = codeLibs.get(position);
+//        holder.tvLibName.setText(codeLib.getLibName());
+//        ImageLoader.getInstance().displayImage(codeLib.getLibPreImage().getUrl(), holder.ivLibPreFace, this.options);
     }
 
     @Override

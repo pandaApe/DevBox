@@ -3,15 +3,8 @@ package com.hl.devbox;
 import android.app.Application;
 import android.content.Context;
 
-import com.avos.avoscloud.AVAnalytics;
-import com.avos.avoscloud.AVOSCloud;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVUser;
 import com.bugtags.library.BugtagsOptions;
-import com.hl.devbox.Entity.CodeLib;
-import com.hl.devbox.Entity.CodeType;
-import com.hl.devbox.Entity.User;
-import com.hl.devbox.utils.DBConfig;
+import com.hl.devbox.utils.Config;
 import com.hl.devbox.utils.LogUtil;
 import com.morgoo.droidplugin.PluginHelper;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -30,11 +23,9 @@ public class DBApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        LogUtil.ISDEBUG = DBConfig.ISDEBUGMODE;
+        LogUtil.ISDEBUG = Config.ISDEBUGMODE;
 
         setupShareSDK();
-
-        setupLeanCloud();
 
         setupDroidPlugin();
 
@@ -65,15 +56,6 @@ public class DBApplication extends Application {
 
     private void setupShareSDK() {
         ShareSDK.initSDK(getApplicationContext());
-    }
-
-    private void setupLeanCloud() {
-        AVUser.alwaysUseSubUserClass(User.class);
-        AVObject.registerSubclass(CodeLib.class);
-        AVObject.registerSubclass(CodeType.class);
-        // 初始化参数依次为 this, AppId, AppKey
-        AVOSCloud.initialize(this, "FCVowRhDwwwHkNKPxAz0rb7L-gzGzoHsz", "3g2B0rtN2ADbU5lpErTASgMq");
-        AVAnalytics.enableCrashReport(this, true);
     }
 
     @Override

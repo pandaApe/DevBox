@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.avos.avoscloud.feedback.FeedbackAgent;
 import com.hl.devbox.Activity.CollectionActivity;
 import com.hl.devbox.Entity.User;
 import com.hl.devbox.R;
@@ -57,8 +56,7 @@ public class AccountFragment extends Fragment {
                 break;
 
             case R.id.cv_feedback:
-                FeedbackAgent agent = new FeedbackAgent(getActivity());
-                agent.startDefaultThreadActivity();
+
                 break;
         }
     }
@@ -72,12 +70,12 @@ public class AccountFragment extends Fragment {
     @Override
     public void onResume() {
 
-        if (User.getCurrentUser() != null) {
-            this.tvNickName.setText(User.getCurrentUser().getString("nickName"));
-
-        } else {
-            this.tvNickName.setText("点击登录");
-        }
+//        if (User.getCurrentUser() != null) {
+//            this.tvNickName.setText(User.getCurrentUser().getString("nickName"));
+//
+//        } else {
+//            this.tvNickName.setText("点击登录");
+//        }
         super.onResume();
     }
 

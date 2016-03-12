@@ -16,7 +16,7 @@ import com.hl.devbox.Adapter.LibListAdapter;
 import com.hl.devbox.Engine.AppException;
 import com.hl.devbox.Engine.HttpCallback;
 import com.hl.devbox.Engine.WebActionImpl;
-import com.hl.devbox.Entity.CodeLib;
+import com.hl.devbox.Entity.Library;
 import com.hl.devbox.R;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
     RecyclerView recyclerView;
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
-    private ArrayList<CodeLib> codeLibs = new ArrayList<>();
+    private ArrayList<Library> codeLibs = new ArrayList<>();
 
     private LibListAdapter adapter;
 
@@ -67,30 +67,30 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
     }
 
     private void requestServerData() {
-        new WebActionImpl(getActivity()).getLibList("", 0, new HttpCallback<ArrayList<CodeLib>>() {
-
-            @Override
-            public void onSucess(ArrayList<CodeLib> list, final AppException e) {
-                if (e == null) {
-                    LibListFragment.this.codeLibs.clear();
-                    LibListFragment.this.codeLibs.addAll(list);
-                    LibListFragment.this.adapter.notifyDataSetChanged();
-                } else if (e.getCode() == AppException.NETWORK_ERROR) {
-
-                    new Timer().schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            Snackbar.make(recyclerView, e.getMessage(), Snackbar.LENGTH_LONG).show();
-                        }
-                    }, 500);
-
-                }
-
-                LibListFragment.this.progressBarContainer.hide();
-                swipeRefreshLayout.setRefreshing(false);
-            }
-
-        });
+//        new WebActionImpl(getActivity()).getLibList("", 0, new HttpCallback<ArrayList<CodeLib>>() {
+//
+//            @Override
+//            public void onSucess(ArrayList<CodeLib> list, final AppException e) {
+//                if (e == null) {
+//                    LibListFragment.this.codeLibs.clear();
+//                    LibListFragment.this.codeLibs.addAll(list);
+//                    LibListFragment.this.adapter.notifyDataSetChanged();
+//                } else if (e.getCode() == AppException.NETWORK_ERROR) {
+//
+//                    new Timer().schedule(new TimerTask() {
+//                        @Override
+//                        public void run() {
+//                            Snackbar.make(recyclerView, e.getMessage(), Snackbar.LENGTH_LONG).show();
+//                        }
+//                    }, 500);
+//
+//                }
+//
+//                LibListFragment.this.progressBarContainer.hide();
+//                swipeRefreshLayout.setRefreshing(false);
+//            }
+//
+//        });
     }
 
     @Override

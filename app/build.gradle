@@ -22,29 +22,34 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.2.0'
-    compile 'com.android.support:cardview-v7:23.1.1'
+    compile 'com.android.support:appcompat-v7:23.1.0'
+    compile 'com.android.support:cardview-v7:23.2.1'
 
-    compile 'com.android.support:design:23.1.1'
-    //avoscloud-sdk 为 LeanCloud基础包
-    compile 'cn.leancloud.android:avoscloud-sdk:v3.+'
-    //avoscloud-statistics 为 LeanCloud 统计包
-    compile 'cn.leancloud.android:avoscloud-statistics:v3.+'
-    //avoscloud-feedback 为 LeanCloud 用户反馈包
-    compile 'cn.leancloud.android:avoscloud-feedback:v3.+@aar'
+    compile 'com.android.support:design:23.2.1'
+
     //avoscloud-sns 为 LeanCloud 第三方登录包
     compile 'cn.leancloud.android:avoscloud-sns:v3.+@aar'
     compile 'cn.leancloud.android:qq-sdk:1.6.1-leancloud'
     compile project(':DroidPlugin')
     compile project(':ShareSDK')
+
+    //    https://github.com/ogaclejapan/SmartTabLayout
     compile 'com.ogaclejapan.smarttablayout:library:1.6.0@aar'
-    //Optional: see how to use the utility.
     compile 'com.ogaclejapan.smarttablayout:utils-v4:1.6.0@aar'
+
+    //    https://github.com/nostra13/Android-Universal-Image-Loader
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+
+    //    https://github.com/kymjs/KJFrameForAndroid
     compile 'org.kymjs.kjframe:kjframe:2.6'
+
+    //    https://github.com/dmytrodanylyk/circular-progress-button
     compile 'com.github.dmytrodanylyk.circular-progress-button:library:1.1.3'
+
     compile 'com.bugtags.library:bugtags-lib:latest.integration'
+
+    //    https://github.com/JakeWharton/butterknife
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.google.code.gson:gson:2.4'
-    compile 'com.mcxiaoke.volley:library:1.0.19'
+
 }

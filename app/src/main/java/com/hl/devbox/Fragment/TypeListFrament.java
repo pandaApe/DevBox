@@ -15,7 +15,7 @@ import com.hl.devbox.Adapter.TypeListAdapter;
 import com.hl.devbox.Engine.AppException;
 import com.hl.devbox.Engine.HttpCallback;
 import com.hl.devbox.Engine.WebActionImpl;
-import com.hl.devbox.Entity.CodeType;
+import com.hl.devbox.Entity.Library;
 import com.hl.devbox.R;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import java.util.TimerTask;
  * Created by whailong on 22/1/16.
  */
 public class TypeListFrament extends Fragment {
-    private ArrayList<CodeType> codeTypes;
+    private ArrayList<Library> codeTypes;
     private RecyclerView recyclerView;
     private TypeListAdapter adapter;
     private ContentLoadingProgressBar progressBarContainer;
@@ -54,29 +54,29 @@ public class TypeListFrament extends Fragment {
 
     private void setupServerData() {
 
-        new WebActionImpl(getActivity()).getTypeList(new HttpCallback<ArrayList<CodeType>>() {
-
-            @Override
-            public void onSucess(ArrayList<CodeType> list, final AppException e) {
-                if (e == null) {
-                    codeTypes.clear();
-                    codeTypes.addAll(list);
-                    adapter.notifyDataSetChanged();
-
-                } else if (e.getCode() == AppException.NETWORK_ERROR) {
-
-                    new Timer().schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            Snackbar.make(recyclerView, e.getMessage(), Snackbar.LENGTH_LONG).show();
-                        }
-                    }, 500);
-
-                }
-                progressBarContainer.hide();
-            }
-
-        });
+//        new WebActionImpl(getActivity()).getTypeList(new HttpCallback<ArrayList<Library>>() {
+//
+//            @Override
+//            public void onSucess(ArrayList<Library> list, final AppException e) {
+//                if (e == null) {
+//                    codeTypes.clear();
+//                    codeTypes.addAll(list);
+//                    adapter.notifyDataSetChanged();
+//
+//                } else if (e.getCode() == AppException.NETWORK_ERROR) {
+//
+//                    new Timer().schedule(new TimerTask() {
+//                        @Override
+//                        public void run() {
+//                            Snackbar.make(recyclerView, e.getMessage(), Snackbar.LENGTH_LONG).show();
+//                        }
+//                    }, 500);
+//
+//                }
+//                progressBarContainer.hide();
+//            }
+//
+//        });
     }
 
     private void setupView(View view) {

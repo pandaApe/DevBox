@@ -6,9 +6,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.avos.avoscloud.AVAnalytics;
+
 import com.hl.devbox.Adapter.LibListAdapter;
-import com.hl.devbox.Entity.CodeLib;
+
+import com.hl.devbox.Entity.Library;
 import com.hl.devbox.R;
 
 import org.kymjs.kjframe.KJDB;
@@ -26,7 +27,7 @@ public class CollectionActivity extends BaseActivity {
     RecyclerView recyclerView;
 
     private LibListAdapter adapter;
-    private ArrayList<CodeLib> codeLibs;
+    private ArrayList<Library> codeLibs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +43,16 @@ public class CollectionActivity extends BaseActivity {
             }
         });
 
-        KJDB kjdb = KJDB.create(this);
-        List<LocalAVObject> list = kjdb.findAll(LocalAVObject.class);
-        codeLibs = new ArrayList<>();
-        for (LocalAVObject la : list) {
-            try {
-                codeLibs.add((CodeLib) CodeLib.parseAVObject(la.getObjectStr()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+//        KJDB kjdb = KJDB.create(this);
+//        List<LocalAVObject> list = kjdb.findAll(LocalAVObject.class);
+//        codeLibs = new ArrayList<>();
+//        for (LocalAVObject la : list) {
+//            try {
+//                codeLibs.add((CodeLib) CodeLib.parseAVObject(la.getObjectStr()));
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -59,15 +60,4 @@ public class CollectionActivity extends BaseActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AVAnalytics.onResume(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        AVAnalytics.onPause(this);
-    }
 }
