@@ -47,7 +47,7 @@ public class LibListAdapter extends RecyclerView.Adapter<LibListAdapter.CodeLibV
             @Override
             public void onClick(View v, int position) {
                 Intent intent = new Intent(context, LibDetailActivity.class);
-//                intent.putExtra(LibDetailActivity.SELECTEDITEM, codeLibs.get(position));
+                intent.putExtra(LibDetailActivity.SELECTEDITEM, codeLibs.get(position));
                 context.startActivity(intent);
             }
         });
@@ -57,8 +57,8 @@ public class LibListAdapter extends RecyclerView.Adapter<LibListAdapter.CodeLibV
     @Override
     public void onBindViewHolder(LibListAdapter.CodeLibViewHolder holder, int position) {
         Library codeLib = codeLibs.get(position);
-//        holder.tvLibName.setText(codeLib.getLibName());
-//        ImageLoader.getInstance().displayImage(codeLib.getLibPreImage().getUrl(), holder.ivLibPreFace, this.options);
+        holder.tvLibName.setText(codeLib.getName());
+        ImageLoader.getInstance().displayImage(codeLib.getImageUrl(), holder.ivLibPreFace, this.options);
     }
 
     @Override

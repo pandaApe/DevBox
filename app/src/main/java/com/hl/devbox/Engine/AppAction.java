@@ -3,9 +3,10 @@ package com.hl.devbox.Engine;
 import android.graphics.Bitmap;
 
 import com.hl.devbox.Entity.Library;
+import com.hl.devbox.Entity.Type;
 import com.hl.devbox.Entity.User;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author: PandaApe.
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 public abstract class AppAction {
 
     // Web
-    public void getLibraryList(String typeStr, int currentPage, HttpCallback<ArrayList<Library>> callback) {
+    public void getLibraryList(String typeStr, int currentPage, HttpCallback<List<Library>> callback) {
     }
 
     public void increaseViewCount(HttpCallback callback) {
@@ -30,7 +31,7 @@ public abstract class AppAction {
     public void getApkFile(Library lib, HttpCallback<byte[]> callback) {
     }
 
-    public void getTypeList(HttpCallback<ArrayList<Library>> callback) {
+    public void getTypeList(HttpCallback<List<Type>> callback) {
     }
 
     public void getLastCommitInfo(String gitHubAddress, GetLastCommitInfoCallback callback) {

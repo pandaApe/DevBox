@@ -20,6 +20,7 @@ import com.hl.devbox.Entity.Library;
 import com.hl.devbox.R;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -63,34 +64,39 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
         swipeRefreshLayout.setOnRefreshListener(this);
 
         requestServerData();
-
     }
 
     private void requestServerData() {
-//        new WebActionImpl(getActivity()).getLibList("", 0, new HttpCallback<ArrayList<CodeLib>>() {
-//
-//            @Override
-//            public void onSucess(ArrayList<CodeLib> list, final AppException e) {
-//                if (e == null) {
-//                    LibListFragment.this.codeLibs.clear();
-//                    LibListFragment.this.codeLibs.addAll(list);
-//                    LibListFragment.this.adapter.notifyDataSetChanged();
-//                } else if (e.getCode() == AppException.NETWORK_ERROR) {
-//
-//                    new Timer().schedule(new TimerTask() {
-//                        @Override
-//                        public void run() {
-//                            Snackbar.make(recyclerView, e.getMessage(), Snackbar.LENGTH_LONG).show();
-//                        }
-//                    }, 500);
-//
-//                }
-//
-//                LibListFragment.this.progressBarContainer.hide();
-//                swipeRefreshLayout.setRefreshing(false);
-//            }
-//
-//        });
+        new WebActionImpl(getActivity()).getLibList("", 1, new HttpCallback<List<Library>>() {
+
+            @Override
+            public void onSucess(List<Library> list) {
+
+                LibListFragment.this.codeLibs.clear();
+                LibListFragment.this.codeLibs.addAll(list);
+                LibListFragment.this.adapter.notifyDataSetChanged();
+
+                LibListFragment.this.progressBarContainer.hide();
+                swipeRefreshLayout.setRefreshing(false);
+
+            }
+
+            @Override
+            public void onFailure(final AppException e) {
+
+                if (e.getCode() == AppException.NETWORK_ERROR) {
+
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            Snackbar.make(recyclerView, e.getMessage(), Snackbar.LENGTH_LONG).show();
+                        }
+                    }, 500);
+                }
+                LibListFragment.this.progressBarContainer.hide();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     @Override

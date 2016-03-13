@@ -23,6 +23,7 @@ public class Config {
     private static final String ApiVersion = "1.1";
 
     public static final String GetLibrariesURL = BaseURL + "/" + ApiVersion + "/classes/Library";
+    public static final String GetTypesURL = BaseURL + "/" + ApiVersion + "/classes/Type";
     public static final String GetLoginURL = BaseURL + "/" + ApiVersion + "/classes/Library";
     public static final String UpdateLibraryURL = BaseURL + "/" + ApiVersion + "/classes/Library/";
 

@@ -3,7 +3,10 @@ package com.hl.devbox.Engine;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.hl.devbox.Entity.Library;
+import com.hl.devbox.Entity.Type;
 import com.hl.devbox.utils.Config;
 import com.hl.devbox.utils.LogUtil;
 
@@ -17,8 +20,8 @@ import org.kymjs.kjframe.utils.CipherUtils;
 import org.kymjs.kjframe.utils.SystemTool;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Description:
@@ -46,7 +49,7 @@ public class WebActionImpl extends AppAction {
     }
 
 
-    public void getLibList(String typeStr, final int currentPage, final HttpCallback<ArrayList<Library>> callback) {
+    public void getLibList(String typeStr, final int currentPage, final HttpCallback<List<Library>> callback) {
 
         if (!checkNet() && callback != null) {
             callback.onFailure(new AppException(AppException.NETWORK_ERROR, "网络未连接"));
@@ -79,27 +82,25 @@ public class WebActionImpl extends AppAction {
                 @Override
                 public void onSuccess(String t) {
 
-                    LogUtil.log("onSuccess" + t);
+                    LogUtil.log("onSuccess--->" + t);
 
-                    super.onSuccess(t);
+
+                    String json = "";
+                    try {
+                        json = new JSONObject(t).getString("results");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    Gson gson = new Gson();
+                    List list = gson.fromJson(json, new TypeToken<List<Library>>() {
+                    }.getType());
+
+                    if (callback != null)
+                        callback.onSucess(list);
                 }
             });
-//
-//            AVQuery<Library> query = AVQuery.getQuery(Library.class);
-//            query.addDescendingOrder("createdAt");
-//
-//            query.findInBackground(new FindCallback<CodeLib>() {
-//                @Override
-//                public void done(List<CodeLib> list, AVException e) {
-//                    if (callback != null) {
-//                        if (e == null)
-//                            callback.onSucess(new ArrayList<>(list), null);
-//
-//                        else
-//                            callback.onSucess(null, new AppException(e.getCode(), e.getMessage()));
-//                    }
-//                }
-//            });
+
         } else {
 //
 //            AVQuery<CodeType> query = AVQuery.getQuery(CodeType.class);
@@ -131,40 +132,57 @@ public class WebActionImpl extends AppAction {
 //            });
         }
     }
-//
-//    @Override
-//    public void getTypeList(final HttpCallback<ArrayList<CodeType>> callback) {
-//        if (!checkNet() && callback != null) {
-//            callback.onSucess(null, new AppException(AppException.NETWORK_ERROR, "网络未连接"));
-//            return;
-//        }
-//
-//        AVQuery<CodeType> query = AVQuery.getQuery(CodeType.class);
-//
-//        query.findInBackground(new FindCallback<CodeType>() {
-//            @Override
-//            public void done(List<CodeType> list, AVException e) {
-//
-//                if (callback != null) {
-//                    if (e == null)
-//                        callback.onSucess(new ArrayList<>(list), null);
-//
-//                    else
-//                        callback.onSucess(null, new AppException(e.getCode(), e.getMessage()));
-//                }
-//            }
-//        });
-//    }
+
+    public void getTypeList(final HttpCallback<List<Type>> callback) {
+        if (!checkNet() && callback != null) {
+            callback.onFailure(new AppException(AppException.NETWORK_ERROR, "网络未连接"));
+            return;
+        }
+        KJHttp kjHttp = new KJHttp();
+        HttpParams params = new HttpParams();
+
+        params.putHeaders("X-LC-Sign", generateLCSign());
+        params.putHeaders("X-LC-Id", Config.APPId);
+        params.putHeaders("Content-Type", "application/json");
+
+        kjHttp.get(Config.GetTypesURL, params, true, new HttpCallBack() {
+            @Override
+            public void onFailure(int errorNo, String strMsg) {
+                super.onFailure(errorNo, strMsg);
+            }
+
+            @Override
+            public void onSuccess(String t) {
+
+                LogUtil.log("onSuccess--->" + t);
+
+
+                String json = "";
+                try {
+                    json = new JSONObject(t).getString("results");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Gson gson = new Gson();
+                List list = gson.fromJson(json, new TypeToken<List<Type>>() {
+                }.getType());
+
+                if (callback != null)
+                    callback.onSucess(list);
+            }
+        });
+    }
 
     public void getLastCommitInfo(String gitHubAddress, final GetLastCommitInfoCallback callback) {
 
         if (!checkNet() && callback != null) {
-//            callback.onSucess(null, new AppException(AppException.NETWORK_ERROR, "网络未连接"));
+            callback.onFailure(new AppException(AppException.NETWORK_ERROR, "网络未连接"));
             return;
         }
 
         if (TextUtils.isEmpty(gitHubAddress) && callback != null) {
-//            callback.onSucess(null, new AppException(AppException.PARAM_ILLEGAL, "github 地址不正确"));
+            callback.onFailure(new AppException(AppException.PARAM_ILLEGAL, "github 地址不正确"));
             return;
         }
 
