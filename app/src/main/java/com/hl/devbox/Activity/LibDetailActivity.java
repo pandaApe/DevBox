@@ -1,6 +1,8 @@
 package com.hl.devbox.Activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -15,17 +17,16 @@ import android.widget.TextView;
 import com.dd.CircularProgressButton;
 import com.hl.devbox.Engine.AppException;
 import com.hl.devbox.Engine.GetLastCommitInfoCallback;
+import com.hl.devbox.Engine.HttpCallback;
 import com.hl.devbox.Engine.WebActionImpl;
 import com.hl.devbox.Entity.ApkItem;
 import com.hl.devbox.Entity.Library;
-import com.hl.devbox.Entity.User;
 import com.hl.devbox.R;
+import com.hl.devbox.utils.LogUtil;
 import com.hl.devbox.utils.OSPluginManager;
 
 import org.kymjs.kjframe.KJDB;
-import org.kymjs.kjframe.utils.FileUtils;
 
-import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -67,7 +68,8 @@ public class LibDetailActivity extends BaseActivity {
     private Library codeLib;
     private ApkItem apkItem;
     private OSPluginManager operator;
-//    private LocalAVObject localLibCode;
+
+    private final int REQUEST_CODE_ASK_STORAGE_PERMISSIONS = 123;
     private KJDB kjdb;
 
     @Override
@@ -84,7 +86,7 @@ public class LibDetailActivity extends BaseActivity {
             }
         });
 
-        codeLib = getIntent().getParcelableExtra(SELECTEDITEM);
+        codeLib = (Library) getIntent().getSerializableExtra(SELECTEDITEM);
 
         kjdb = KJDB.create(this);
 //        localLibCode = kjdb.findById(codeLib.getObjectId(), LocalAVObject.class);
@@ -95,15 +97,15 @@ public class LibDetailActivity extends BaseActivity {
             btnDownload.setCompleteText("打开");
         } else {
             btnDownload.setProgress(0);
-//            btnDownload.setText(codeLib.getApkFileSizeStr());
+            btnDownload.setText(codeLib.getApk().getApkSizeStr());
         }
 
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-//        collapsingToolbar.setTitle(codeLib.getLibName());
+        collapsingToolbar.setTitle(codeLib.getName());
 
-//        tvLibDiscription.setText(codeLib.getDescriptionCN());
+        tvLibDiscription.setText(codeLib.getEnDescription());
         tvGithubAddress.setText(codeLib.getGithubAddress());
-//        tvVersion.setText("API " + codeLib.getMinSDKVersion());
+        tvVersion.setText("API " + codeLib.getMinSdkVersion());
         tvAuthor.setText(codeLib.getAuthor());
         tvLicense.setText(codeLib.getLicense());
 
@@ -139,43 +141,70 @@ public class LibDetailActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_STORAGE_PERMISSIONS:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    downloadApk();
+                else
+                    showSnackbar("拒绝了就下载不了了 - -!");
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
     @OnClick({R.id.btn_download, R.id.cv_githubAddress})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_download:
 
-                if (apkItem.exists()) {
-                    operator.openApk(apkItem);
+//                if (apkItem.exists()) {
+//                    operator.openApk(apkItem);
+//                    return;
+//                }
+
+                int hasWriteContactsPermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            REQUEST_CODE_ASK_STORAGE_PERMISSIONS);
                     return;
                 }
 
 //                codeLib.increaseDownloadCount();
 //                codeLib.saveInBackground();
 
-//                codeLib.getLibApkFile().getDataInBackground(new GetDataCallback() {
-//                    @Override
-//                    public void done(byte[] bytes, AVException e) {
-//                        final String apkName = codeLib.getLibName().replace(" ", "") + ".apk";
-//                        final String folderPath = FileUtils.getSDCardPath() + File.separator + "OSCode" + File.separator;
-//
-//                        FileUtils.saveFileCache(bytes, folderPath, apkName);
-//                        operator.installApk(apkItem);
-//                        btnDownload.setProgress(100);
-//
-//                    }
-//                }, new ProgressCallback() {
-//                    @Override
-//                    public void done(Integer integer) {
-//                        btnDownload.setProgress(integer);
-//                    }
-//                });
-//                codeLib.increaseDownloadCount();
-//                codeLib.saveInBackground();
+                downloadApk();
+
                 break;
             case R.id.cv_githubAddress:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(codeLib.getGithubAddress()));
                 startActivity(browserIntent);
         }
+    }
+
+    private void downloadApk() {
+        btnDownload.setProgress(1);
+        new WebActionImpl(this).downloadApkFile(this.codeLib, new HttpCallback<String>() {
+            @Override
+            public void onSucess() {
+                operator.installApk(apkItem);
+                btnDownload.setProgress(100);
+
+            }
+
+            @Override
+            public void onProgress(int percentage) {
+                btnDownload.setProgress(percentage);
+                LogUtil.log("******->" + percentage);
+            }
+
+            @Override
+            public void onFailure(AppException e) {
+                btnDownload.setProgress(-1);
+                btnDownload.setText("下载失败");
+            }
+        });
     }
 
     @Override

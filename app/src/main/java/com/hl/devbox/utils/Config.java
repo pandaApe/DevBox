@@ -1,5 +1,9 @@
 package com.hl.devbox.utils;
 
+import org.kymjs.kjframe.utils.FileUtils;
+
+import java.io.File;
+
 /**
  * Description:
  *
@@ -10,6 +14,8 @@ package com.hl.devbox.utils;
 public class Config {
 
     public static final boolean ISDEBUGMODE = true;
+
+    public static final String AppFolder = FileUtils.getSDCardPath() + File.separator + "DevBox" + File.separator;
 
 
     public static final String ReposInfoUrl = "https://api.github.com/repos/AUTHOR/NAME/branches";

@@ -9,6 +9,8 @@ import com.hl.devbox.Entity.Library;
 import com.hl.devbox.Entity.Type;
 import com.hl.devbox.utils.Config;
 import com.hl.devbox.utils.LogUtil;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.FileCallBack;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,9 +21,12 @@ import org.kymjs.kjframe.http.HttpParams;
 import org.kymjs.kjframe.utils.CipherUtils;
 import org.kymjs.kjframe.utils.SystemTool;
 
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+
+import okhttp3.Call;
 
 /**
  * Description:
@@ -51,13 +56,15 @@ public class WebActionImpl extends AppAction {
 
     public void getLibList(String typeStr, final int currentPage, final HttpCallback<List<Library>> callback) {
 
-        if (!checkNet() && callback != null) {
-            callback.onFailure(new AppException(AppException.NETWORK_ERROR, "网络未连接"));
+        if (!checkNet()) {
+            if (callback != null)
+                callback.onFailure(new AppException(AppException.NETWORK_ERROR, "网络未连接"));
             return;
         }
 
-        if (currentPage <= 0 && callback != null) {
-            callback.onFailure(new AppException(AppException.PARAM_ILLEGAL, "页码不正确"));
+        if (currentPage <= 0) {
+            if (callback != null)
+                callback.onFailure(new AppException(AppException.PARAM_ILLEGAL, "页码不正确"));
             return;
         }
 
@@ -84,7 +91,6 @@ public class WebActionImpl extends AppAction {
 
                     LogUtil.log("onSuccess--->" + t);
 
-
                     String json = "";
                     try {
                         json = new JSONObject(t).getString("results");
@@ -96,7 +102,7 @@ public class WebActionImpl extends AppAction {
                     List list = gson.fromJson(json, new TypeToken<List<Library>>() {
                     }.getType());
 
-                    if (callback != null)
+                    if (callback != null && list != null)
                         callback.onSucess(list);
                 }
             });
@@ -134,8 +140,9 @@ public class WebActionImpl extends AppAction {
     }
 
     public void getTypeList(final HttpCallback<List<Type>> callback) {
-        if (!checkNet() && callback != null) {
-            callback.onFailure(new AppException(AppException.NETWORK_ERROR, "网络未连接"));
+        if (!checkNet()) {
+            if (callback != null)
+                callback.onFailure(new AppException(AppException.NETWORK_ERROR, "网络未连接"));
             return;
         }
         KJHttp kjHttp = new KJHttp();
@@ -176,13 +183,15 @@ public class WebActionImpl extends AppAction {
 
     public void getLastCommitInfo(String gitHubAddress, final GetLastCommitInfoCallback callback) {
 
-        if (!checkNet() && callback != null) {
-            callback.onFailure(new AppException(AppException.NETWORK_ERROR, "网络未连接"));
+        if (!checkNet()) {
+            if (callback != null)
+                callback.onFailure(new AppException(AppException.NETWORK_ERROR, "网络未连接"));
             return;
         }
 
-        if (TextUtils.isEmpty(gitHubAddress) && callback != null) {
-            callback.onFailure(new AppException(AppException.PARAM_ILLEGAL, "github 地址不正确"));
+        if (TextUtils.isEmpty(gitHubAddress)) {
+            if (callback != null)
+                callback.onFailure(new AppException(AppException.PARAM_ILLEGAL, "github 地址不正确"));
             return;
         }
 
@@ -265,8 +274,97 @@ public class WebActionImpl extends AppAction {
         });
     }
 
+    @Override
+    public void downloadApkFile(Library lib, final HttpCallback<String> callback) {
+        if (!checkNet()) {
+            if (callback != null) {
+                callback.onFailure(new AppException(AppException.NETWORK_ERROR, "网络未连接"));
+            }
+            return;
+        }
 
-//    @Override
+        if (lib == null) {
+            if (callback != null) {
+                callback.onFailure(new AppException(AppException.PARAM_NULL, "参数为空"));
+            }
+            return;
+        }
+
+
+        final String apkName = lib.getName().replace(" ", "") + ".apk";
+
+
+        OkHttpUtils.get().url(lib.getApk().getUrl()).build()
+                .execute(new FileCallBack(Config.AppFolder, apkName) {
+
+                    @Override
+                    public void inProgress(float progress, long total) {
+                        int pro = (int) (progress * 100);
+
+                        if (callback != null)
+                            callback.onProgress(pro);
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e) {
+                        LogUtil.log("onFailure--->" + e);
+                        if (callback != null)
+                            callback.onFailure(new AppException(AppException.CONNECTION_FAILED, "服务器连接失败"));
+                    }
+
+                    @Override
+                    public void onResponse(File file) {
+                        LogUtil.log("onSuccess");
+                        if (callback != null)
+                            callback.onSucess(file.getAbsolutePath());
+                    }
+                });
+
+
+//        kjHttp.download(storedPath,"http://music.baidu.com/cms/mobile/static/apk/Baidumusic_yinyuehexzfc.apk", new HttpCallBack() {
+//
+//            @Override
+//            public void onPreStart() {
+//                super.onPreStart();
+//
+//                LogUtil.log("onPreStart");
+//            }
+//
+//            @Override
+//            public void onSuccess(byte[] t) {
+//                if (callback != null)
+//                    callback.onSucess(storedPath);
+//                LogUtil.log("onSuccess");
+//            }
+//
+//            @Override
+//            public void onLoading(long count, long current) {
+//
+//
+//                if (callback != null)
+//                    callback.onProgress((int) (current / count));
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                super.onFinish();
+//                LogUtil.log("onFinish");
+//            }
+//
+//            @Override
+//            public void onFailure(int errorNo, String strMsg) {
+//                LogUtil.log("onFailure--->" + strMsg);
+//
+//                if (callback != null)
+//                    callback.onFailure(new AppException(errorNo, strMsg));
+//            }
+//        });
+
+
+    }
+
+
+    //    @Override
 //    public void loginWithUserNameAndPassword(String userName, String passwor, HttpCallback<User> callback) {
 //
 //

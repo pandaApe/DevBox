@@ -58,7 +58,7 @@ public class LibListAdapter extends RecyclerView.Adapter<LibListAdapter.CodeLibV
     public void onBindViewHolder(LibListAdapter.CodeLibViewHolder holder, int position) {
         Library codeLib = codeLibs.get(position);
         holder.tvLibName.setText(codeLib.getName());
-        ImageLoader.getInstance().displayImage(codeLib.getImageUrl(), holder.ivLibPreFace, this.options);
+        ImageLoader.getInstance().displayImage(codeLib.getImage().getUrl(), holder.ivLibPreFace, this.options);
     }
 
     @Override
