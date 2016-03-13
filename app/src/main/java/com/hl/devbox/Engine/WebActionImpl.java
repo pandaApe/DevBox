@@ -295,7 +295,7 @@ public class WebActionImpl extends AppAction {
 
 
         OkHttpUtils.get().url(lib.getApk().getUrl()).build()
-                .execute(new FileCallBack(Config.AppFolder, apkName) {
+                .execute(new FileCallBack(Config.AppFolder, apkName){
 
                     @Override
                     public void inProgress(float progress, long total) {
@@ -319,47 +319,6 @@ public class WebActionImpl extends AppAction {
                             callback.onSucess(file.getAbsolutePath());
                     }
                 });
-
-
-//        kjHttp.download(storedPath,"http://music.baidu.com/cms/mobile/static/apk/Baidumusic_yinyuehexzfc.apk", new HttpCallBack() {
-//
-//            @Override
-//            public void onPreStart() {
-//                super.onPreStart();
-//
-//                LogUtil.log("onPreStart");
-//            }
-//
-//            @Override
-//            public void onSuccess(byte[] t) {
-//                if (callback != null)
-//                    callback.onSucess(storedPath);
-//                LogUtil.log("onSuccess");
-//            }
-//
-//            @Override
-//            public void onLoading(long count, long current) {
-//
-//
-//                if (callback != null)
-//                    callback.onProgress((int) (current / count));
-//            }
-//
-//            @Override
-//            public void onFinish() {
-//                super.onFinish();
-//                LogUtil.log("onFinish");
-//            }
-//
-//            @Override
-//            public void onFailure(int errorNo, String strMsg) {
-//                LogUtil.log("onFailure--->" + strMsg);
-//
-//                if (callback != null)
-//                    callback.onFailure(new AppException(errorNo, strMsg));
-//            }
-//        });
-
 
     }
 

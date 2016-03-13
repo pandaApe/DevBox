@@ -5,7 +5,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 
-import org.kymjs.kjframe.utils.FileUtils;
+import com.hl.devbox.utils.Config;
+import com.hl.devbox.utils.LogUtil;
 
 import java.io.File;
 
@@ -50,8 +51,10 @@ public class ApkItem {
     public ApkItem(Context context, Library lib) {
         this.context = context;
 
-        String apkName = lib.getName().replace(" ", "");
-        String path = FileUtils.getSDCardPath() + File.separator + "DevBox" + File.separator + apkName + ".apk";
+        String apkName = lib.getName().replace(" ", "") + ".apk";
+        String path = Config.AppFolder + apkName;
+
+        LogUtil.log("--:"+new File(path).exists());
         apkFilePath = path;
 
     }
