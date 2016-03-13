@@ -159,10 +159,10 @@ public class LibDetailActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.btn_download:
 
-//                if (apkItem.exists()) {
-//                    operator.openApk(apkItem);
-//                    return;
-//                }
+                if (apkItem.exists()) {
+                    operator.openApk(apkItem);
+                    return;
+                }
 
                 int hasWriteContactsPermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
                 if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {

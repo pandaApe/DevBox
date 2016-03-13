@@ -7,6 +7,9 @@ import android.graphics.drawable.Drawable;
 
 import com.hl.devbox.utils.Config;
 
+import com.hl.devbox.utils.LogUtil;
+
+
 import java.io.File;
 
 /**
@@ -50,14 +53,9 @@ public class ApkItem {
     public ApkItem(Context context, Library lib) {
         this.context = context;
 
-<<<<<<< abc71246b844cbab9263e9c5351c73bfe2cd5e7c
-        String apkName = lib.getLibName().replace(" ", "") + ".apk";
+        String apkName = lib.getName().replace(" ", "") + ".apk";
         String path = Config.AppFolder + apkName;
 
-=======
-        String apkName = lib.getName().replace(" ", "");
-        String path = FileUtils.getSDCardPath() + File.separator + "DevBox" + File.separator + apkName + ".apk";
->>>>>>> added a new branch
         apkFilePath = path;
 
     }

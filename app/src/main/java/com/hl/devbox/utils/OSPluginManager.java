@@ -59,6 +59,8 @@ public class OSPluginManager {
     // 打开Apk
     public void openApk(final ApkItem item) {
         PackageManager pm = mActivity.getPackageManager();
+
+        String pn = item.getPackageInfo().packageName;
         Intent intent = pm.getLaunchIntentForPackage(item.getPackageInfo().packageName);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         item.context.startActivity(intent);
