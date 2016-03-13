@@ -16,4 +16,6 @@ public abstract class HttpCallback<T> {
     public void onSucess() {
     }
 
+    public void onProgress(int percentage){}
+
 }

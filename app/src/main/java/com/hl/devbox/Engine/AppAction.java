@@ -28,7 +28,7 @@ public abstract class AppAction {
     public void getLibImage(Library lib, HttpCallback<Bitmap> callback) {
     }
 
-    public void getApkFile(Library lib, HttpCallback<byte[]> callback) {
+    public void downloadApkFile(Library lib, HttpCallback<String> callback) {
     }
 
     public void getTypeList(HttpCallback<List<Type>> callback) {

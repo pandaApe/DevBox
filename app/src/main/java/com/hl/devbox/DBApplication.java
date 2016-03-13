@@ -13,6 +13,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
+import java.io.File;
+
 import cn.sharesdk.framework.ShareSDK;
 
 /**
@@ -33,14 +35,15 @@ public class DBApplication extends Application {
         setupImageLoader(getBaseContext());
 
         setupBugTags();
+        File f = new File(Config.AppFolder);
 
+        LogUtil.log(f.mkdirs() + "---->" + f.isFile() + "++++" + f.exists());
     }
 
     private void setupDroidPlugin() {
         //这里必须在super.onCreate方法之后，顺序不能变
         PluginHelper.getInstance().applicationOnCreate(getBaseContext());
     }
-
 
     private void setupBugTags() {
         BugtagsOptions options = new BugtagsOptions.Builder().

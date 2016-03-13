@@ -18,8 +18,8 @@ public class Library implements Serializable {
     private int collectionCount;
     private int downloadCount;
     private int viewCount;
-    private String apkUrl;
-    private String imageUrl;
+    private DevFile apk;
+    private DevFile image;
 
     public Library() {
         this.collectionCount = 0;
@@ -115,19 +115,19 @@ public class Library implements Serializable {
         this.viewCount = viewCount;
     }
 
-    public String getApkUrl() {
-        return apkUrl;
+    public DevFile getApk() {
+        return apk;
     }
 
-    public void setApkUrl(String apkUrl) {
-        this.apkUrl = apkUrl;
+    public void setApk(DevFile apk) {
+        this.apk = apk;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public DevFile getImage() {
+        return image;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage(DevFile image) {
+        this.image = image;
     }
 }
