@@ -1,9 +1,11 @@
 package com.hl.devbox.Entity;
 
+import java.io.Serializable;
+
 /**
  * Created by whailong on 14/1/16.
  */
-public class Library {
+public class Library implements Serializable {
 
     private int id;
     private String name;

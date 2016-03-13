@@ -35,16 +35,12 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         initView();
-
-
-        new WebActionImpl(this).getLibList(null,1,null);
     }
 
     private void initView() {
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(TypeListFrament.newInstance(0));
         fragments.add(LibListFragment.newInstance(1));
-        fragments.add(LibListFragment.newInstance(2));
         fragments.add(AccountFragment.newInstance(3));
 
         String[] titles = getResources().getStringArray(R.array.tabTitles);
@@ -52,13 +48,12 @@ public class MainActivity extends BaseActivity {
 
         adapter = new TabViewPageAdapter(getSupportFragmentManager(), fragments);
         adapter.titles = tabTitles;
-
         viewPager.setAdapter(adapter);
 
         viewpagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
         viewpagerTab.setViewPager(viewPager);
         viewPager.setCurrentItem(1);
-        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOffscreenPageLimit(3);
     }
 
 }
