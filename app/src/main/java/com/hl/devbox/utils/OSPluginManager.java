@@ -1,12 +1,17 @@
 package com.hl.devbox.utils;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.RemoteException;
 
 import com.hl.devbox.Entity.ApkItem;
+
+import java.util.List;
 
 public class OSPluginManager {
 
@@ -58,11 +63,51 @@ public class OSPluginManager {
 
     // 打开Apk
     public void openApk(final ApkItem item) {
+
+
         PackageManager pm = mActivity.getPackageManager();
+
 
         String pn = item.getPackageInfo().packageName;
         Intent intent = pm.getLaunchIntentForPackage(item.getPackageInfo().packageName);
+
+        //如果返回的intent为空
+        if(intent==null){
+//findActivitiesForPackage是备选方案,当getLaunchIntentForPackage没有正确得到intent时
+            ResolveInfo r = findActivitiesForPackage(pm,item.getPackageInfo().packageName);
+            if(r!=null){
+                intent = new Intent();
+                intent.setComponent(new ComponentName(item.getPackageInfo().packageName,r.activityInfo.name));
+            }
+        }
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         item.context.startActivity(intent);
+    }
+
+    private static ResolveInfo findActivitiesForPackage(PackageManager packageManager,
+                                                        String packageName) {
+        final Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+        boolean isfinded = false;
+        //通过CATEGORY_DEFAULT参数查找应用程序默认的Activity
+        //为什么不是CATEGORY_MAIN参数，原因上面已经说了
+        mainIntent.addCategory(Intent.CATEGORY_DEFAULT);
+        final List<ResolveInfo> apps = packageManager.queryIntentActivities(mainIntent, 0);
+        ResolveInfo info = null;
+        if (apps != null) {
+            // Find all activities that match the packageName
+            int count = apps.size();
+            for (int i = 0; i < count; i++) {
+                info = apps.get(i);
+                final ActivityInfo activityInfo = info.activityInfo;
+                if (packageName.equals(activityInfo.packageName)) {
+                    isfinded = true;
+                    break;//只要一个
+                }
+            }
+        }
+        if(!isfinded){
+            return null;
+        }
+        return info;
     }
 }
