@@ -163,7 +163,6 @@ public class WebActionImpl extends AppAction {
 
                 LogUtil.log("onSuccess--->" + t);
 
-
                 String json = "";
                 try {
                     json = new JSONObject(t).getString("results");
@@ -290,12 +289,9 @@ public class WebActionImpl extends AppAction {
             return;
         }
 
-
         final String apkName = lib.getName().replace(" ", "") + ".apk";
-
-
-        OkHttpUtils.get().url(lib.getApk().getUrl()).build()
-                .execute(new FileCallBack(Config.AppFolder, apkName){
+        OkHttpUtils.get().url(lib.getApk().getUrl()).addHeader("X-LC-Sign", generateLCSign()).addHeader("X-LC-Id", Config.APPId).build()
+                .execute(new FileCallBack(Config.AppFolder, apkName) {
 
                     @Override
                     public void inProgress(float progress, long total) {

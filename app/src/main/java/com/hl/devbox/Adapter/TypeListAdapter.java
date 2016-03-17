@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.hl.devbox.Entity.Library;
+import com.hl.devbox.Entity.Type;
 import com.hl.devbox.R;
 
 import java.util.ArrayList;
@@ -18,9 +18,9 @@ import java.util.ArrayList;
 public class TypeListAdapter extends RecyclerView.Adapter<TypeListAdapter.NormalTextViewHolder> {
     private LayoutInflater mLayoutInflater;
     private Context mContext;
-    private ArrayList<Library> CodeTypes;
+    private ArrayList<Type> CodeTypes;
 
-    public TypeListAdapter(Context context, ArrayList<Library> CodeTypes) {
+    public TypeListAdapter(Context context, ArrayList<Type> CodeTypes) {
         this.CodeTypes = CodeTypes;
         this.mContext = context;
         this.mLayoutInflater = LayoutInflater.from(context);
@@ -33,8 +33,8 @@ public class TypeListAdapter extends RecyclerView.Adapter<TypeListAdapter.Normal
 
     @Override
     public void onBindViewHolder(NormalTextViewHolder holder, int position) {
-//        String str = CodeTypes.get(position).getFullTitle();
-//        holder.tvType.setText(str);
+        String str = CodeTypes.get(position).getEnDescription();
+        holder.tvType.setText(str);
     }
 
     @Override
