@@ -10,7 +10,7 @@ import com.avos.avoscloud.GetCallback;
 import com.hl.devbox.Entity.CodeLib;
 import com.hl.devbox.Entity.CodeType;
 import com.hl.devbox.Entity.User;
-import com.hl.devbox.utils.DBConfig;
+import com.hl.devbox.utils.Config;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -142,7 +142,7 @@ public class WebActionImpl extends AppAction {
         final String author = infoArray[infoArray.length - 2];
         final String reposName = infoArray[infoArray.length - 1];
 
-        String reposInfoUrl = DBConfig.ReposInfoUrl.replace("AUTHOR", author).replace("NAME", reposName);
+        String reposInfoUrl = Config.ReposInfoUrl.replace("AUTHOR", author).replace("NAME", reposName);
 
         new KJHttp().get(reposInfoUrl, new HttpCallBack() {
 
@@ -156,7 +156,7 @@ public class WebActionImpl extends AppAction {
                         if (jsonObject.getString("name").equals("master")) {
                             JSONObject insideJsonObj = jsonObject.getJSONObject("commit");
                             String shaValue = insideJsonObj.getString("sha");
-                            String requestURL = DBConfig.LastCommitInfoUrl.replace("AUTHOR", author).replace("NAME", reposName).replace("SHAVALUE", shaValue);
+                            String requestURL = Config.LastCommitInfoUrl.replace("AUTHOR", author).replace("NAME", reposName).replace("SHAVALUE", shaValue);
                             new KJHttp().get(requestURL, new HttpCallBack() {
 
                                 @Override

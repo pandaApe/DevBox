@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: /Users/whailong/Desktop/DevBox/DroidPlugin/src/com/morgoo/droidplugin/pm/IApplicationCallback.aidl
+ * Original file: /Users/whailong/Documents/Android-Workplace/DevBox/DroidPlugin/src/com/morgoo/droidplugin/pm/IApplicationCallback.aidl
  */
 package com.morgoo.droidplugin.pm;
 /**
