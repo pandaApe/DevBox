@@ -1,5 +1,7 @@
 package com.hl.devbox.Entity;
 
+import com.google.gson.annotations.Until;
+
 import org.kymjs.kjframe.database.annotate.Id;
 
 import java.io.Serializable;
@@ -22,14 +24,15 @@ public class Library implements Serializable {
     private DevFile apk;
     private DevFile image;
 
-    private transient User owner;
+    @Until(0.1)
+    private boolean isCollected;
 
-    public User getOwner() {
-        return owner;
+    public boolean isCollected() {
+        return isCollected;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setIsCollected(boolean isCollected) {
+        this.isCollected = isCollected;
     }
 
     public Library() {

@@ -31,6 +31,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -226,19 +227,38 @@ public class LibDetailActivity extends BaseActivity {
                 break;
             case R.id.action_collect:
 
+                KJDB kjdb = KJDB.create(this);
+                List<Library> list = kjdb.findAllByWhere(Library.class, "isCollected=true AND name ='" + this.codeLib.getName() + "'");
 
-                break;
+                if (list == null || list.size() == 0) {
+                    this.codeLib.setIsCollected(true);
+                    kjdb.save(this.codeLib);
+                } else {
+                    this.codeLib.setIsCollected(false);
+                    kjdb.update(this.codeLib);
+                }
 
         }
+
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.menu_detail_aty, menu);
-//        int resourceId = localLibCode == null ? R.drawable.ic_heart_outline : R.drawable.ic_heart;
-//        menu.findItem(R.id.action_collect).setIcon(resourceId);
+
+        KJDB kjdb = KJDB.create(this);
+        List<Library> list = kjdb.findAllByWhere(Library.class, "name ='" + this.codeLib.getName() + "'");
+
+        int resourceId;
+        if (list == null || list.size() == 0 || !list.get(0).isCollected()) {
+            resourceId = R.drawable.ic_heart_outline;
+
+        } else {
+            resourceId = R.drawable.ic_heart;
+        }
+
+        menu.findItem(R.id.action_collect).setIcon(resourceId);
         return true;
     }
 
