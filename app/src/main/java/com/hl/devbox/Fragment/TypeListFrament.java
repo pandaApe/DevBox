@@ -1,5 +1,6 @@
 package com.hl.devbox.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -11,13 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hl.devbox.Activity.SpecificTypeActivity;
 import com.hl.devbox.Adapter.TypeListAdapter;
 import com.hl.devbox.Engine.AppException;
 import com.hl.devbox.Engine.HttpCallback;
 import com.hl.devbox.Engine.WebActionImpl;
 import com.hl.devbox.Entity.Type;
 import com.hl.devbox.R;
-import com.hl.devbox.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,8 +94,9 @@ public class TypeListFrament extends Fragment {
             @Override
             public void onClick(View v, int index) {
 
-                LogUtil.log("Type->"+index);
-
+                Intent intent = new Intent(getActivity(), SpecificTypeActivity.class);
+//                intent.putExtra(LibDetailActivity.SELECTEDITEM, codeLibs.get(position));
+                getActivity().startActivity(intent);
             }
         });
 

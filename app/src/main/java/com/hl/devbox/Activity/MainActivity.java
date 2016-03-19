@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
 import com.hl.devbox.Adapter.TabViewPageAdapter;
-import com.hl.devbox.Engine.WebActionImpl;
 import com.hl.devbox.Fragment.AccountFragment;
 import com.hl.devbox.Fragment.LibListFragment;
 import com.hl.devbox.Fragment.TypeListFrament;
@@ -29,15 +28,12 @@ public class MainActivity extends BaseActivity {
     private ArrayList<String> tabTitles = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initViews(Bundle savedInstanceState) {
+        super.initViews(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        initView();
-    }
-
-    private void initView() {
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(TypeListFrament.newInstance(0));
         fragments.add(LibListFragment.newInstance(1));
