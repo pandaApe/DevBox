@@ -1,7 +1,6 @@
 package com.hl.devbox.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.hl.devbox.Activity.LibDetailActivity;
 import com.hl.devbox.Entity.Library;
 import com.hl.devbox.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -25,6 +23,7 @@ public class LibListAdapter extends RecyclerView.Adapter<LibListAdapter.CodeLibV
     private Context context;
     private ArrayList<Library> codeLibs;
     private LayoutInflater layoutInflater;
+
 
     public LibListAdapter(Context context, ArrayList<Library> codeLibs) {
         this.context = context;
@@ -46,9 +45,9 @@ public class LibListAdapter extends RecyclerView.Adapter<LibListAdapter.CodeLibV
         viewHolder.setOnClickListenner(new CodeLibViewHolder.ItemOnClickListenner() {
             @Override
             public void onClick(View v, int position) {
-                Intent intent = new Intent(context, LibDetailActivity.class);
-                intent.putExtra(LibDetailActivity.SELECTEDITEM, codeLibs.get(position));
-                context.startActivity(intent);
+                if (itemOnClickListenner != null)
+                    itemOnClickListenner.onClick(v, position);
+
             }
         });
         return viewHolder;
@@ -91,7 +90,17 @@ public class LibListAdapter extends RecyclerView.Adapter<LibListAdapter.CodeLibV
         }
 
         public interface ItemOnClickListenner {
-            void onClick(View v, int position);
+            void onClick(View v, int index);
         }
+    }
+
+    private AdapterItemOnClickListenner itemOnClickListenner;
+
+    public void setItemOnClickListenner(AdapterItemOnClickListenner itemOnClickListenner) {
+        this.itemOnClickListenner = itemOnClickListenner;
+    }
+
+    public interface AdapterItemOnClickListenner {
+        void onClick(View v, int index);
     }
 }

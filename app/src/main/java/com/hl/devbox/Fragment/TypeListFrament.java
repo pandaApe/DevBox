@@ -17,6 +17,7 @@ import com.hl.devbox.Engine.HttpCallback;
 import com.hl.devbox.Engine.WebActionImpl;
 import com.hl.devbox.Entity.Type;
 import com.hl.devbox.R;
+import com.hl.devbox.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,6 @@ public class TypeListFrament extends Fragment {
                 codeTypes.addAll(list);
                 adapter.notifyDataSetChanged();
 
-
                 progressBarContainer.hide();
             }
 
@@ -88,8 +88,20 @@ public class TypeListFrament extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclyView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new TypeListAdapter(getActivity(), codeTypes);
+
+        adapter.setItemOnClickListenner(new TypeListAdapter.AdapterItemOnClickListenner() {
+            @Override
+            public void onClick(View v, int index) {
+
+                LogUtil.log("Type->"+index);
+
+            }
+        });
+
+
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));//这里用线性显示 类似于list view
         recyclerView.setAdapter(adapter);
+
 
         progressBarContainer = (ContentLoadingProgressBar) view.findViewById(R.id.clprogressBar);
         progressBarContainer.show();
