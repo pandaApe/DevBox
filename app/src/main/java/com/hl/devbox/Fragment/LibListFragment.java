@@ -1,5 +1,6 @@
 package com.hl.devbox.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hl.devbox.Activity.LibDetailActivity;
 import com.hl.devbox.Adapter.LibListAdapter;
 import com.hl.devbox.Engine.AppException;
 import com.hl.devbox.Engine.HttpCallback;
@@ -59,6 +61,15 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new LibListAdapter(getActivity(), codeLibs);
+        adapter.setItemOnClickListenner(new LibListAdapter.AdapterItemOnClickListenner() {
+            @Override
+            public void onClick(View v, int index) {
+                Intent intent = new Intent(getActivity(), LibDetailActivity.class);
+                intent.putExtra(LibDetailActivity.SELECTEDITEM, codeLibs.get(index));
+                getActivity().startActivity(intent);
+            }
+        });
+
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setOnRefreshListener(this);

@@ -28,7 +28,17 @@ public class TypeListAdapter extends RecyclerView.Adapter<TypeListAdapter.Normal
 
     @Override
     public NormalTextViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new NormalTextViewHolder(mLayoutInflater.inflate(R.layout.item_type, parent, false));
+
+        NormalTextViewHolder viewHolder = new NormalTextViewHolder(mLayoutInflater.inflate(R.layout.item_type, parent, false));
+
+        viewHolder.setOnClickListenner(new NormalTextViewHolder.ItemOnClickListenner() {
+            @Override
+            public void onClick(View v, int index) {
+                itemOnClickListenner.onClick(v, index);
+            }
+        });
+
+        return viewHolder;
     }
 
     @Override
@@ -42,13 +52,39 @@ public class TypeListAdapter extends RecyclerView.Adapter<TypeListAdapter.Normal
         return CodeTypes.size();
     }
 
-    public static class NormalTextViewHolder extends RecyclerView.ViewHolder {
+    public static class NormalTextViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvType;
+        private ItemOnClickListenner onClickListenner;
+
+        public interface ItemOnClickListenner {
+            void onClick(View v, int index);
+        }
+
+        public void setOnClickListenner(ItemOnClickListenner onClickListenner) {
+            this.onClickListenner = onClickListenner;
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (onClickListenner != null)
+                onClickListenner.onClick(v, getAdapterPosition());
+        }
 
         public NormalTextViewHolder(View itemView) {
             super(itemView);
             tvType = (TextView) itemView.findViewById(R.id.tv_type);
-
+            tvType.setOnClickListener(this);
         }
     }
+
+    private AdapterItemOnClickListenner itemOnClickListenner;
+
+    public void setItemOnClickListenner(AdapterItemOnClickListenner itemOnClickListenner) {
+        this.itemOnClickListenner = itemOnClickListenner;
+    }
+
+    public interface AdapterItemOnClickListenner {
+        void onClick(View v, int index);
+    }
+
 }
