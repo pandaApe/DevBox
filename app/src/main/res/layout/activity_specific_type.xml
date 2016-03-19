@@ -14,10 +14,10 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <fragment
-        android:id="@+id/main_layout"
-        android:name="com.hl.devbox.Fragment.LibListFragment"
+    <LinearLayout
+        android:id="@+id/type_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"></LinearLayout>
 
 </LinearLayout>

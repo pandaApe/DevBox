@@ -14,14 +14,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hl.devbox.Activity.LibDetailActivity;
+import com.hl.devbox.Activity.SpecificTypeActivity;
 import com.hl.devbox.Adapter.LibListAdapter;
 import com.hl.devbox.Engine.AppException;
 import com.hl.devbox.Engine.HttpCallback;
 import com.hl.devbox.Engine.WebActionImpl;
 import com.hl.devbox.Entity.Library;
+import com.hl.devbox.Entity.Type;
 import com.hl.devbox.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -42,6 +45,8 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
     private ArrayList<Library> codeLibs = new ArrayList<>();
 
     private LibListAdapter adapter;
+    private Type currentType;
+    private HashMap<String, String> parmMap;
 
     public static LibListFragment newInstance(int num) {
         LibListFragment f = new LibListFragment();
@@ -52,6 +57,12 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_lib, container, false);
         ButterKnife.bind(this, view);
+        Bundle bundle = this.getArguments();
+        parmMap = new HashMap<>();
+        if (bundle != null) {
+            currentType = (Type) bundle.getSerializable(SpecificTypeActivity.SELECTEDITEM);
+            parmMap.put("objId", currentType.getObjectId());
+        }
         return view;
     }
 
@@ -78,7 +89,7 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
     }
 
     private void requestServerData() {
-        new WebActionImpl(getActivity()).getLibList("", 1, new HttpCallback<List<Library>>() {
+        new WebActionImpl(getActivity()).getLibList(parmMap, 1, new HttpCallback<List<Library>>() {
 
             @Override
             public void onSucess(List<Library> list) {

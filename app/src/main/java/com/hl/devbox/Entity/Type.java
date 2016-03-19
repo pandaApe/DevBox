@@ -2,13 +2,24 @@ package com.hl.devbox.Entity;
 
 import org.kymjs.kjframe.database.annotate.Id;
 
+import java.io.Serializable;
+
 /**
  * Created by whailong on 20/1/16.
  */
 
-public class Type {
+public class Type implements Serializable {
 
     private int numCount;
+    private String objectId;
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
 
     @Id
     private String enDescription;

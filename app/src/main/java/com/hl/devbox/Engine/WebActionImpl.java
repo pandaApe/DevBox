@@ -24,6 +24,7 @@ import org.kymjs.kjframe.utils.SystemTool;
 import java.io.File;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.Call;
@@ -54,7 +55,7 @@ public class WebActionImpl extends AppAction {
     }
 
 
-    public void getLibList(String typeStr, final int currentPage, final HttpCallback<List<Library>> callback) {
+    public void getLibList(HashMap<String, String> paramMap, final int currentPage, final HttpCallback<List<Library>> callback) {
 
         if (!checkNet()) {
             if (callback != null)
@@ -68,75 +69,59 @@ public class WebActionImpl extends AppAction {
             return;
         }
 
-        if (TextUtils.isEmpty(typeStr)) {
 
-            KJHttp kjHttp = new KJHttp();
-            HttpParams params = new HttpParams();
+        KJHttp kjHttp = new KJHttp();
+        HttpParams params = new HttpParams();
 
-            params.putHeaders("X-LC-Sign", generateLCSign());
-            params.putHeaders("X-LC-Id", Config.APPId);
-            params.putHeaders("Content-Type", "application/json");
+        params.putHeaders("X-LC-Sign", generateLCSign());
+        params.putHeaders("X-LC-Id", Config.APPId);
+        params.putHeaders("Content-Type", "application/json");
+
+        //If there is no keyword, it means that must is getting libraries by Type.
+        if (!TextUtils.isEmpty(paramMap.get("objId"))) {
+            params.put("where", "{\"$relatedTo\":{\"object\":{\"__type\":\"Pointer\",\"className\":\"Type\",\"objectId\":\"" + paramMap.get("objId") + "\"},\"key\":\"libraries\"}}");
             params.put("order", "createdAt");
             params.put("limit", "6");
             params.put("skip", "" + 6 * (currentPage - 1));
 
-            kjHttp.get(Config.GetLibrariesURL, params, true, new HttpCallBack() {
-                @Override
-                public void onFailure(int errorNo, String strMsg) {
-                    super.onFailure(errorNo, strMsg);
-                }
-
-                @Override
-                public void onSuccess(String t) {
-
-                    LogUtil.log("onSuccess--->" + t);
-
-                    String json = "";
-                    try {
-                        json = new JSONObject(t).getString("results");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                    Gson gson = new Gson();
-                    List list = gson.fromJson(json, new TypeToken<List<Library>>() {
-                    }.getType());
-
-                    if (callback != null && list != null)
-                        callback.onSucess(list);
-                }
-            });
+        } else if (!TextUtils.isEmpty(paramMap.get("keyword"))) {
+            params.put("cql", "select * from Library where name like ? order by createdAt");
+            params.put("pvalues", "[\"%" + paramMap.get("keyword") + "%\"]");
 
         } else {
-//
-//            AVQuery<CodeType> query = AVQuery.getQuery(CodeType.class);
-//            query.whereEqualTo("typeENDescription", typeStr);
-//            query.getFirstInBackground(new GetCallback<CodeType>() {
-//                @Override
-//                public void done(CodeType codeType, AVException e) {
-//
-//                    AVQuery<CodeLib> libQuery = codeType.getCodeLibsRelation().getQuery();
-//
-//                    libQuery.addDescendingOrder("createdAt");
-//                    libQuery.limit(10);
-//                    libQuery.setSkip((currentPage - 1) * 10);
-//
-//                    libQuery.findInBackground(new FindCallback<CodeLib>() {
-//                        @Override
-//                        public void done(List<CodeLib> list, AVException e) {
-//                            if (callback != null) {
-//                                if (e == null)
-//                                    callback.onSucess(new ArrayList<>(list), null);
-//                                else
-//                                    callback.onSucess(null, new AppException(e.getCode(), e.getMessage()));
-//                            }
-//                        }
-//                    });
-//
-//
-//                }
-//            });
+            params.put("order", "createdAt");
+            params.put("limit", "6");
+            params.put("skip", "" + 6 * (currentPage - 1));
         }
+
+        kjHttp.get(Config.GetLibrariesURL, params, true, new HttpCallBack() {
+            @Override
+            public void onFailure(int errorNo, String strMsg) {
+                super.onFailure(errorNo, strMsg);
+            }
+
+            @Override
+            public void onSuccess(String t) {
+
+                LogUtil.log("onSuccess--->" + t);
+
+                String json = "";
+                try {
+                    json = new JSONObject(t).getString("results");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Gson gson = new Gson();
+                List list = gson.fromJson(json, new TypeToken<List<Library>>() {
+                }.getType());
+
+                if (callback != null && list != null)
+                    callback.onSucess(list);
+            }
+        });
+
+
     }
 
     public void getTypeList(final HttpCallback<List<Type>> callback) {

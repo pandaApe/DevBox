@@ -6,6 +6,7 @@ import com.hl.devbox.Entity.Library;
 import com.hl.devbox.Entity.Type;
 import com.hl.devbox.Entity.User;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ import java.util.List;
 public abstract class AppAction {
 
     // Web
-    public void getLibraryList(String typeStr, int currentPage, HttpCallback<List<Library>> callback) {
+    public void getLibraryList(HashMap<String,String> parms, int currentPage, HttpCallback<List<Library>> callback) {
     }
 
     public void increaseViewCount(HttpCallback callback) {
