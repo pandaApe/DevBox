@@ -33,6 +33,7 @@ public class TypeListFrament extends Fragment {
     private RecyclerView recyclerView;
     private TypeListAdapter adapter;
     private ContentLoadingProgressBar progressBarContainer;
+    private Type currentType;
 
     public static TypeListFrament newInstance(int num) {
         TypeListFrament f = new TypeListFrament();
@@ -95,7 +96,7 @@ public class TypeListFrament extends Fragment {
             public void onClick(View v, int index) {
 
                 Intent intent = new Intent(getActivity(), SpecificTypeActivity.class);
-//                intent.putExtra(LibDetailActivity.SELECTEDITEM, codeLibs.get(position));
+                intent.putExtra(SpecificTypeActivity.SELECTEDITEM, codeTypes.get(index));
                 getActivity().startActivity(intent);
             }
         });

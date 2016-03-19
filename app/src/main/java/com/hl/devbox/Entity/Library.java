@@ -27,6 +27,16 @@ public class Library implements Serializable {
         this.viewCount = 0;
     }
 
+    private String objectId;
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
+
     public int getId() {
         return id;
     }
