@@ -36,7 +36,7 @@ public class IActivityManagerCompat {
         return sClass;
     }
 
-    public static boolean isIActivityManager(Object obj) {
+    public static boolean isIActivityManager(Object obj){
         if (obj == null) {
             return false;
         } else {

@@ -64,7 +64,8 @@ public class OSPluginManager {
     // 打开Apk
     public void openApk(final ApkItem item) {
 
-
+        if (!isApkInstall(item))
+            LogUtil.log(installApk(item));
         PackageManager pm = mActivity.getPackageManager();
 
 
@@ -72,12 +73,12 @@ public class OSPluginManager {
         Intent intent = pm.getLaunchIntentForPackage(item.getPackageInfo().packageName);
 
         //如果返回的intent为空
-        if(intent==null){
+        if (intent == null) {
 //findActivitiesForPackage是备选方案,当getLaunchIntentForPackage没有正确得到intent时
-            ResolveInfo r = findActivitiesForPackage(pm,item.getPackageInfo().packageName);
-            if(r!=null){
+            ResolveInfo r = findActivitiesForPackage(pm, item.getPackageInfo().packageName);
+            if (r != null) {
                 intent = new Intent();
-                intent.setComponent(new ComponentName(item.getPackageInfo().packageName,r.activityInfo.name));
+                intent.setComponent(new ComponentName(item.getPackageInfo().packageName, r.activityInfo.name));
             }
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -105,7 +106,7 @@ public class OSPluginManager {
                 }
             }
         }
-        if(!isfinded){
+        if (!isfinded) {
             return null;
         }
         return info;

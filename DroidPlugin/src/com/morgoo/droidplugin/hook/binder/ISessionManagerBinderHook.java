@@ -40,7 +40,7 @@ public class ISessionManagerBinderHook extends BinderHook {
     }
 
     @Override
-    public Object getOldObj() throws Exception {
+    public Object getOldObj()  throws Exception{
         IBinder iBinder = MyServiceManager.getOriginService(SERVICE_NAME);
         return ISessionManagerCompat.asInterface(iBinder);
     }

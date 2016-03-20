@@ -41,7 +41,7 @@ public class IClipboardBinderHook extends BinderHook {
     }
 
     @Override
-    public Object getOldObj() throws Exception {
+    public Object getOldObj() throws Exception{
         IBinder iBinder = MyServiceManager.getOriginService(CLIPBOARD_SERVICE);
         return IClipboardCompat.asInterface(iBinder);
     }

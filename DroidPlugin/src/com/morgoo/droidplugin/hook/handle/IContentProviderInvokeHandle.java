@@ -26,13 +26,10 @@ import android.content.Context;
 import android.content.pm.ProviderInfo;
 import android.net.Uri;
 import android.net.Uri.Builder;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.text.TextUtils;
 
 import com.morgoo.droidplugin.core.Env;
 import com.morgoo.droidplugin.hook.BaseHookHandle;
-import com.morgoo.droidplugin.hook.HookedMethodHandler;
 
 import java.lang.reflect.Method;
 
@@ -71,7 +68,7 @@ public class IContentProviderInvokeHandle extends BaseHookHandle {
         sHookedMethodHandlers.put("openTypedAssetFile", new openTypedAssetFile(mHostContext));
     }
 
-    private class MyHandler extends HookedMethodHandler {
+    private class MyHandler extends ReplaceCallingPackageHookedMethodHandler {
 
         public MyHandler(Context hostContext) {
             super(hostContext);
@@ -90,15 +87,15 @@ public class IContentProviderInvokeHandle extends BaseHookHandle {
 
         @Override
         protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
-            if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) {
-                final int index = 0;
-                if (args != null && args.length > index && args[index] instanceof String) {
-                    String pkg = (String) args[index];
-                    if (!TextUtils.equals(pkg, mHostContext.getPackageName())) {
-                        args[index] = mHostContext.getPackageName();
-                    }
-                }
-            }
+//            if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) {
+//                final int index = 0;
+//                if (args != null && args.length > index && args[index] instanceof String) {
+//                    String pkg = (String) args[index];
+//                    if (!TextUtils.equals(pkg, mHostContext.getPackageName())) {
+//                        args[index] = mHostContext.getPackageName();
+//                    }
+//                }
+//            }
             if (!mLocalProvider && mStubProvider != null) {
                 final int index = indexFirstUri(args);
                 if (index >= 0) {

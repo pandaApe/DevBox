@@ -44,7 +44,7 @@ public class MyServiceManager {
         mOriginServiceCache.put(serviceName, service);
     }
 
-    static void addProxiedServiceCache(String serviceName, IBinder proxyService) {
+    static  void addProxiedServiceCache(String serviceName, IBinder proxyService) {
         mProxiedServiceCache.put(serviceName, proxyService);
     }
 

@@ -42,7 +42,7 @@ public class IClipboardCompat {
         return sClass;
     }
 
-    public static Object asInterface(IBinder binder) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public static Object asInterface( IBinder binder) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Class clazz = Class.forName("android.content.IClipboard$Stub");
         return MethodUtils.invokeStaticMethod(clazz, "asInterface", binder);
     }

@@ -94,8 +94,8 @@ public class MyActivityManagerService extends BaseActivityManagerService {
         boolean b = super.registerApplicationCallback(callingPid, callingUid, callback);
         mRunningProcessList.addItem(callingPid, callingUid);
         if (callingPid == android.os.Process.myPid()) {
-            String stubProcessName = mHostContext.getPackageName();
-            String targetProcessName = mHostContext.getPackageName();
+            String stubProcessName = Utils.getProcessName(mHostContext, callingPid);
+            String targetProcessName = Utils.getProcessName(mHostContext, callingPid);
             String targetPkg = mHostContext.getPackageName();
             mRunningProcessList.setProcessName(callingPid, stubProcessName, targetProcessName, targetPkg);
         }
@@ -306,7 +306,7 @@ public class MyActivityManagerService extends BaseActivityManagerService {
                 Window_windowShowWallpaper = ent.array.getBoolean(R_Styleable_Window_windowShowWallpaper, false);
             }
         } catch (Throwable e) {
-            e.printStackTrace();
+            Log.e(TAG, "error on read com.android.internal.R$styleable", e);
         }
 
         boolean useDialogStyle = Window_windowIsTranslucent || Window_windowIsFloating || Window_windowShowWallpaper;
@@ -450,7 +450,11 @@ public class MyActivityManagerService extends BaseActivityManagerService {
         if (activityCount <= 0 && serviceCount <= 0 && providerCount <= 0) {
             //杀死空进程。
             Log.i(TAG, "doGc kill process(pid=%s,uid=%s processName=%s)", myInfo.pid, myInfo.uid, myInfo.processName);
-            android.os.Process.killProcess(myInfo.pid);
+            try {
+                android.os.Process.killProcess(myInfo.pid);
+            } catch (Throwable e) {
+                Log.e(TAG, "error on killProcess", e);
+            }
         } else if (activityCount <= 0 && serviceCount > 0 /*&& !mRunningProcessList.isPersistentApplication(myInfo.pid)*/) {
             List<String> names = mRunningProcessList.getStubServiceByPid(myInfo.pid);
             if (names != null && names.size() > 0) {

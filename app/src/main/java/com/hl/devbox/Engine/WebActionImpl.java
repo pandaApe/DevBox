@@ -26,8 +26,10 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.Call;
+import okhttp3.RequestBody;
 
 /**
  * Description:
@@ -120,8 +122,6 @@ public class WebActionImpl extends AppAction {
                     callback.onSucess(list);
             }
         });
-
-
     }
 
     public void getTypeList(final HttpCallback<List<Type>> callback) {
@@ -130,6 +130,7 @@ public class WebActionImpl extends AppAction {
                 callback.onFailure(new AppException(AppException.NETWORK_ERROR, "网络未连接"));
             return;
         }
+
         KJHttp kjHttp = new KJHttp();
         HttpParams params = new HttpParams();
 
@@ -303,11 +304,43 @@ public class WebActionImpl extends AppAction {
 
     }
 
+    @Override
+    public void increaseViewCount(String objId, HttpCallback callback) {
 
-    //    @Override
-//    public void loginWithUserNameAndPassword(String userName, String passwor, HttpCallback<User> callback) {
-//
-//
-//    }
+        if (!checkNet()) {
+            if (callback != null) {
+                callback.onFailure(new AppException(AppException.NETWORK_ERROR, "网络未连接"));
+            }
+            return;
+        }
 
+        if (objId == null) {
+            if (callback != null) {
+                callback.onFailure(new AppException(AppException.PARAM_NULL, "参数为空"));
+            }
+            return;
+        }
+
+        HttpParams params = new HttpParams();
+        params.putHeaders("X-LC-Sign", generateLCSign());
+        params.putHeaders("X-LC-Id", Config.APPId);
+        params.putHeaders("Content-Type", "application/json");
+        params.putJsonParams("{\"viewCount\":{\"__op\":\"Increment\",\"amount\":1}}");
+
+        Map map = params.getHeaders();
+        String requestBody = params.getJsonParams();
+        RequestBody body = RequestBody.create(null,params.getJsonParams());
+//        OkHttpUtils.put().headers(params.getHeaders()).requestBody(body).url(Config.GetLibrariesURL + "/" + objId).build().execute(new StringCallback() {
+//            @Override
+//            public void onError(Call call, Exception e) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(String response) {
+//                LogUtil.log(response);
+//            }
+//        });
+
+    }
 }

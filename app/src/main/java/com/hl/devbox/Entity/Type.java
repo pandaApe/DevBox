@@ -1,5 +1,7 @@
 package com.hl.devbox.Entity;
 
+import android.support.annotation.NonNull;
+
 import org.kymjs.kjframe.database.annotate.Id;
 
 import java.io.Serializable;
@@ -11,8 +13,10 @@ import java.io.Serializable;
 public class Type implements Serializable {
 
     private int numCount;
+
     private String objectId;
 
+    @NonNull
     public String getObjectId() {
         return objectId;
     }

@@ -42,7 +42,7 @@ public class IGraphicsStatsCompat {
         return sClass;
     }
 
-    public static Object asInterface(IBinder binder) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public static Object asInterface( IBinder binder) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Class clazz = Class.forName("android.view.IGraphicsStats$Stub");
         return MethodUtils.invokeStaticMethod(clazz, "asInterface", binder);
     }

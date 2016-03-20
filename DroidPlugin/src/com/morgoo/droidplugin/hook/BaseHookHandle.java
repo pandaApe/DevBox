@@ -45,7 +45,7 @@ public abstract class BaseHookHandle {
 
     protected abstract void init();
 
-    public Set<String> getHookedMethodNames() {
+    public Set<String> getHookedMethodNames(){
         return sHookedMethodHandlers.keySet();
     }
 

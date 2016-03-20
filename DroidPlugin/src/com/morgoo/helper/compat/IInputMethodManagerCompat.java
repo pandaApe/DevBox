@@ -42,7 +42,7 @@ public class IInputMethodManagerCompat {
         return sClass;
     }
 
-    public static Object asInterface(IBinder binder) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public static Object asInterface( IBinder binder) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Class clazz = Class.forName("com.android.internal.view.IInputMethodManager$Stub");
         return MethodUtils.invokeStaticMethod(clazz, "asInterface", binder);
     }

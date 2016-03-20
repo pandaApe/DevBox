@@ -91,7 +91,7 @@ class ServiceStubMap {
     void addToMap(ServiceInfo stubInfo, ServiceInfo pluginInfo) {
         MyServiceInfo stub = new MyServiceInfo(stubInfo);
         MyServiceInfo plugin = new MyServiceInfo(pluginInfo);
-        List<MyServiceInfo> list = mServiceStubMap.get(stub);
+        List<MyServiceInfo> list =  mServiceStubMap.get(stub);
         if (list == null) {
             list = new ArrayList<MyServiceInfo>(1);
             mServiceStubMap.put(stub, list);

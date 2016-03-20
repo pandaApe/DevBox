@@ -143,7 +143,7 @@ public class PluginHelper implements ServiceConnection {
                 }
                 Log.e(TAG, "getMainLooper MessageQueue.IdleHandler:" + mMessages);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e(TAG, "fixMiUiLbeSecurity:error on remove lbe message", e);
             }
         }
     }
@@ -168,7 +168,7 @@ public class PluginHelper implements ServiceConnection {
                 findLbeMessageAndRemoveIt(next);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "findLbeMessageAndRemoveIt:error on remove lbe message", e);
         }
 
     }

@@ -33,14 +33,14 @@ import com.morgoo.helper.compat.IMediaRouterServiceCompat;
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/3/6.
  */
 public class IMediaRouterServiceBinderHook extends BinderHook {
-    private final static String SERVICE_NAME = Context.MEDIA_ROUTER_SERVICE;
+    private final static String SERVICE_NAME =Context.MEDIA_ROUTER_SERVICE;
 
     public IMediaRouterServiceBinderHook(Context hostContext) {
         super(hostContext);
     }
 
     @Override
-    public Object getOldObj() throws Exception {
+    public Object getOldObj() throws Exception{
         IBinder iBinder = MyServiceManager.getOriginService(SERVICE_NAME);
         return IMediaRouterServiceCompat.asInterface(iBinder);
     }

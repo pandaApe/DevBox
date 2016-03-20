@@ -45,7 +45,7 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
     private ArrayList<Library> codeLibs = new ArrayList<>();
 
     private LibListAdapter adapter;
-    private Type currentType;
+
     private HashMap<String, String> parmMap;
 
     public static LibListFragment newInstance(int num) {
@@ -60,19 +60,27 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
         Bundle bundle = this.getArguments();
         parmMap = new HashMap<>();
         if (bundle != null) {
-            currentType = (Type) bundle.getSerializable(SpecificTypeActivity.SELECTEDITEM);
-            parmMap.put("objId", currentType.getObjectId());
+            Type currentType = (Type) bundle.getSerializable(SpecificTypeActivity.SELECTEDITEM);
+
+            if (currentType != null)
+                parmMap.put("objId", currentType.getObjectId());
         }
+        
         return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initeView();
+        requestServerData();
+    }
 
+    private void initeView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new LibListAdapter(getActivity(), codeLibs);
         adapter.setItemOnClickListenner(new LibListAdapter.AdapterItemOnClickListenner() {
+
             @Override
             public void onClick(View v, int index) {
                 Intent intent = new Intent(getActivity(), LibDetailActivity.class);
@@ -84,8 +92,6 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setOnRefreshListener(this);
-
-        requestServerData();
     }
 
     private void requestServerData() {
@@ -100,7 +106,6 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
                 LibListFragment.this.progressBarContainer.hide();
                 swipeRefreshLayout.setRefreshing(false);
-
             }
 
             @Override
@@ -115,6 +120,7 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
                         }
                     }, 500);
                 }
+
                 LibListFragment.this.progressBarContainer.hide();
                 swipeRefreshLayout.setRefreshing(false);
             }

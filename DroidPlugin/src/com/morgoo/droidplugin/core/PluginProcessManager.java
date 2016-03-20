@@ -209,7 +209,7 @@ public class PluginProcessManager {
                             classloader = new PluginClassLoader(apk, optimizedDirectory, libraryPath, ClassLoader.getSystemClassLoader());
                         } catch (Exception e) {
                         }
-                        if (classloader == null) {
+                        if(classloader==null){
                             PluginDirHelper.cleanOptimizedDirectory(optimizedDirectory);
                             classloader = new PluginClassLoader(apk, optimizedDirectory, libraryPath, ClassLoader.getSystemClassLoader());
                         }
@@ -365,10 +365,10 @@ public class PluginProcessManager {
         sSkipService.add("tv_input");
         sSkipService.add("jobscheduler");
         sSkipService.add("sensorhub");
-
+        
         //NSDManager init初始化anr的问题
         sSkipService.add("servicediscovery");
-        sSkipService.add("usagestats");
+//        sSkipService.add("usagestats");
 
     }
 

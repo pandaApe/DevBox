@@ -1013,7 +1013,7 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
                         }
                     }
                 }
-            } catch (Exception e) {
+            }catch (Exception e) {
                 e.printStackTrace();
             }
             super.afterInvoke(receiver, method, args, invokeResult);
