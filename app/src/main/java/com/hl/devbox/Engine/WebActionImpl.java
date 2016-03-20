@@ -283,7 +283,7 @@ public class WebActionImpl extends AppAction {
                     public void inProgress(float progress, long total) {
                         int pro = (int) (progress * 100);
 
-                        if (callback != null)
+                        if (callback != null && pro != 0)
                             callback.onProgress(pro);
                     }
 
