@@ -20,7 +20,7 @@ public abstract class AppAction {
     public void getLibraryList(HashMap<String,String> parms, int currentPage, HttpCallback<List<Library>> callback) {
     }
 
-    public void increaseViewCount(HttpCallback callback) {
+    public void increaseViewCount(String objId,HttpCallback callback) {
     }
 
     public void updateCollectionCount(int amount, HttpCallback callback) {

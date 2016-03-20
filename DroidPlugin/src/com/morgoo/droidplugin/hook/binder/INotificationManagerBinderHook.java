@@ -45,7 +45,7 @@ public class INotificationManagerBinderHook extends BinderHook {
         return new INotificationManagerHookHandle(mHostContext);
     }
 
-    public Object getOldObj() throws Exception {
+    public Object getOldObj() throws Exception{
         IBinder iBinder = MyServiceManager.getOriginService(SERVICE_NAME);
         return INotificationManagerCompat.asInterface(iBinder);
     }

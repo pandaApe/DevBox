@@ -43,7 +43,7 @@ public abstract class ActivityStub extends Activity {
 
 
     //p1
-    public static class P00 {
+    public static class P00{
 
         public static class SingleInstance00 extends SingleInstanceStub {
         }
@@ -86,8 +86,9 @@ public abstract class ActivityStub extends Activity {
     }
 
 
+
     //p2
-    public static class P01 {
+    public static class P01{
 
         public static class SingleInstance00 extends SingleInstanceStub {
         }
@@ -130,7 +131,7 @@ public abstract class ActivityStub extends Activity {
     }
 
     //p3
-    public static class P02 {
+    public static class P02{
 
         public static class SingleInstance00 extends SingleInstanceStub {
         }
@@ -174,7 +175,7 @@ public abstract class ActivityStub extends Activity {
 
 
     //p4
-    public static class P03 {
+    public static class P03{
 
         public static class SingleInstance00 extends SingleInstanceStub {
         }
@@ -217,7 +218,7 @@ public abstract class ActivityStub extends Activity {
     }
 
     //p5
-    public static class P04 {
+    public static class P04{
 
         public static class SingleInstance00 extends SingleInstanceStub {
         }
@@ -260,7 +261,7 @@ public abstract class ActivityStub extends Activity {
     }
 
     //p6
-    public static class P05 {
+    public static class P05{
 
         public static class SingleInstance00 extends SingleInstanceStub {
         }
@@ -303,7 +304,7 @@ public abstract class ActivityStub extends Activity {
     }
 
     //p7
-    public static class P06 {
+    public static class P06{
 
         public static class SingleInstance00 extends SingleInstanceStub {
         }
@@ -346,7 +347,7 @@ public abstract class ActivityStub extends Activity {
     }
 
     //p8
-    public static class P07 {
+    public static class P07{
 
         public static class SingleInstance00 extends SingleInstanceStub {
         }
@@ -389,7 +390,7 @@ public abstract class ActivityStub extends Activity {
     }
 
     //p9
-    public static class P08 {
+    public static class P08{
 
         public static class SingleInstance00 extends SingleInstanceStub {
         }
@@ -435,7 +436,7 @@ public abstract class ActivityStub extends Activity {
     public static class Dialog {
 
         //p1
-        public static class P00 {
+        public static class P00{
 
             public static class SingleInstance00 extends SingleInstanceStub {
             }
@@ -478,8 +479,9 @@ public abstract class ActivityStub extends Activity {
         }
 
 
+
         //p2
-        public static class P01 {
+        public static class P01{
 
             public static class SingleInstance00 extends SingleInstanceStub {
             }
@@ -522,7 +524,7 @@ public abstract class ActivityStub extends Activity {
         }
 
         //p3
-        public static class P02 {
+        public static class P02{
 
             public static class SingleInstance00 extends SingleInstanceStub {
             }
@@ -566,7 +568,7 @@ public abstract class ActivityStub extends Activity {
 
 
         //p4
-        public static class P03 {
+        public static class P03{
 
             public static class SingleInstance00 extends SingleInstanceStub {
             }
@@ -609,7 +611,7 @@ public abstract class ActivityStub extends Activity {
         }
 
         //p5
-        public static class P04 {
+        public static class P04{
 
             public static class SingleInstance00 extends SingleInstanceStub {
             }
@@ -652,7 +654,7 @@ public abstract class ActivityStub extends Activity {
         }
 
         //p6
-        public static class P05 {
+        public static class P05{
 
             public static class SingleInstance00 extends SingleInstanceStub {
             }
@@ -695,7 +697,7 @@ public abstract class ActivityStub extends Activity {
         }
 
         //p7
-        public static class P06 {
+        public static class P06{
 
             public static class SingleInstance00 extends SingleInstanceStub {
             }
@@ -738,7 +740,7 @@ public abstract class ActivityStub extends Activity {
         }
 
         //p8
-        public static class P07 {
+        public static class P07{
 
             public static class SingleInstance00 extends SingleInstanceStub {
             }
@@ -781,7 +783,7 @@ public abstract class ActivityStub extends Activity {
         }
 
         //p9
-        public static class P08 {
+        public static class P08{
 
             public static class SingleInstance00 extends SingleInstanceStub {
             }

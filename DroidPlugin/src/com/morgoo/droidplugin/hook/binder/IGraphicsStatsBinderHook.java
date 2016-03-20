@@ -41,7 +41,7 @@ public class IGraphicsStatsBinderHook extends BinderHook {
     }
 
     @Override
-    public Object getOldObj() throws Exception {
+    public Object getOldObj() throws Exception{
         IBinder iBinder = MyServiceManager.getOriginService(SERVICE_NAME);
         return IGraphicsStatsCompat.asInterface(iBinder);
     }

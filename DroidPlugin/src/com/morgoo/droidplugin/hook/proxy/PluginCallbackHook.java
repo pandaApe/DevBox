@@ -66,7 +66,7 @@ public class PluginCallbackHook extends Hook {
         for (PluginCallback callback : mCallbacks) {
             callback.setEnable(enable);
         }
-        super.setEnable(enable, reinstallHook);
+        super.setEnable(enable,reinstallHook);
     }
 
     @Override

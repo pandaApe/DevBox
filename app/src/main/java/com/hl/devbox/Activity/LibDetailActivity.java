@@ -109,8 +109,7 @@ public class LibDetailActivity extends BaseActivity {
         tvAuthor.setText(codeLib.getAuthor());
         tvLicense.setText(codeLib.getLicense());
 
-//        codeLib.increaseViewCount();
-//        codeLib.saveInBackground();
+//
         operator = new OSPluginManager(this);
         new WebActionImpl(this).getLastCommitInfo(codeLib.getGithubAddress(), new GetLastCommitInfoCallback() {
 
@@ -136,6 +135,18 @@ public class LibDetailActivity extends BaseActivity {
                     LibDetailActivity.this.tvLastUpdateDate.setText("加载失败");
 
                 }
+
+            }
+        });
+
+        new WebActionImpl(this).increaseViewCount(codeLib.getObjectId(), new HttpCallback() {
+            @Override
+            public void onSucess() {
+
+            }
+
+            @Override
+            public void onFailure(AppException e) {
 
             }
         });

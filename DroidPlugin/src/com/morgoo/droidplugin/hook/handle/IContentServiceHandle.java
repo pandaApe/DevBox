@@ -73,7 +73,7 @@ public class IContentServiceHandle extends BaseHookHandle {
                         newUri.authority(uri.getAuthority());
                         newUri.path(uri.getPath());
                         newUri.query(uri.getQuery());
-                        newUri.appendQueryParameter(Env.EXTRA_TARGET_AUTHORITY, authority);
+                        newUri.appendQueryParameter(Env.EXTRA_TARGET_AUTHORITY,authority);
                         args[index] = newUri.build();
 //                        return true;
                     } else {

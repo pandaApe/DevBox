@@ -67,7 +67,7 @@ public class InstrumentationHook extends Hook {
             pit.setEnable(enable);
         }
 
-        super.setEnable(enable, reinstallHook);
+        super.setEnable(enable,reinstallHook);
     }
 
     @Override

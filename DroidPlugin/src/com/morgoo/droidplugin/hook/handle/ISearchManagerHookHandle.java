@@ -39,14 +39,13 @@ public class ISearchManagerHookHandle extends BaseHookHandle {
     public ISearchManagerHookHandle(Context context) {
         super(context);
     }
-
     @Override
     protected void init() {
         sHookedMethodHandlers.put("getSearchableInfo", new getSearchableInfo(mHostContext));
 
     }
 
-    private class getSearchableInfo extends HookedMethodHandler {
+    private class getSearchableInfo extends HookedMethodHandler{
 
         public getSearchableInfo(Context hostContext) {
             super(hostContext);

@@ -129,7 +129,7 @@ public class MyCrashHandler implements UncaughtExceptionHandler {
             writer.println("ro.build.host:" + SystemPropertiesCompat.get("ro.build.host", "unknown"));
             writer.println("ro.build.id:" + SystemPropertiesCompat.get("ro.build.id", "unknown"));
             writer.println("ro.product.manufacturer:" + SystemPropertiesCompat.get("ro.product.manufacturer", "unknown"));
-            writer.println("ro.product.entity:" + SystemPropertiesCompat.get("ro.product.entity", "unknown"));
+            writer.println("ro.product.model:" + SystemPropertiesCompat.get("ro.product.model", "unknown"));
             writer.println("ro.product.name:" + SystemPropertiesCompat.get("ro.product.name", "unknown"));
             writer.println("gsm.version.baseband:" + SystemPropertiesCompat.get("gsm.version.baseband", "unknown"));
             writer.println("ro.build.tags:" + SystemPropertiesCompat.get("ro.build.tags", "unknown"));

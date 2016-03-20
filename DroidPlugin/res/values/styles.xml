@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
 /*
 **        DroidPlugin Project
 **
@@ -22,12 +23,11 @@
 **/
 -->
 <resources>
-
-    <style name="DroidPluginTheme" parent="android:Theme.Light.NoTitleBar">
+    <style name="DroidPluginTheme" parent="android:Theme.Light.NoTitleBar" >
         <item name="android:windowBackground">@drawable/plugin_activity_loading</item>
     </style>
 
-    <style name="DroidPluginThemeDialog" parent="android:Theme.Dialog">
+    <style name="DroidPluginThemeDialog" parent="android:Theme.Dialog" >
         <item name="android:windowBackground">@drawable/plugin_activity_loading</item>
     </style>
 </resources>

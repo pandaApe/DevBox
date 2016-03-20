@@ -104,7 +104,7 @@ public class IWifiManagerHookHandle extends BaseHookHandle {
 //        ro.build.host:build4
 //        ro.build.id:SANFRANCISCO
 //        ro.product.manufacturer:smartisan
-//        ro.product.entity:SM705
+//        ro.product.model:SM705
 //        ro.product.name:msm8974sfo_lte
 //        gsm.version.baseband:2.0.1-00154-M8974AAAAANPZM-L
 //        ro.build.tags:dev-keys

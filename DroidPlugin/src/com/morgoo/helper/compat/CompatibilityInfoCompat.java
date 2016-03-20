@@ -41,7 +41,7 @@ public class CompatibilityInfoCompat {
     private static Object sDefaultCompatibilityInfo;
 
     public static Object DEFAULT_COMPATIBILITY_INFO() throws IllegalAccessException, ClassNotFoundException {
-        if (sDefaultCompatibilityInfo == null) {
+        if (sDefaultCompatibilityInfo==null) {
             sDefaultCompatibilityInfo = FieldUtils.readStaticField(getMyClass(), "DEFAULT_COMPATIBILITY_INFO");
         }
         return sDefaultCompatibilityInfo;

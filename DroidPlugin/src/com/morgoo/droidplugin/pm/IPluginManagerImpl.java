@@ -41,7 +41,6 @@ import android.content.pm.ServiceInfo;
 import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Binder;
-import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.RemoteException;
@@ -55,7 +54,9 @@ import com.morgoo.droidplugin.pm.parser.IntentMatcher;
 import com.morgoo.droidplugin.pm.parser.PluginPackageParser;
 import com.morgoo.helper.Log;
 import com.morgoo.helper.Utils;
+import com.morgoo.helper.compat.BuildCompat;
 import com.morgoo.helper.compat.PackageManagerCompat;
+import com.morgoo.helper.compat.VMRuntimeCompat;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -152,7 +153,7 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
                 }
             }
         } catch (Exception e) {
-            Log.e(TAG, "scan a apk file error %s", e);
+            Log.e(TAG, "scan a apk file error", e);
         }
 
         Log.i(TAG, "Search apk cost %s ms", (System.currentTimeMillis() - b));
@@ -250,7 +251,7 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         waitForReadyInner();
         try {
             String pkg = getAndCheckCallingPkg(packageName);
-            if (pkg != null) {
+            if (pkg != null && !TextUtils.equals(packageName, mContext.getPackageName())) {
                 enforcePluginFileExists();
                 PluginPackageParser parser = mPluginCache.get(pkg);
                 if (parser != null) {
@@ -806,6 +807,9 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
     public ApplicationInfo getApplicationInfo(String packageName, int flags) throws RemoteException {
         waitForReadyInner();
         try {
+            if (TextUtils.equals(packageName, mContext.getPackageName())) {
+                return null;
+            }
             PluginPackageParser parser = mPluginCache.get(packageName);
             if (parser != null) {
                 return parser.getApplicationInfo(flags);
@@ -1009,9 +1013,9 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
             }
 
             for (String soName : soList.keySet()) {
-                Log.e(TAG, "==========so name=" + soName);
+                Log.e(TAG, "try so =" + soName);
                 Set<String> soPaths = soList.get(soName);
-                String soPath = findSoPath(soPaths);
+                String soPath = findSoPath(soPaths, soName);
                 if (soPath != null) {
                     File file = new File(nativeLibraryDir, soName);
                     if (file.exists()) {
@@ -1061,17 +1065,26 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         }
     }
 
-    private String findSoPath(Set<String> soPaths) {
-        if (soPaths != null && soPaths.size() > 0) {
-            for (String soPath : soPaths) {
-                if (!TextUtils.isEmpty(Build.CPU_ABI) && soPath.contains(Build.CPU_ABI)) {
-                    return soPath;
-                }
-            }
 
-            for (String soPath : soPaths) {
-                if (!TextUtils.isEmpty(Build.CPU_ABI2) && soPath.contains(Build.CPU_ABI2)) {
-                    return soPath;
+    private String findSoPath(Set<String> soPaths, String soName) {
+        if (soPaths != null && soPaths.size() > 0) {
+            if (VMRuntimeCompat.is64Bit()) {
+                //在宿主程序运行在64位进程中的时候，插件的so也只拷贝64位，否则会出现不支持的情况。
+                for (String soPath : soPaths) {
+                    String abi = soPath.replaceFirst("lib/", "");
+                    abi = abi.replace("/" + soName, "");
+                    if (!TextUtils.isEmpty(abi) && Arrays.binarySearch(BuildCompat.SUPPORTED_64_BIT_ABIS, abi) >= 0) {
+                        return soPath;
+                    }
+                }
+            } else {
+                //在宿主程序运行在32位进程中的时候，插件的so也只拷贝64位，否则会出现不支持的情况。
+                for (String soPath : soPaths) {
+                    String abi = soPath.replaceFirst("lib/", "");
+                    abi = abi.replace("/" + soName, "");
+                    if (!TextUtils.isEmpty(abi) && Arrays.binarySearch(BuildCompat.SUPPORTED_32_BIT_ABIS, abi) >= 0) {
+                        return soPath;
+                    }
                 }
             }
         }

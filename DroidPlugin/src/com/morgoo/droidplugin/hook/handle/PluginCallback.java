@@ -26,6 +26,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ import com.morgoo.droidplugin.core.PluginProcessManager;
 import com.morgoo.droidplugin.hook.proxy.IPackageManagerHook;
 import com.morgoo.droidplugin.pm.PluginManager;
 import com.morgoo.droidplugin.reflect.FieldUtils;
+import com.morgoo.droidplugin.stub.ShortcutProxyActivity;
 import com.morgoo.helper.Log;
 
 
@@ -354,7 +356,10 @@ public class PluginCallback implements Handler.Callback {
             //ActivityInfo activityInfo = (ActivityInfo) FieldUtils.readField(obj, "activityInfo", true);
             stubIntent.setExtrasClassLoader(mHostContext.getClassLoader());
             Intent targetIntent = stubIntent.getParcelableExtra(Env.EXTRA_TARGET_INTENT);
-            if (targetIntent != null) {
+            // 这里多加一个isNotShortcutProxyActivity的判断，因为ShortcutProxyActivity的很特殊，启动它的时候，
+            // 也会带上一个EXTRA_TARGET_INTENT的数据，就会导致这里误以为是启动插件Activity，所以这里要先做一个判断。
+            // 之前ShortcutProxyActivity错误复用了key，但是为了兼容，所以这里就先这么判断吧。
+            if (targetIntent != null && !isShortcutProxyActivity(stubIntent)) {
                 IPackageManagerHook.fixContextPackageManager(mHostContext);
                 ComponentName targetComponentName = targetIntent.resolveActivity(mHostContext.getPackageManager());
                 ActivityInfo targetActivityInfo = PluginManager.getInstance().getActivityInfo(targetComponentName, 0);
@@ -428,6 +433,26 @@ public class PluginCallback implements Handler.Callback {
         if (mCallback != null) {
             return mCallback.handleMessage(msg);
         } else {
+            return false;
+        }
+    }
+
+    private boolean isShortcutProxyActivity(Intent targetIntent) {
+        try {
+            if (PluginManager.ACTION_SHORTCUT_PROXY.equalsIgnoreCase(targetIntent.getAction())) {
+                return true;
+            }
+            PackageManager pm = mHostContext.getPackageManager();
+            ResolveInfo info = pm.resolveActivity(targetIntent, 0);
+            if (info != null) {
+                String name = info.activityInfo.name;
+                if (name != null && name.startsWith(".")) {
+                    name = info.activityInfo.packageName + info.activityInfo.name;
+                }
+                return ShortcutProxyActivity.class.getName().equals(name);
+            }
+            return false;
+        } catch (Exception e) {
             return false;
         }
     }

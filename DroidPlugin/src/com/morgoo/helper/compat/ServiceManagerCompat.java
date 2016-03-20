@@ -44,6 +44,6 @@ public class ServiceManagerCompat {
 
 
     public static IBinder getService(String name) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        return (IBinder) MethodUtils.invokeStaticMethod(Class(), "getService", name);
+       return (IBinder) MethodUtils.invokeStaticMethod(Class(), "getService", name);
     }
 }

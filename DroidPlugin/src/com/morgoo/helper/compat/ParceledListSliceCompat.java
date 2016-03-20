@@ -36,7 +36,7 @@ public class ParceledListSliceCompat {
         return sClass;
     }
 
-    public static boolean isParceledListSlice(Object obj) {
+    public static boolean isParceledListSlice(Object obj){
         if (obj == null) {
             return false;
         } else {

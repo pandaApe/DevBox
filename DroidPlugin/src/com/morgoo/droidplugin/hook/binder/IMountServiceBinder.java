@@ -41,7 +41,7 @@ public class IMountServiceBinder extends BinderHook {
     }
 
     @Override
-    public Object getOldObj() throws Exception {
+    public Object getOldObj() throws Exception{
         IBinder iBinder = MyServiceManager.getOriginService(SERVICE_NAME);
         return IMountServiceCompat.asInterface(iBinder);
     }
