@@ -298,8 +298,10 @@ public class WebActionImpl extends AppAction {
                     @Override
                     public void onResponse(File file) {
                         LogUtil.log("onSuccess");
-                        if (callback != null)
+                        if (callback != null) {
                             callback.onSucess(file.getAbsolutePath());
+                            callback.onSucess();
+                        }
                     }
                 });
 
@@ -330,7 +332,7 @@ public class WebActionImpl extends AppAction {
 
         Map map = params.getHeaders();
         String requestBody = params.getJsonParams();
-        RequestBody body = RequestBody.create(null,params.getJsonParams());
+        RequestBody body = RequestBody.create(null, params.getJsonParams());
 //        OkHttpUtils.put().headers(params.getHeaders()).requestBody(body).url(Config.GetLibrariesURL + "/" + objId).build().execute(new StringCallback() {
 //            @Override
 //            public void onError(Call call, Exception e) {

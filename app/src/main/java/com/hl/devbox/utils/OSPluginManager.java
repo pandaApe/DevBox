@@ -66,8 +66,8 @@ public class OSPluginManager {
 
         if (!isApkInstall(item))
             LogUtil.log(installApk(item));
-        PackageManager pm = mActivity.getPackageManager();
 
+        PackageManager pm = mActivity.getPackageManager();
 
         String pn = item.getPackageInfo().packageName;
         Intent intent = pm.getLaunchIntentForPackage(item.getPackageInfo().packageName);

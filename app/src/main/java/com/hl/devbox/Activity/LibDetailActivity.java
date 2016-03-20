@@ -198,8 +198,8 @@ public class LibDetailActivity extends BaseActivity {
         btnDownload.setProgress(1);
         new WebActionImpl(this).downloadApkFile(this.codeLib, new HttpCallback<String>() {
             @Override
-            public void onSucess() {
-                operator.installApk(apkItem);
+            public void onSucess(String filePath) {
+                LogUtil.log("--->"+operator.installApk(apkItem));
                 btnDownload.setProgress(100);
 
             }
