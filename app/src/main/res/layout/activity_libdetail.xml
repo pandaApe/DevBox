@@ -126,7 +126,7 @@
                     app:cpb_selectorError="@drawable/cpb_idle_state_selector_full_error"
                     app:cpb_selectorIdle="@drawable/cpb_idle_state_selector_full"
                     app:cpb_textComplete="打开"
-                    app:cpb_textError="错误"
+                    app:cpb_textError="下载失败"
                     app:cpb_textIdle="下载" />
             </LinearLayout>
 
