@@ -109,7 +109,6 @@ public class LibDetailActivity extends BaseActivity {
         tvAuthor.setText(codeLib.getAuthor());
         tvLicense.setText(codeLib.getLicense());
 
-//
         operator = new OSPluginManager(this);
         new WebActionImpl(this).getLastCommitInfo(codeLib.getGithubAddress(), new GetLastCommitInfoCallback() {
 
