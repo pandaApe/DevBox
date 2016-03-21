@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.ContentLoadingProgressBar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,15 +26,22 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by whailong on 22/1/16.
  */
 public class TypeListFrament extends Fragment {
+    @Bind(R.id.clprogressBar)
+    ContentLoadingProgressBar progressBar;
+    @Bind(R.id.recyclyView)
+    RecyclerView recyclerView;
+    @Bind(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
+
     private ArrayList<Type> codeTypes;
-    private RecyclerView recyclerView;
     private TypeListAdapter adapter;
-    private ContentLoadingProgressBar progressBarContainer;
-    private Type currentType;
 
     public static TypeListFrament newInstance(int num) {
         TypeListFrament f = new TypeListFrament();
@@ -42,7 +50,10 @@ public class TypeListFrament extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_lib, container, false);
+        View view = inflater.inflate(R.layout.fragment_lib, container, false);
+        ButterKnife.bind(this, view);
+
+        return view;
     }
 
     @Override
@@ -66,7 +77,7 @@ public class TypeListFrament extends Fragment {
                 codeTypes.addAll(list);
                 adapter.notifyDataSetChanged();
 
-                progressBarContainer.hide();
+                progressBar.hide();
             }
 
             @Override
@@ -81,13 +92,13 @@ public class TypeListFrament extends Fragment {
                     }, 500);
                 }
 
-                progressBarContainer.hide();
+                progressBar.hide();
             }
         });
     }
 
     private void setupView(View view) {
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclyView);
+        swipeRefreshLayout.setEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new TypeListAdapter(getActivity(), codeTypes);
 
@@ -105,8 +116,13 @@ public class TypeListFrament extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));//这里用线性显示 类似于list view
         recyclerView.setAdapter(adapter);
 
+        progressBar = (ContentLoadingProgressBar) view.findViewById(R.id.clprogressBar);
+        progressBar.show();
+    }
 
-        progressBarContainer = (ContentLoadingProgressBar) view.findViewById(R.id.clprogressBar);
-        progressBarContainer.show();
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }
