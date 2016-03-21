@@ -63,7 +63,6 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="描述内容"
                     android:textColor="#000"
                     android:textSize="17sp" />
 
@@ -90,13 +89,12 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="最低兼容："
+                            android:text="@string/miniSDK"
                             android:textSize="17sp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-
                             android:background="#cccccc" />
 
                         <TextView
@@ -117,17 +115,18 @@
                     android:layout_height="50dp"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="5dp"
+                    android:padding="0dp"
+                    android:gravity="center"
                     android:textColor="@color/white"
-                    android:textSize="18sp"
+                    android:textSize="17sp"
                     app:cpb_colorIndicator="#8f3e97"
                     app:cpb_colorIndicatorBackground="#338f3e97"
                     app:cpb_colorProgress="#00000000"
                     app:cpb_selectorComplete="@drawable/cpb_idle_state_selector_full_complete"
                     app:cpb_selectorError="@drawable/cpb_idle_state_selector_full_error"
                     app:cpb_selectorIdle="@drawable/cpb_idle_state_selector_full"
-                    app:cpb_textComplete="打开"
-                    app:cpb_textError="下载失败"
-                    app:cpb_textIdle="下载" />
+                    app:cpb_textComplete="@string/launch"
+                    app:cpb_textError="@string/downloadFailed" />
             </LinearLayout>
 
             <android.support.v7.widget.CardView
@@ -148,7 +147,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginTop="5dp"
-                        android:text="Github地址："
+                        android:text="@string/githubAddress"
                         android:textSize="17sp" />
 
                     <TextView
@@ -182,7 +181,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="最后更新："
+                        android:text="@string/lastUpdate"
                         android:textSize="17sp" />
 
                     <TextView
@@ -196,7 +195,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:gravity="bottom"
-                        android:text="加载中..." />
+                        android:text="@string/loading" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -210,7 +209,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="5dp"
-                        android:text="加载中..." />
+                        android:text="@string/loading" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -230,7 +229,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="作者："
+                        android:text="@string/author"
                         android:textSize="17sp" />
 
                     <TextView
@@ -263,7 +262,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="开源协议："
+                        android:text="@string/license"
                         android:textSize="17sp" />
 
                     <TextView

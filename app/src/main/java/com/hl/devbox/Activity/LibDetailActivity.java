@@ -94,10 +94,10 @@ public class LibDetailActivity extends BaseActivity {
         apkItem = new ApkItem(this, codeLib);
         if (apkItem.exists()) {
             btnDownload.setProgress(100);
-            btnDownload.setCompleteText("打开");
+            btnDownload.setCompleteText(getString(R.string.launch));
         } else {
             btnDownload.setProgress(0);
-            btnDownload.setText(codeLib.getApk().getApkSizeStr());
+            btnDownload.setText(codeLib.getApk().getApkSizeStr(this));
         }
 
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
@@ -131,8 +131,8 @@ public class LibDetailActivity extends BaseActivity {
 
                 } else {
 
-                    LibDetailActivity.this.tvLastUpdateMsg.setText("加载失败");
-                    LibDetailActivity.this.tvLastUpdateDate.setText("加载失败");
+                    LibDetailActivity.this.tvLastUpdateMsg.setText(R.string.loadFailed);
+                    LibDetailActivity.this.tvLastUpdateDate.setText(R.string.loadFailed);
 
                 }
 
@@ -159,7 +159,7 @@ public class LibDetailActivity extends BaseActivity {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     downloadApk();
                 else
-                    showSnackbar("拒绝了就下载不了了 - -!");
+                    showSnackbar(getString(R.string.refusePermission));
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
@@ -213,7 +213,7 @@ public class LibDetailActivity extends BaseActivity {
             @Override
             public void onFailure(AppException e) {
                 btnDownload.setProgress(-1);
-                btnDownload.setText("下载失败");
+                btnDownload.setText(R.string.downloadFailed);
             }
         });
     }
