@@ -81,7 +81,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
-                    android:text="收藏" />
+                    android:text="@string/liked" />
 
             </LinearLayout>
 
@@ -113,7 +113,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
-                    android:text="反馈" />
+                    android:text="@string/feedback" />
 
             </LinearLayout>
 

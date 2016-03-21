@@ -1,5 +1,9 @@
 package com.hl.devbox.Entity;
 
+import android.content.Context;
+
+import com.hl.devbox.R;
+
 import java.io.Serializable;
 
 /**
@@ -51,11 +55,11 @@ public class DevFile implements Serializable {
         this.metaData = metaData;
     }
 
-    public String getApkSizeStr() {
+    public String getApkSizeStr(Context context) {
 
         double size = this.getMetaData().size / 1000.0 / 1000.0;
         double sizeFinal = Math.round(size * 100) / 100.0;
-        return "下载(" + sizeFinal + "MB)";
+        return context.getString(R.string.download) + sizeFinal + "MB)";
     }
 
 }

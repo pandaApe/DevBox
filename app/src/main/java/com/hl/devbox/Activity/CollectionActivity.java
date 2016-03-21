@@ -6,16 +6,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-
 import com.hl.devbox.Adapter.LibListAdapter;
-
 import com.hl.devbox.Entity.Library;
 import com.hl.devbox.R;
 
-import org.kymjs.kjframe.KJDB;
-
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -35,7 +30,7 @@ public class CollectionActivity extends BaseActivity {
         setContentView(R.layout.activity_collection);
         ButterKnife.bind(this);
 
-        this.setToolbarTitle("收藏");
+        this.setToolbarTitle(getString(R.string.liked));
         this.setToolbarDisplayHomeAsUpEnabledAndClickListenner(true, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
