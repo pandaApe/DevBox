@@ -1,16 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.hl.devbox"
-        minSdkVersion 14
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        applicationId rootProject.ext.applicationId
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -21,10 +22,12 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':DroidPlugin')
+    compile project(':ShareSDK')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.2.0'
-    compile 'com.android.support:cardview-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:cardview-v7:23.3.0'
+    compile 'com.android.support:design:23.3.0'
 
     //    https://github.com/k0shk0sh/PermissionHelper
     //    compile 'com.github.k0shk0sh:PermissionHelper:1.0.8'
@@ -34,8 +37,6 @@ dependencies {
     //avoscloud-sns 为 LeanCloud 第三方登录包
     compile 'cn.leancloud.android:avoscloud-sns:v3.+@aar'
     compile 'cn.leancloud.android:qq-sdk:1.6.1-leancloud'
-    compile project(':DroidPlugin')
-    compile project(':ShareSDK')
 
     //    https://github.com/ogaclejapan/SmartTabLayout
     compile 'com.ogaclejapan.smarttablayout:library:1.6.0@aar'
