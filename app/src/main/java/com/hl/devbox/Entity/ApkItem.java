@@ -6,10 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 
 import com.hl.devbox.utils.Config;
-
 import com.hl.devbox.utils.LogUtil;
-
-
 import java.io.File;
 
 /**
@@ -55,7 +52,6 @@ public class ApkItem {
 
         String apkName = lib.getName().replace(" ", "") + ".apk";
         String path = Config.AppFolder + apkName;
-
         apkFilePath = path;
 
     }

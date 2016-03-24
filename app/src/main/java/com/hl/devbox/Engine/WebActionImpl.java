@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hl.devbox.Entity.Library;
 import com.hl.devbox.Entity.Type;
-
 import com.hl.devbox.utils.Config;
 import com.hl.devbox.utils.LogUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -107,7 +106,6 @@ public class WebActionImpl extends AppAction {
             public void onSuccess(String t) {
 
                 LogUtil.log("onSuccess--->" + t);
-
                 String json = "";
                 try {
                     json = new JSONObject(t).getString("results");
@@ -268,7 +266,6 @@ public class WebActionImpl extends AppAction {
             }
             return;
         }
-
         if (lib == null) {
             if (callback != null) {
                 callback.onFailure(new AppException(AppException.PARAM_NULL, "参数为空"));
