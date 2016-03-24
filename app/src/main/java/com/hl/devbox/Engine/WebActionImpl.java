@@ -83,18 +83,18 @@ public class WebActionImpl extends AppAction {
         //If there is no keyword, it means that must is getting libraries by Type.
         if (!TextUtils.isEmpty(paramMap.get("objId"))) {
             params.put("where", "{\"$relatedTo\":{\"object\":{\"__type\":\"Pointer\",\"className\":\"Type\",\"objectId\":\"" + paramMap.get("objId") + "\"},\"key\":\"libraries\"}}");
-            params.put("order", "createdAt");
-            params.put("limit", "6");
-            params.put("skip", "" + 6 * (currentPage - 1));
+            params.put("order", "-createdAt");
+//            params.put("limit", "6");
+//            params.put("skip", "" + 6 * (currentPage - 1));
 
         } else if (!TextUtils.isEmpty(paramMap.get("keyword"))) {
             params.put("cql", "select * from Library where name like ? order by createdAt");
             params.put("pvalues", "[\"%" + paramMap.get("keyword") + "%\"]");
 
         } else {
-            params.put("order", "createdAt");
-            params.put("limit", "6");
-            params.put("skip", "" + 6 * (currentPage - 1));
+            params.put("order", "-createdAt");
+//            params.put("limit", "6");
+//            params.put("skip", "" + 6 * (currentPage - 1));
         }
 
         kjHttp.get(Config.GetLibrariesURL, params, true, new HttpCallBack() {
