@@ -1,5 +1,10 @@
 package com.hl.devbox.Entity;
 
+import com.google.gson.annotations.Expose;
+
+import org.kymjs.kjframe.database.annotate.Id;
+import org.kymjs.kjframe.database.annotate.ManyToOne;
+
 import java.io.Serializable;
 
 /**
@@ -7,7 +12,6 @@ import java.io.Serializable;
  */
 public class Library implements Serializable {
 
-    private int id;
     private String name;
     private String author;
     private String enDescription;
@@ -21,12 +25,25 @@ public class Library implements Serializable {
     private DevFile apk;
     private DevFile image;
 
+    @Expose(serialize = false, deserialize = false)
+    @ManyToOne(column = "liked")
+    private  User owner;
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
     public Library() {
         this.collectionCount = 0;
         this.downloadCount = 0;
         this.viewCount = 0;
     }
 
+    @Id
     private String objectId;
 
     public String getObjectId() {
@@ -35,14 +52,6 @@ public class Library implements Serializable {
 
     public void setObjectId(String objectId) {
         this.objectId = objectId;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

@@ -23,6 +23,8 @@ import com.hl.devbox.Entity.Library;
 import com.hl.devbox.Entity.Type;
 import com.hl.devbox.R;
 
+import org.kymjs.kjframe.KJDB;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -99,6 +101,11 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
             @Override
             public void onSucess(List<Library> list) {
+
+
+                KJDB kjdb = KJDB.create(getActivity());
+                kjdb.save(list);
+
 
                 LibListFragment.this.codeLibs.clear();
                 LibListFragment.this.codeLibs.addAll(list);

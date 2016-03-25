@@ -117,6 +117,8 @@ public class WebActionImpl extends AppAction {
                 List list = gson.fromJson(json, new TypeToken<List<Library>>() {
                 }.getType());
 
+
+
                 if (callback != null && list != null)
                     callback.onSucess(list);
             }

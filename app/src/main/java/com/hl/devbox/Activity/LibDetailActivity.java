@@ -21,11 +21,14 @@ import com.hl.devbox.Engine.HttpCallback;
 import com.hl.devbox.Engine.WebActionImpl;
 import com.hl.devbox.Entity.ApkItem;
 import com.hl.devbox.Entity.Library;
+import com.hl.devbox.Entity.User;
 import com.hl.devbox.R;
 import com.hl.devbox.utils.LogUtil;
 import com.hl.devbox.utils.OSPluginManager;
 
 import org.kymjs.kjframe.KJDB;
+import org.kymjs.kjframe.database.OneToManyLazyLoader;
+import org.kymjs.kjframe.utils.SystemTool;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -198,7 +201,7 @@ public class LibDetailActivity extends BaseActivity {
         new WebActionImpl(this).downloadApkFile(this.codeLib, new HttpCallback<String>() {
             @Override
             public void onSucess(String filePath) {
-                LogUtil.log("--->"+operator.installApk(apkItem));
+                LogUtil.log("--->" + operator.installApk(apkItem));
                 btnDownload.setProgress(100);
 
             }
@@ -222,28 +225,12 @@ public class LibDetailActivity extends BaseActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_share:
-                startActivity(new Intent(this, LoginActivity.class));
+//                startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.action_collect:
+                User user = new User(SystemTool.getPhoneIMEI(this));
+                user.setLikedLibs(new OneToManyLazyLoader<User, Library>(user, User.class, Library.class, KJDB.create(this)));
 
-//                localLibCode = kjdb.findById(codeLib.getObjectId(), LocalAVObject.class);
-//                if (localLibCode == null) {
-//                    kjdb.save(new LocalAVObject(codeLib.getObjectId(), codeLib.toString()));
-//                    codeLib.increaseCollectionCount();
-//                } else {
-//                    kjdb.delete(localLibCode);
-//                    codeLib.decreaseCollectionCount();
-//                }
-//                codeLib.saveInBackground();
-//                int resourceId = localLibCode == null ? R.drawable.ic_heart_outline : R.drawable.ic_heart;
-//                item.setIcon(resourceId);
-
-
-//                if (User.getCurrentUser() == null) {
-//
-//                    startActivity(new Intent(this, LoginActivity.class));
-//
-//                }
 
                 break;
 
