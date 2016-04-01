@@ -1,8 +1,6 @@
 package com.hl.devbox.Entity;
 
-import org.kymjs.kjframe.database.OneToManyLazyLoader;
 import org.kymjs.kjframe.database.annotate.Id;
-import org.kymjs.kjframe.database.annotate.OneToMany;
 
 /**
  * Description:
@@ -20,17 +18,6 @@ public class User {
 
     public User(String userId) {
         this.userId = userId;
-    }
-
-    @OneToMany(manyColumn = "liked")
-    private transient OneToManyLazyLoader<User, Library> likedLibs;
-
-    public OneToManyLazyLoader<User, Library> getLikedLibs() {
-        return likedLibs;
-    }
-
-    public void setLikedLibs(OneToManyLazyLoader<User, Library> likedLibs) {
-        this.likedLibs = likedLibs;
     }
 
     public String getObjectId() {

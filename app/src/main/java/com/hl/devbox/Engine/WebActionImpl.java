@@ -118,7 +118,6 @@ public class WebActionImpl extends AppAction {
                 }.getType());
 
 
-
                 if (callback != null && list != null)
                     callback.onSucess(list);
             }

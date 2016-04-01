@@ -21,14 +21,11 @@ import com.hl.devbox.Engine.HttpCallback;
 import com.hl.devbox.Engine.WebActionImpl;
 import com.hl.devbox.Entity.ApkItem;
 import com.hl.devbox.Entity.Library;
-import com.hl.devbox.Entity.User;
 import com.hl.devbox.R;
 import com.hl.devbox.utils.LogUtil;
 import com.hl.devbox.utils.OSPluginManager;
 
 import org.kymjs.kjframe.KJDB;
-import org.kymjs.kjframe.database.OneToManyLazyLoader;
-import org.kymjs.kjframe.utils.SystemTool;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -228,8 +225,6 @@ public class LibDetailActivity extends BaseActivity {
 //                startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.action_collect:
-                User user = new User(SystemTool.getPhoneIMEI(this));
-                user.setLikedLibs(new OneToManyLazyLoader<User, Library>(user, User.class, Library.class, KJDB.create(this)));
 
 
                 break;

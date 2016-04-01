@@ -1,9 +1,6 @@
 package com.hl.devbox.Entity;
 
-import com.google.gson.annotations.Expose;
-
 import org.kymjs.kjframe.database.annotate.Id;
-import org.kymjs.kjframe.database.annotate.ManyToOne;
 
 import java.io.Serializable;
 
@@ -25,9 +22,7 @@ public class Library implements Serializable {
     private DevFile apk;
     private DevFile image;
 
-    @Expose(serialize = false, deserialize = false)
-    @ManyToOne(column = "liked")
-    private  User owner;
+    private transient User owner;
 
     public User getOwner() {
         return owner;
@@ -45,6 +40,7 @@ public class Library implements Serializable {
 
     @Id
     private String objectId;
+
 
     public String getObjectId() {
         return objectId;

@@ -33,5 +33,4 @@ public class Config {
     public static final String GetLoginURL = BaseURL + "/" + ApiVersion + "/classes/Library";
     public static final String UpdateLibraryURL = BaseURL + "/" + ApiVersion + "/classes/Library/";
 
-
 }

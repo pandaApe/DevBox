@@ -102,10 +102,12 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
             @Override
             public void onSucess(List<Library> list) {
 
-
                 KJDB kjdb = KJDB.create(getActivity());
-                kjdb.save(list);
+                for (Library lib : kjdb.findAll(Library.class)) {
+                    kjdb.delete(lib);
+                }
 
+                kjdb.save(list);
 
                 LibListFragment.this.codeLibs.clear();
                 LibListFragment.this.codeLibs.addAll(list);
