@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.hl.devbox.DBApplication;
+import com.hl.devbox.App.DBApplication;
 import com.hl.devbox.R;
 import com.hl.devbox.utils.LogUtil;
 

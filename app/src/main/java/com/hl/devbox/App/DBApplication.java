@@ -1,4 +1,4 @@
-package com.hl.devbox;
+package com.hl.devbox.App;
 
 import android.app.Application;
 import android.content.Context;
