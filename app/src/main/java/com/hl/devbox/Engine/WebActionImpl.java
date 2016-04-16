@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hl.devbox.Entity.Library;
 import com.hl.devbox.Entity.Type;
-import com.hl.devbox.utils.Config;
+import com.hl.devbox.utils.BuildConfig;
 import com.hl.devbox.utils.LogUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.FileCallBack;
@@ -49,7 +49,7 @@ public class WebActionImpl extends AppAction {
     private String generateLCSign() {
         String timeStamp = new Timestamp(new Date().getTime()).toString();
 
-        return CipherUtils.md5(timeStamp + Config.APPKey) + "," + timeStamp;
+        return CipherUtils.md5(timeStamp + BuildConfig.APPKey) + "," + timeStamp;
     }
 
     private boolean checkNet() {
@@ -76,7 +76,7 @@ public class WebActionImpl extends AppAction {
         HttpParams params = new HttpParams();
 
         params.putHeaders("X-LC-Sign", generateLCSign());
-        params.putHeaders("X-LC-Id", Config.APPId);
+        params.putHeaders("X-LC-Id", BuildConfig.APPId);
         params.putHeaders("Content-Type", "application/json");
 
         //If there is no keyword, it means that must is getting libraries by Type.
@@ -96,7 +96,7 @@ public class WebActionImpl extends AppAction {
 //            params.put("skip", "" + 6 * (currentPage - 1));
         }
 
-        kjHttp.get(Config.GetLibrariesURL, params, true, new HttpCallBack() {
+        kjHttp.get(BuildConfig.GetLibrariesURL, params, true, new HttpCallBack() {
             @Override
             public void onFailure(int errorNo, String strMsg) {
                 super.onFailure(errorNo, strMsg);
@@ -135,10 +135,10 @@ public class WebActionImpl extends AppAction {
         HttpParams params = new HttpParams();
 
         params.putHeaders("X-LC-Sign", generateLCSign());
-        params.putHeaders("X-LC-Id", Config.APPId);
+        params.putHeaders("X-LC-Id", BuildConfig.APPId);
         params.putHeaders("Content-Type", "application/json");
 
-        kjHttp.get(Config.GetTypesURL, params, true, new HttpCallBack() {
+        kjHttp.get(BuildConfig.GetTypesURL, params, true, new HttpCallBack() {
             @Override
             public void onFailure(int errorNo, String strMsg) {
                 super.onFailure(errorNo, strMsg);
@@ -184,7 +184,7 @@ public class WebActionImpl extends AppAction {
         final String author = infoArray[infoArray.length - 2];
         final String reposName = infoArray[infoArray.length - 1];
 
-        String reposInfoUrl = Config.ReposInfoUrl.replace("AUTHOR", author).replace("NAME", reposName);
+        String reposInfoUrl = BuildConfig.ReposInfoUrl.replace("AUTHOR", author).replace("NAME", reposName);
 
         new KJHttp().get(reposInfoUrl, new HttpCallBack() {
 
@@ -198,7 +198,7 @@ public class WebActionImpl extends AppAction {
                         if (jsonObject.getString("name").equals("master")) {
                             JSONObject insideJsonObj = jsonObject.getJSONObject("commit");
                             String shaValue = insideJsonObj.getString("sha");
-                            String requestURL = Config.LastCommitInfoUrl.replace("AUTHOR", author).replace("NAME", reposName).replace("SHAVALUE", shaValue);
+                            String requestURL = BuildConfig.LastCommitInfoUrl.replace("AUTHOR", author).replace("NAME", reposName).replace("SHAVALUE", shaValue);
                             new KJHttp().get(requestURL, new HttpCallBack() {
 
                                 @Override
@@ -275,8 +275,8 @@ public class WebActionImpl extends AppAction {
         }
 
         final String apkName = lib.getName().replace(" ", "") + ".apk";
-        OkHttpUtils.get().url(lib.getApk().getUrl()).addHeader("X-LC-Sign", generateLCSign()).addHeader("X-LC-Id", Config.APPId).build()
-                .execute(new FileCallBack(Config.AppFolder, apkName) {
+        OkHttpUtils.get().url(lib.getApk().getUrl()).addHeader("X-LC-Sign", generateLCSign()).addHeader("X-LC-Id", BuildConfig.APPId).build()
+                .execute(new FileCallBack(BuildConfig.AppFolder, apkName) {
 
                     @Override
                     public void inProgress(float progress, long total) {
@@ -324,14 +324,14 @@ public class WebActionImpl extends AppAction {
 
         HttpParams params = new HttpParams();
         params.putHeaders("X-LC-Sign", generateLCSign());
-        params.putHeaders("X-LC-Id", Config.APPId);
+        params.putHeaders("X-LC-Id", BuildConfig.APPId);
         params.putHeaders("Content-Type", "application/json");
         params.putJsonParams("{\"viewCount\":{\"__op\":\"Increment\",\"amount\":1}}");
 
         Map map = params.getHeaders();
         String requestBody = params.getJsonParams();
         RequestBody body = RequestBody.create(null, params.getJsonParams());
-//        OkHttpUtils.put().headers(params.getHeaders()).requestBody(body).url(Config.GetLibrariesURL + "/" + objId).build().execute(new StringCallback() {
+//        OkHttpUtils.put().headers(params.getHeaders()).requestBody(body).url(BuildConfig.GetLibrariesURL + "/" + objId).build().execute(new StringCallback() {
 //            @Override
 //            public void onError(Call call, Exception e) {
 //

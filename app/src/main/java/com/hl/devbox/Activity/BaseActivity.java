@@ -9,14 +9,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.hl.devbox.App.DBApplication;
+import com.hl.devbox.App.DevBoxApplication;
 import com.hl.devbox.R;
 import com.hl.devbox.utils.LogUtil;
 
 public class BaseActivity extends AppCompatActivity {
 
     protected Context context;
-    protected DBApplication application;
+    protected DevBoxApplication application;
     protected Toolbar toolbar;
     private android.support.v7.app.ActionBar mActionBar;
 
@@ -34,7 +34,7 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void initVariables() {
         this.context = getApplicationContext();
-        this.application = (DBApplication) this.getApplication();
+        this.application = (DevBoxApplication) this.getApplication();
     }
 
     //The method setContentView: should be called in this method.

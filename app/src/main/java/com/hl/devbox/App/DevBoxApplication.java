@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.bugtags.library.BugtagsOptions;
-import com.hl.devbox.utils.Config;
+import com.hl.devbox.utils.BuildConfig;
 import com.hl.devbox.utils.LogUtil;
 import com.morgoo.droidplugin.PluginHelper;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -17,13 +17,13 @@ import cn.sharesdk.framework.ShareSDK;
 /**
  * Created by whailong on 13/1/16.
  */
-public class DBApplication extends Application {
+public class DevBoxApplication extends Application {
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        LogUtil.ISDEBUG = Config.ISDEBUGMODE;
+        LogUtil.ISDEBUG = BuildConfig.ISDEBUGMODE;
 
         setupShareSDK();
 

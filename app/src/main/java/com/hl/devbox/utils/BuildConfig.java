@@ -11,7 +11,7 @@ import java.io.File;
  * @CreatedAt: 9/2/16 00:16.
  * @Email: whailong2010@gmail.com
  */
-public class Config {
+public class BuildConfig {
 
     public static final boolean ISDEBUGMODE = true;
 
