@@ -1,4 +1,4 @@
-package com.hl.devbox.Activity;
+package com.hl.devbox.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,7 @@ import android.view.View;
 
 import com.hl.devbox.App.DevBoxApplication;
 import com.hl.devbox.R;
-import com.hl.devbox.utils.LogUtil;
+import com.hl.devbox.utils.LogUtils;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -24,7 +24,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        LogUtil.log(this, "---------------------OnCreate");
+        LogUtils.log(this, "---------------------OnCreate");
 
         this.initVariables();
         this.initViews(savedInstanceState);
@@ -76,14 +76,14 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        LogUtil.log(this, "---------------------onResume");
+        LogUtils.log(this, "---------------------onResume");
         super.onResume();
 //        Bugtags.onResume(this);
     }
 
     @Override
     protected void onPause() {
-        LogUtil.log(this, "---------------------onPause");
+        LogUtils.log(this, "---------------------onPause");
         super.onPause();
 
 //        Bugtags.onPause(this);
@@ -91,13 +91,13 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        LogUtil.log(this, "---------------------onStop");
+        LogUtils.log(this, "---------------------onStop");
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        LogUtil.log(this, "---------------------onDestroy");
+        LogUtils.log(this, "---------------------onDestroy");
         super.onDestroy();
     }
 

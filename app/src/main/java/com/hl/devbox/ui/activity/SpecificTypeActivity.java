@@ -1,11 +1,11 @@
-package com.hl.devbox.Activity;
+package com.hl.devbox.ui.activity;
 
 import android.os.Bundle;
 import android.view.View;
 
-import com.hl.devbox.Entity.Type;
-import com.hl.devbox.Fragment.LibListFragment;
 import com.hl.devbox.R;
+import com.hl.devbox.domain.entity.Type;
+import com.hl.devbox.ui.fragment.LibListFragment;
 
 public class SpecificTypeActivity extends BaseActivity {
 

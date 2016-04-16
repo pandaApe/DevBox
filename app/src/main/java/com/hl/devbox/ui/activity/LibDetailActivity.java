@@ -1,4 +1,4 @@
-package com.hl.devbox.Activity;
+package com.hl.devbox.ui.activity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -19,10 +19,10 @@ import com.hl.devbox.Engine.AppException;
 import com.hl.devbox.Engine.GetLastCommitInfoCallback;
 import com.hl.devbox.Engine.HttpCallback;
 import com.hl.devbox.Engine.WebActionImpl;
-import com.hl.devbox.Entity.ApkItem;
-import com.hl.devbox.Entity.Library;
 import com.hl.devbox.R;
-import com.hl.devbox.utils.LogUtil;
+import com.hl.devbox.domain.entity.ApkItem;
+import com.hl.devbox.domain.entity.Library;
+import com.hl.devbox.utils.LogUtils;
 import com.hl.devbox.utils.OSPluginManager;
 
 import org.kymjs.kjframe.KJDB;
@@ -199,7 +199,7 @@ public class LibDetailActivity extends BaseActivity {
         new WebActionImpl(this).downloadApkFile(this.codeLib, new HttpCallback<String>() {
             @Override
             public void onSucess(String filePath) {
-                LogUtil.log("--->" + operator.installApk(apkItem));
+                LogUtils.log("--->" + operator.installApk(apkItem));
                 btnDownload.setProgress(100);
 
             }
@@ -207,7 +207,7 @@ public class LibDetailActivity extends BaseActivity {
             @Override
             public void onProgress(int percentage) {
                 btnDownload.setProgress(percentage);
-                LogUtil.log("******->" + percentage);
+                LogUtils.log("******->" + percentage);
             }
 
             @Override

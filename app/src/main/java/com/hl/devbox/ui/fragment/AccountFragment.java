@@ -1,4 +1,4 @@
-package com.hl.devbox.Fragment;
+package com.hl.devbox.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.hl.devbox.Activity.CollectionActivity;
-import com.hl.devbox.Entity.User;
 import com.hl.devbox.R;
+import com.hl.devbox.ui.activity.CollectionActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

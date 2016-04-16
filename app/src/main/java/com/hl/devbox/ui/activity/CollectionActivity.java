@@ -1,4 +1,4 @@
-package com.hl.devbox.Activity;
+package com.hl.devbox.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -6,9 +6,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.hl.devbox.Adapter.LibListAdapter;
-import com.hl.devbox.Entity.Library;
 import com.hl.devbox.R;
+import com.hl.devbox.domain.entity.Library;
+import com.hl.devbox.ui.adapter.LibListAdapter;
 
 import java.util.ArrayList;
 

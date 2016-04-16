@@ -5,10 +5,10 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.hl.devbox.Entity.Library;
-import com.hl.devbox.Entity.Type;
+import com.hl.devbox.domain.entity.Library;
+import com.hl.devbox.domain.entity.Type;
 import com.hl.devbox.utils.BuildConfig;
-import com.hl.devbox.utils.LogUtil;
+import com.hl.devbox.utils.LogUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.FileCallBack;
 
@@ -105,7 +105,7 @@ public class WebActionImpl extends AppAction {
             @Override
             public void onSuccess(String t) {
 
-                LogUtil.log("onSuccess--->" + t);
+                LogUtils.log("onSuccess--->" + t);
                 String json = "";
                 try {
                     json = new JSONObject(t).getString("results");
@@ -147,7 +147,7 @@ public class WebActionImpl extends AppAction {
             @Override
             public void onSuccess(String t) {
 
-                LogUtil.log("onSuccess--->" + t);
+                LogUtils.log("onSuccess--->" + t);
 
                 String json = "";
                 try {
@@ -288,14 +288,14 @@ public class WebActionImpl extends AppAction {
 
                     @Override
                     public void onError(Call call, Exception e) {
-                        LogUtil.log("onFailure--->" + e);
+                        LogUtils.log("onFailure--->" + e);
                         if (callback != null)
                             callback.onFailure(new AppException(AppException.CONNECTION_FAILED, "服务器连接失败"));
                     }
 
                     @Override
                     public void onResponse(File file) {
-                        LogUtil.log("onSuccess");
+                        LogUtils.log("onSuccess");
                         if (callback != null) {
                             callback.onSucess(file.getAbsolutePath());
                             callback.onSucess();
@@ -339,7 +339,7 @@ public class WebActionImpl extends AppAction {
 //
 //            @Override
 //            public void onResponse(String response) {
-//                LogUtil.log(response);
+//                LogUtils.log(response);
 //            }
 //        });
 

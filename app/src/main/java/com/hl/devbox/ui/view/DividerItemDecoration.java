@@ -1,4 +1,4 @@
-package com.hl.devbox.view;
+package com.hl.devbox.ui.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;

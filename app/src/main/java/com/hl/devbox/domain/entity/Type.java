@@ -1,4 +1,4 @@
-package com.hl.devbox.Entity;
+package com.hl.devbox.domain.entity;
 
 import org.kymjs.kjframe.database.annotate.Id;
 

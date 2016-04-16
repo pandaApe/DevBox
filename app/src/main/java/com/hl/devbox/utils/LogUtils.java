@@ -11,7 +11,7 @@ import android.util.Log;
  * @CreatedAt: 23/2/16 22:40.
  * @Email: whailong2010@gmail.com
  */
-public class LogUtil {
+public class LogUtils {
 
     public static boolean ISDEBUG = false;
 

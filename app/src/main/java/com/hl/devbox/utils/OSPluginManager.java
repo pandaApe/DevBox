@@ -9,7 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.RemoteException;
 
-import com.hl.devbox.Entity.ApkItem;
+import com.hl.devbox.domain.entity.ApkItem;
 
 import java.util.List;
 
@@ -65,7 +65,7 @@ public class OSPluginManager {
     public void openApk(final ApkItem item) {
 
         if (!isApkInstall(item))
-            LogUtil.log(installApk(item));
+            LogUtils.log(installApk(item));
 
         PackageManager pm = mActivity.getPackageManager();
 

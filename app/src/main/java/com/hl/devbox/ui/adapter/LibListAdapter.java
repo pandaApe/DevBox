@@ -1,4 +1,4 @@
-package com.hl.devbox.Adapter;
+package com.hl.devbox.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.hl.devbox.Entity.Library;
 import com.hl.devbox.R;
+import com.hl.devbox.domain.entity.Library;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 

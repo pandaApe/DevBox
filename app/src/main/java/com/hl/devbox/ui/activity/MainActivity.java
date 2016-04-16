@@ -1,14 +1,14 @@
-package com.hl.devbox.Activity;
+package com.hl.devbox.ui.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
-import com.hl.devbox.Adapter.TabViewPageAdapter;
-import com.hl.devbox.Fragment.AccountFragment;
-import com.hl.devbox.Fragment.LibListFragment;
-import com.hl.devbox.Fragment.TypeListFrament;
 import com.hl.devbox.R;
+import com.hl.devbox.ui.adapter.TabViewPageAdapter;
+import com.hl.devbox.ui.fragment.AccountFragment;
+import com.hl.devbox.ui.fragment.LibListFragment;
+import com.hl.devbox.ui.fragment.TypeListFrament;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import java.util.ArrayList;

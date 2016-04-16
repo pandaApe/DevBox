@@ -1,4 +1,4 @@
-package com.hl.devbox.Entity;
+package com.hl.devbox.domain.entity;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;

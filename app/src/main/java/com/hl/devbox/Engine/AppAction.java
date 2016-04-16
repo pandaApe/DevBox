@@ -2,9 +2,9 @@ package com.hl.devbox.Engine;
 
 import android.graphics.Bitmap;
 
-import com.hl.devbox.Entity.Library;
-import com.hl.devbox.Entity.Type;
-import com.hl.devbox.Entity.User;
+import com.hl.devbox.domain.entity.Library;
+import com.hl.devbox.domain.entity.Type;
+import com.hl.devbox.domain.entity.User;
 
 import java.util.HashMap;
 import java.util.List;

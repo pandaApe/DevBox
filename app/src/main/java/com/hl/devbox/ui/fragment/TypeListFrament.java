@@ -1,4 +1,4 @@
-package com.hl.devbox.Fragment;
+package com.hl.devbox.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,13 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hl.devbox.Activity.SpecificTypeActivity;
-import com.hl.devbox.Adapter.TypeListAdapter;
 import com.hl.devbox.Engine.AppException;
 import com.hl.devbox.Engine.HttpCallback;
 import com.hl.devbox.Engine.WebActionImpl;
-import com.hl.devbox.Entity.Type;
 import com.hl.devbox.R;
+import com.hl.devbox.domain.entity.Type;
+import com.hl.devbox.ui.activity.SpecificTypeActivity;
+import com.hl.devbox.ui.adapter.TypeListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
