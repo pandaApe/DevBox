@@ -5,7 +5,7 @@ import android.content.Context;
 
 import com.bugtags.library.BugtagsOptions;
 import com.hl.devbox.utils.BuildConfig;
-import com.hl.devbox.utils.LogUtil;
+import com.hl.devbox.utils.LogUtils;
 import com.morgoo.droidplugin.PluginHelper;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -23,7 +23,7 @@ public class DevBoxApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        LogUtil.ISDEBUG = BuildConfig.ISDEBUGMODE;
+        LogUtils.ISDEBUG = BuildConfig.ISDEBUGMODE;
 
         setupShareSDK();
 

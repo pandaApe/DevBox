@@ -26,7 +26,7 @@ public class BuildConfig {
 
     //Api URL
     private static final String BaseURL = "https://api.leancloud.cn";
-    private static final String ApiVersion = "1.1";
+    private static final String ApiVersion = "1.1.0";
 
     public static final String GetLibrariesURL = BaseURL + "/" + ApiVersion + "/classes/Library";
     public static final String GetTypesURL = BaseURL + "/" + ApiVersion + "/classes/Type";
