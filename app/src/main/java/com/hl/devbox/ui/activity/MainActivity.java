@@ -14,14 +14,9 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 public class MainActivity extends BaseActivity {
 
-    @Bind(R.id.viewpagertab)
     SmartTabLayout viewpagerTab;
-    @Bind(R.id.viewpager)
     ViewPager viewPager;
 
     private TabViewPageAdapter adapter;
@@ -32,7 +27,6 @@ public class MainActivity extends BaseActivity {
         super.initViews(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
 
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(TypeListFrament.newInstance(0));

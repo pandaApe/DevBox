@@ -17,7 +17,6 @@ public class BuildConfig {
 
     public static final String AppFolder = FileUtils.getSDCardPath() + File.separator + "DevBox" + File.separator;
 
-
     public static final String ReposInfoUrl = "https://api.github.com/repos/AUTHOR/NAME/branches";
     public static final String LastCommitInfoUrl = "https://api.github.com/repos/AUTHOR/NAME/git/commits/SHAVALUE";
     public static final String APPKey = "OkaU2qxpo1fbHPtc9o7yQVgM";

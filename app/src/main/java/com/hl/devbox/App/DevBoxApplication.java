@@ -1,4 +1,4 @@
-package com.hl.devbox.App;
+package com.hl.devbox.app;
 
 import android.app.Application;
 import android.content.Context;
@@ -7,10 +7,6 @@ import com.bugtags.library.BugtagsOptions;
 import com.hl.devbox.utils.BuildConfig;
 import com.hl.devbox.utils.LogUtils;
 import com.morgoo.droidplugin.PluginHelper;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import cn.sharesdk.framework.ShareSDK;
 
@@ -28,8 +24,6 @@ public class DevBoxApplication extends Application {
         setupShareSDK();
 
         setupDroidPlugin();
-
-        setupImageLoader(getBaseContext());
 
         setupBugTags();
 
@@ -61,23 +55,6 @@ public class DevBoxApplication extends Application {
     protected void attachBaseContext(Context base) {
         PluginHelper.getInstance().applicationAttachBaseContext(base);
         super.attachBaseContext(base);
-    }
-
-    private void setupImageLoader(Context context) {
-        // This configuration tuning is custom. You can tune every option, you may tune some of them,
-        // or you can create default configuration by
-        //  ImageLoaderConfiguration.createDefault(this);
-        // method.
-        ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context);
-        config.threadPriority(Thread.NORM_PRIORITY - 2);
-        config.denyCacheImageMultipleSizesInMemory();
-        config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
-        config.diskCacheSize(80 * 1024 * 1024); // 80 MiB
-        config.tasksProcessingOrder(QueueProcessingType.LIFO);
-        config.writeDebugLogs(); // Remove for release app
-
-        // Initialize ImageLoader with configuration.
-        ImageLoader.getInstance().init(config.build());
     }
 
     @Override

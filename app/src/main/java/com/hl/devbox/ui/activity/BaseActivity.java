@@ -9,8 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.hl.devbox.App.DevBoxApplication;
 import com.hl.devbox.R;
+import com.hl.devbox.app.DevBoxApplication;
 import com.hl.devbox.utils.LogUtils;
 
 public class BaseActivity extends AppCompatActivity {
@@ -28,8 +28,7 @@ public class BaseActivity extends AppCompatActivity {
 
         this.initVariables();
         this.initViews(savedInstanceState);
-        this.loadData();
-        this.registerBordcast();
+
     }
 
     protected void initVariables() {
@@ -38,13 +37,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     //The method setContentView: should be called in this method.
-    protected void initViews(Bundle savedInstanceState) {
-    }
-
-    protected void loadData() {
-    }
-
-    protected void registerBordcast() {
+     void initViews(Bundle savedInstanceState) {
     }
 
     @Override
@@ -78,15 +71,12 @@ public class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         LogUtils.log(this, "---------------------onResume");
         super.onResume();
-//        Bugtags.onResume(this);
     }
 
     @Override
     protected void onPause() {
         LogUtils.log(this, "---------------------onPause");
         super.onPause();
-
-//        Bugtags.onPause(this);
     }
 
     @Override

@@ -12,13 +12,8 @@ import com.hl.devbox.ui.adapter.LibListAdapter;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
-
 public class CollectionActivity extends BaseActivity {
 
-    @Bind(R.id.recyclyView)
     RecyclerView recyclerView;
 
     private LibListAdapter adapter;
@@ -28,7 +23,7 @@ public class CollectionActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection);
-        ButterKnife.bind(this);
+
 
         this.setToolbarTitle(getString(R.string.liked));
         this.setToolbarDisplayHomeAsUpEnabledAndClickListenner(true, new View.OnClickListener() {
