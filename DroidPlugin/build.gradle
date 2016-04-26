@@ -1,14 +1,16 @@
 apply plugin: 'com.android.library'
 
+def ext = rootProject.ext
+
 dependencies {
     provided fileTree(dir: 'lib', include: '*.jar')
     compile fileTree(dir: 'libs', include: '*.jar')
 }
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion ext.compileSdkVersion
 
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    buildToolsVersion ext.buildToolsVersion
 
     sourceSets {
         main {
