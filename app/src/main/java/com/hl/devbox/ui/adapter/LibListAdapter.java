@@ -10,33 +10,26 @@ import android.widget.TextView;
 
 import com.hl.devbox.R;
 import com.hl.devbox.domain.entity.Library;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by whailong on 23/1/16.
  */
 public class LibListAdapter extends RecyclerView.Adapter<LibListAdapter.CodeLibViewHolder> {
-    private final DisplayImageOptions options;
+
     private Context context;
-    private ArrayList<Library> codeLibs;
+
+    private List<Library> codeLibs;
     private LayoutInflater layoutInflater;
 
 
-    public LibListAdapter(Context context, ArrayList<Library> codeLibs) {
+    public LibListAdapter(Context context, List<Library> codeLibs) {
+
         this.context = context;
         this.codeLibs = codeLibs;
         layoutInflater = LayoutInflater.from(context);
-        options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.temp)
-                .showImageForEmptyUri(R.mipmap.temp)
-                .showImageOnFail(R.mipmap.temp)
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .considerExifParams(true)
-                .build();
+
     }
 
     @Override
@@ -57,7 +50,7 @@ public class LibListAdapter extends RecyclerView.Adapter<LibListAdapter.CodeLibV
     public void onBindViewHolder(LibListAdapter.CodeLibViewHolder holder, int position) {
         Library codeLib = codeLibs.get(position);
         holder.tvLibName.setText(codeLib.getName());
-        ImageLoader.getInstance().displayImage(codeLib.getImage().getUrl(), holder.ivLibPreFace, this.options);
+
     }
 
     @Override
@@ -103,4 +96,10 @@ public class LibListAdapter extends RecyclerView.Adapter<LibListAdapter.CodeLibV
     public interface AdapterItemOnClickListenner {
         void onClick(View v, int index);
     }
+
+
+    public void setCodeLibs(List<Library> codeLibs) {
+        this.codeLibs = codeLibs;
+    }
+
 }

@@ -2,7 +2,6 @@ package com.hl.devbox.ui.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 
 import com.hl.devbox.R;
 import com.hl.devbox.ui.adapter.TabViewPageAdapter;
@@ -15,9 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MainActivity extends BaseActivity {
-
-    SmartTabLayout viewpagerTab;
-    ViewPager viewPager;
 
     private TabViewPageAdapter adapter;
     private ArrayList<String> tabTitles = new ArrayList<>();

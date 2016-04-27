@@ -8,4 +8,7 @@ package com.hl.devbox.ui.viewModel;
  * @Email: whailong2010@gmail.com
  */
 public class MainViewModel {
+
+    public MainViewModel() {
+    }
 }
