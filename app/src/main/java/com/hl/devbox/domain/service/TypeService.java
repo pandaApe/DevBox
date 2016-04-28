@@ -1,6 +1,9 @@
 package com.hl.devbox.domain.service;
 
+import com.hl.devbox.domain.entity.Type;
+
 import retrofit2.http.GET;
+import rx.Observable;
 
 /**
  * Description:
@@ -11,5 +14,6 @@ import retrofit2.http.GET;
  */
 public interface TypeService {
 
-    @GET("")
+    @GET("classes/Type")
+    Observable<Type> getType();
 }
