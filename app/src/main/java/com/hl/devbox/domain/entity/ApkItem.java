@@ -49,8 +49,8 @@ public class ApkItem {
         this.context = context;
 
         String apkName = lib.getName().replace(" ", "") + ".apk";
-        String path = BuildConfig.AppFolder + apkName;
-        apkFilePath = path;
+//        String path = BuildConfig.AppFolder + apkName;
+//        apkFilePath = path;
 
     }
 

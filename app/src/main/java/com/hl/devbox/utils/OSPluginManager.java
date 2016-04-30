@@ -64,8 +64,8 @@ public class OSPluginManager {
     // 打开Apk
     public void openApk(final ApkItem item) {
 
-        if (!isApkInstall(item))
-            LogUtils.log(installApk(item));
+//        if (!isApkInstall(item))
+//            LogUtils.log(installApk(item));
 
         PackageManager pm = mActivity.getPackageManager();
 

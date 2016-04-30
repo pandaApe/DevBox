@@ -11,9 +11,6 @@ import com.hl.devbox.R;
 
 import java.util.HashMap;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
@@ -25,16 +22,16 @@ import cn.sharesdk.tencent.qq.QQ;
  */
 public class LoginActivity extends BaseActivity {
 
-    @Bind(R.id.btnQQLogin)
+
     Button btnQQLogin;
-    @Bind(R.id.btnWeiboLogin)
+
     Button btnWeiboLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
+
 
         setToolbarDisplayHomeAsUpEnabledAndClickListenner(true, new View.OnClickListener() {
             @Override
@@ -44,7 +41,7 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
-    @OnClick(R.id.btnQQLogin)
+    //    @OnClick(R.id.btnQQLogin)
     public void viewClicked(View view) {
         int viewId = view.getId();
 

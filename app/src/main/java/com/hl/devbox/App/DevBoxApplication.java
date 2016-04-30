@@ -16,8 +16,7 @@ public class DevBoxApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        LogUtils.ISDEBUG = BuildConfig.ISDEBUGMODE;
+        
 
         setupShareSDK();
 

@@ -1,6 +1,5 @@
 package com.hl.devbox.domain.entity;
 
-import org.kymjs.kjframe.database.annotate.Id;
 
 /**
  * Description:
@@ -11,7 +10,6 @@ import org.kymjs.kjframe.database.annotate.Id;
  */
 public class User {
 
-    @Id
     private String objectId;
     private String nickName;
     private String userId;

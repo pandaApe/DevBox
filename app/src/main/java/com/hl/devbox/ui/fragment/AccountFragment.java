@@ -13,26 +13,22 @@ import android.widget.TextView;
 import com.hl.devbox.R;
 import com.hl.devbox.ui.activity.CollectionActivity;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 /**
  * Created by whailong on 15/1/16.
  */
 public class AccountFragment extends Fragment {
 
-    @Bind(R.id.cv_feedback)
+
     CardView cvFeedback;
-    @Bind(R.id.cv_collction)
+
     CardView cvCollection;
-    @Bind(R.id.iv_avatar)
+
     ImageView ivAvatar;
-    @Bind(R.id.tv_nickName)
+
     TextView tvNickName;
-    @Bind(R.id.tv_otherDetail)
+
     TextView tvOtherDetail;
-    @Bind(R.id.iv_collection)
+
     ImageView ivCollection;
 
     public static AccountFragment newInstance(int num) {
@@ -43,11 +39,11 @@ public class AccountFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
-        ButterKnife.bind(this, view);
+//        ButterKnife.bind(this, view);
         return view;
     }
 
-    @OnClick({R.id.cv_collction, R.id.cv_feedback})
+    //    @OnClick({R.id.cv_collction, R.id.cv_feedback})
     public void viewOnClick(View v) {
         switch (v.getId()) {
             case R.id.cv_collction:
@@ -63,7 +59,7 @@ public class AccountFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+//        ButterKnife.unbind(this);
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.hl.devbox.domain.entity;
 
-import org.kymjs.kjframe.database.annotate.Id;
-
 import java.io.Serializable;
 
 /**
@@ -22,7 +20,6 @@ public class Type implements Serializable {
         this.objectId = objectId;
     }
 
-    @Id
     private String enDescription;
     private String cnDescription;
     private String parentType;
