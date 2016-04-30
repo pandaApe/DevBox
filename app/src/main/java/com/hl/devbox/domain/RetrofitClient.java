@@ -1,7 +1,6 @@
 package com.hl.devbox.domain;
 
 import com.github.aurae.retrofit2.LoganSquareConverterFactory;
-import com.hl.devbox.domain.service.HttpHeaderInterceptor;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;

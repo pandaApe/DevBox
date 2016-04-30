@@ -1,4 +1,4 @@
-package com.hl.devbox.domain.service;
+package com.hl.devbox.domain;
 
 import com.hl.devbox.utils.CipherUtils;
 
@@ -34,9 +34,9 @@ public class HttpHeaderInterceptor implements Interceptor {
 
         Request newRequest = request
                 .newBuilder()
-                .addHeader("X-LC-Id", APPId)
-                .addHeader("Content-Type", "application/json")
-                .addHeader("X-LC-Sign", generateLCSign())
+                .header("X-LC-Id", APPId)
+                .header("Content-Type", "application/json")
+                .header("X-LC-Sign", generateLCSign())
                 .build();
 
         return chain.proceed(newRequest);

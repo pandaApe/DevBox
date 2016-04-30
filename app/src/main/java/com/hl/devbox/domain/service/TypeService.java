@@ -16,4 +16,5 @@ public interface TypeService {
 
     @GET("classes/Type")
     Observable<Type> getType();
+
 }

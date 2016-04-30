@@ -4,8 +4,6 @@ import android.app.Application;
 import android.content.Context;
 
 import com.bugtags.library.BugtagsOptions;
-import com.hl.devbox.utils.BuildConfig;
-import com.hl.devbox.utils.LogUtils;
 import com.morgoo.droidplugin.PluginHelper;
 
 import cn.sharesdk.framework.ShareSDK;
