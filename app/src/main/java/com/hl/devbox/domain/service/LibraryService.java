@@ -32,10 +32,6 @@ public interface LibraryService {
     Observable<Library> getLibrary();
 
 /*
-  params.putHeaders("X-LC-Sign", generateLCSign());
-        params.putHeaders("X-LC-Id", BuildConfig.APPId);
-        params.putHeaders("Content-Type", "application/json");
-
         //If there is no keyword, it means that must is getting libraries by Type.
         if (!TextUtils.isEmpty(paramMap.get("objId"))) {
             params.put("where", "{\"$relatedTo\":{\"object\":{\"__type\":\"Pointer\",\"className\":\"Type\",\"objectId\":\"" + paramMap.get("objId") + "\"},\"key\":\"libraries\"}}");
@@ -67,7 +63,9 @@ public interface LibraryService {
         Map map = params.getHeaders();
         String requestBody = params.getJsonParams();
         RequestBody body = RequestBody.create(null, params.getJsonParams());
-
-
      */
+
+    //Download apk file
+
+
 }

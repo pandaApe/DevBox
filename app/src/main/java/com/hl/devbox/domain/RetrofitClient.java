@@ -1,7 +1,9 @@
 package com.hl.devbox.domain;
 
 import com.github.aurae.retrofit2.LoganSquareConverterFactory;
+import com.hl.devbox.domain.service.HttpHeaderInterceptor;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -18,6 +20,7 @@ public class RetrofitClient {
 
     private String BASE_URL = "https://api.leancloud.cn/1.1/";
 
+
     private static RetrofitClient singleton = new RetrofitClient();
 
     public RetrofitClient shareInstance() {
@@ -31,9 +34,12 @@ public class RetrofitClient {
     }
 
     private void createRetrofit() {
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
-        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
+        OkHttpClient okHttpClient = new OkHttpClient
+                .Builder()
+                .addInterceptor(getHttpHeaderInterceptor())
+                .addInterceptor(getLoggingInterceptor())
+                .build();
 
         retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
@@ -42,4 +48,22 @@ public class RetrofitClient {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
     }
+
+    public <T> T create(Class<?> clazz) {
+        return (T) retrofit.create(clazz);
+    }
+
+    private Interceptor getLoggingInterceptor() {
+
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+        return httpLoggingInterceptor;
+    }
+
+    private Interceptor getHttpHeaderInterceptor() {
+
+        return new HttpHeaderInterceptor();
+    }
+
+
 }

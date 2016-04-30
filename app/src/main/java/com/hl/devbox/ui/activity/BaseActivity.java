@@ -11,7 +11,6 @@ import android.view.View;
 
 import com.hl.devbox.R;
 import com.hl.devbox.app.DevBoxApplication;
-import com.hl.devbox.utils.LogUtils;
 
 public class BaseActivity extends AppCompatActivity {
 
