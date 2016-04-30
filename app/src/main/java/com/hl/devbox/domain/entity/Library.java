@@ -2,8 +2,6 @@ package com.hl.devbox.domain.entity;
 
 import com.google.gson.annotations.Until;
 
-import org.kymjs.kjframe.database.annotate.Id;
-
 import java.io.Serializable;
 
 /**
@@ -11,18 +9,27 @@ import java.io.Serializable;
  */
 public class Library implements Serializable {
 
+    private String objectId;
     private String name;
     private String author;
     private String enDescription;
     private String cnDescription;
     private String githubAddress;
     private String license;
+
     private String minSdkVersion;
     private int collectionCount;
     private int downloadCount;
     private int viewCount;
+
     private DevFile apk;
     private DevFile image;
+
+    public Library() {
+        this.collectionCount = 0;
+        this.downloadCount = 0;
+        this.viewCount = 0;
+    }
 
     @Until(0.1)
     private boolean isCollected;
@@ -34,16 +41,6 @@ public class Library implements Serializable {
     public void setIsCollected(boolean isCollected) {
         this.isCollected = isCollected;
     }
-
-    public Library() {
-        this.collectionCount = 0;
-        this.downloadCount = 0;
-        this.viewCount = 0;
-    }
-
-    @Id
-    private String objectId;
-
 
     public String getObjectId() {
         return objectId;

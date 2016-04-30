@@ -15,6 +15,8 @@ import java.io.Serializable;
  */
 public class DevFile implements Serializable {
 
+
+
     class MetaData implements Serializable{
         private String owner;
         private long size;

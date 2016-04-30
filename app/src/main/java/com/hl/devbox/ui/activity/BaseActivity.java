@@ -23,8 +23,6 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        LogUtils.log(this, "---------------------OnCreate");
-
         this.initVariables();
         this.initViews(savedInstanceState);
 
@@ -36,7 +34,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     //The method setContentView: should be called in this method.
-     void initViews(Bundle savedInstanceState) {
+    void initViews(Bundle savedInstanceState) {
     }
 
     @Override
@@ -65,31 +63,6 @@ public class BaseActivity extends AppCompatActivity {
     protected void setToolbarTitle(CharSequence text) {
         this.mActionBar.setTitle(text);
     }
-
-    @Override
-    protected void onResume() {
-        LogUtils.log(this, "---------------------onResume");
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        LogUtils.log(this, "---------------------onPause");
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        LogUtils.log(this, "---------------------onStop");
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        LogUtils.log(this, "---------------------onDestroy");
-        super.onDestroy();
-    }
-
 
     public void showSnackbar(String msg) {
         View rootView = findViewById(android.R.id.content);

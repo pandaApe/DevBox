@@ -4,19 +4,20 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by whailong on 15/1/16.
  */
 public class TabViewPageAdapter extends FragmentPagerAdapter {
 
-    public ArrayList<Fragment> fragments;
-    public ArrayList<String> titles;
+    public List<Fragment> fragments;
+    public List<String> titles;
 
-    public TabViewPageAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
+    public TabViewPageAdapter(FragmentManager fm, List<Fragment> fragments,List<String> titles) {
         super(fm);
         this.fragments = fragments;
+        this.titles = titles;
     }
 
     @Override

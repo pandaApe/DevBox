@@ -37,7 +37,9 @@
             app:stl_indicatorInterpolation="smart"
             app:stl_indicatorThickness="3dp"
             app:stl_underlineColor="@color/transparent"
-            app:tabGravity="fill" />
+            app:tabGravity="fill"
+            app:viewPager = "@{viewModel.contentViewPager}"
+            />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -45,6 +47,7 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:viewPagerAdapter = "@{viewModel.viewPagerAdapter}"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </android.support.design.widget.CoordinatorLayout>
