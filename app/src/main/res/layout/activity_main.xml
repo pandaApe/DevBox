@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data >
+
+    <data>
 
         <variable
             name="viewModel"
@@ -9,46 +10,46 @@
 
     </data>
 
-
-<android.support.design.widget.CoordinatorLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
-
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <include layout="@layout/toolbar" />
-
-        <com.ogaclejapan.smarttablayout.SmartTabLayout
-            android:id="@+id/viewpagertab"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@color/colorPrimary"
-            android:paddingBottom="4dp"
-            app:stl_defaultTabTextAllCaps="true"
-            app:stl_defaultTabTextColor="#fff"
-            app:stl_defaultTabTextSize="15sp"
-            app:stl_distributeEvenly="true"
-            app:stl_indicatorColor="#fff"
-            app:stl_indicatorCornerRadius="1.5dp"
-            app:stl_indicatorInterpolation="smart"
-            app:stl_indicatorThickness="3dp"
-            app:stl_underlineColor="@color/transparent"
-            app:tabGravity="fill"
-            app:viewPager = "@{viewModel.contentViewPager}"
-            />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:viewPagerAdapter = "@{viewModel.viewPagerAdapter}"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:fitsSystemWindows="true">
 
-</android.support.design.widget.CoordinatorLayout>
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <include layout="@layout/toolbar" />
+
+            <com.ogaclejapan.smarttablayout.SmartTabLayout
+                android:id="@+id/viewpagertab"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/colorPrimary"
+                android:paddingBottom="4dp"
+                app:stl_defaultTabTextAllCaps="true"
+                app:stl_defaultTabTextColor="#fff"
+                app:stl_defaultTabTextSize="15sp"
+                app:stl_distributeEvenly="true"
+                app:stl_indicatorColor="#fff"
+                app:stl_indicatorCornerRadius="1.5dp"
+                app:stl_indicatorInterpolation="smart"
+                app:stl_indicatorThickness="3dp"
+                app:stl_underlineColor="@color/transparent"
+                app:tabGravity="fill"
+                app:viewPager="@{viewModel.contentViewPager}" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:currentItemIndex="viewModel.currentItemIndex"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:offscreenPageLimit="@{viewModel.offscreenPageLimit}"
+            app:viewPagerAdapter="@{viewModel.viewPagerAdapter}" />
+
+    </android.support.design.widget.CoordinatorLayout>
 </layout>
