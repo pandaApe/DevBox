@@ -6,8 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.hl.devbox.ui.viewModel.MainViewModel" />
-
+            type="com.hl.devbox.ui.viewModel.MainAtyModel" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -23,7 +22,6 @@
             <include layout="@layout/toolbar" />
 
             <com.ogaclejapan.smarttablayout.SmartTabLayout
-                android:id="@+id/viewpagertab"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@color/colorPrimary"

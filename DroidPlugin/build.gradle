@@ -3,8 +3,8 @@ apply plugin: 'com.android.library'
 def ext = rootProject.ext
 
 dependencies {
-    provided fileTree(dir: 'lib', include: '*.jar')
-    compile fileTree(dir: 'libs', include: '*.jar')
+    provided fileTree(include: '*.jar', dir: 'lib')
+    compile fileTree(include: '*.jar', dir: 'libs')
 }
 
 android {
@@ -31,5 +31,9 @@ android {
 
     lintOptions {
         abortOnError false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 }

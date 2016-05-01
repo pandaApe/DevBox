@@ -24,7 +24,7 @@ import javax.inject.Inject;
  * @CreatedAt: 26/4/16 23:23.
  * @Email: whailong2010@gmail.com
  */
-public class MainViewModel extends BaseObservable {
+public class MainAtyModel extends BaseObservable {
 
     @Bindable
     public TabViewPageAdapter viewPagerAdapter;
@@ -39,7 +39,7 @@ public class MainViewModel extends BaseObservable {
     public ViewPager contentViewPager;
 
     @Inject
-    public MainViewModel(FragmentActivity context) {
+    public MainAtyModel(FragmentActivity context) {
 
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(TypeListFrament.newInstance(0));

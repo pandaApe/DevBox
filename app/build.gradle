@@ -27,6 +27,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+//
+//    packagingOptions {
+//        exclude 'META-INF/services/javax.annotation.processing.Processor'
+//    }
+
 
     dataBinding {
         enabled = true
@@ -67,6 +72,7 @@ dependencies {
     provided provides.daggerCompiler
     provided provides.annotation
 
+    apt apts.dataBindingCompiler
     apt apts.logansquareCompiler
 
 }
