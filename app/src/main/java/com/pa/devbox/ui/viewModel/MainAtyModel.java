@@ -6,16 +6,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 
+import com.pa.devbox.BR;
 import com.pa.devbox.R;
 import com.pa.devbox.ui.adapter.TabViewPageAdapter;
 import com.pa.devbox.ui.fragment.AccountFragment;
 import com.pa.devbox.ui.fragment.LibListFragment;
-import com.pa.devbox.ui.fragment.TypeListFrament;
+import com.pa.devbox.ui.fragment.TypeListFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import javax.inject.Inject;
 
 /**
  * Description:
@@ -42,7 +41,7 @@ public class MainAtyModel extends BaseObservable {
     public MainAtyModel(FragmentActivity context) {
 
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(TypeListFrament.newInstance(0));
+        fragments.add(TypeListFragment.newInstance(0));
         fragments.add(LibListFragment.newInstance(1));
         fragments.add(AccountFragment.newInstance(3));
 
@@ -56,5 +55,43 @@ public class MainAtyModel extends BaseObservable {
 
         offscreenPageLimit = 3;
 
+    }
+
+
+    public TabViewPageAdapter getViewPagerAdapter() {
+        return viewPagerAdapter;
+    }
+
+    public void setViewPagerAdapter(TabViewPageAdapter viewPagerAdapter) {
+        this.viewPagerAdapter = viewPagerAdapter;
+        notifyPropertyChanged(BR.contentViewPager);
+    }
+
+    public int getCurrentItemIndex() {
+        return currentItemIndex;
+    }
+
+    public void setCurrentItemIndex(int currentItemIndex) {
+        this.currentItemIndex = currentItemIndex;
+        notifyPropertyChanged(BR.currentItemIndex);
+    }
+
+    public int getOffscreenPageLimit() {
+        return offscreenPageLimit;
+
+    }
+
+    public void setOffscreenPageLimit(int offscreenPageLimit) {
+        this.offscreenPageLimit = offscreenPageLimit;
+        notifyPropertyChanged(BR.offscreenPageLimit);
+    }
+
+    public ViewPager getContentViewPager() {
+        return contentViewPager;
+    }
+
+    public void setContentViewPager(ViewPager contentViewPager) {
+        this.contentViewPager = contentViewPager;
+        notifyPropertyChanged(BR.contentViewPager);
     }
 }
