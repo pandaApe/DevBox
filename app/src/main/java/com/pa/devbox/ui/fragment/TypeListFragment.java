@@ -14,8 +14,8 @@ import android.view.ViewGroup;
 
 import com.pa.devbox.R;
 import com.pa.devbox.domain.entity.Type;
-import com.pa.devbox.ui.aty.SpecificTypeActivity;
 import com.pa.devbox.ui.adapter.TypeListAdapter;
+import com.pa.devbox.ui.aty.SpecificTypeActivity;
 
 import java.util.ArrayList;
 
@@ -110,9 +110,4 @@ public class TypeListFragment extends Fragment {
         progressBar.show();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-//        ButterKnife.unbind(this);
-    }
 }

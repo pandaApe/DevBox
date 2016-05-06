@@ -4,10 +4,10 @@ import android.databinding.BindingAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.pa.devbox.domain.entity.Library;
 import com.pa.devbox.ui.adapter.LibListAdapter;
 import com.pa.devbox.ui.adapter.TabViewPageAdapter;
-import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import java.util.List;
 
@@ -20,9 +20,17 @@ import java.util.List;
  */
 public class DataBindingAdapter {
 
+    /*
+    * For Recycler View
+    * */
     @BindingAdapter({"recyclerViewAdapter"})
     public static void bindAdapter(RecyclerView recyclerView, LibListAdapter adapter) {
         recyclerView.setAdapter(adapter);
+    }
+
+    @BindingAdapter({"recyclerViewLayout"})
+    public static void bindLayout(RecyclerView recyclerView, RecyclerView.LayoutManager layoutManager) {
+        recyclerView.setLayoutManager(layoutManager);
     }
 
     @BindingAdapter({"recyclerViewData"})
@@ -32,6 +40,9 @@ public class DataBindingAdapter {
         adapter.notifyDataSetChanged();
     }
 
+    /*
+    *
+    **/
     @BindingAdapter({"viewPagerAdapter"})
     public static void bindViewPagerAdapter(ViewPager viewPager, TabViewPageAdapter adapter) {
         viewPager.setAdapter(adapter);
