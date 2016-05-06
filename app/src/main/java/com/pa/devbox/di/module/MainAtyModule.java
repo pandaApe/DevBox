@@ -3,6 +3,7 @@ package com.pa.devbox.di.module;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 
+import com.pa.devbox.ui.aty.MainActivity;
 import com.pa.devbox.ui.viewModel.MainAtyModel;
 
 import dagger.Module;
@@ -18,19 +19,19 @@ import dagger.Provides;
 
 @Module
 public class MainAtyModule {
-    private AppCompatActivity context;
+    private MainActivity context;
 
-    public MainAtyModule(AppCompatActivity context) {
+    public MainAtyModule(MainActivity context) {
         this.context = context;
     }
 
     @Provides
-    MainAtyModel provideMainAtyModel(AppCompatActivity context) {
+    MainAtyModel provideMainAtyModel(MainActivity context) {
         return new MainAtyModel(context);
     }
 
     @Provides
-    AppCompatActivity provideContext() {
+    MainActivity provideMainActivity() {
         return this.context;
     }
 

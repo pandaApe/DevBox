@@ -4,6 +4,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 
 import com.pa.devbox.di.module.MainAtyModule;
+import com.pa.devbox.ui.aty.MainActivity;
 
 import dagger.Component;
 
@@ -16,5 +17,5 @@ import dagger.Component;
  */
 @Component(modules = MainAtyModule.class)
 public interface MainAtyComponent {
-    void inject(AppCompatActivity aty);
+    void inject(MainActivity aty);
 }

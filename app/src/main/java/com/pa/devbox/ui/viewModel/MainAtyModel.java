@@ -38,7 +38,7 @@ public class MainAtyModel extends BaseObservable {
     @Bindable
     public ViewPager contentViewPager;
 
-    @Inject
+
     public MainAtyModel(FragmentActivity context) {
 
         ArrayList<Fragment> fragments = new ArrayList<>();
