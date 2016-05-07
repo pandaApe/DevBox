@@ -2,41 +2,20 @@ package com.pa.devbox.domain.entity;
 
 import android.content.Context;
 
+import com.bluelinelabs.logansquare.annotation.JsonObject;
 import com.pa.devbox.R;
 
 import java.io.Serializable;
 
 /**
  * Description:
- *
+ * <p>
  * Author: PandaApe.
  * CreatedAt: 13/3/16 14:40.
  * Email: whailong2010@gmail.com
  */
+@JsonObject(fieldDetectionPolicy = JsonObject.FieldDetectionPolicy.NONPRIVATE_FIELDS_AND_ACCESSORS)
 public class DevFile implements Serializable {
-
-
-
-    class MetaData implements Serializable{
-        private String owner;
-        private long size;
-
-        public String getOwner() {
-            return owner;
-        }
-
-        public void setOwner(String owner) {
-            this.owner = owner;
-        }
-
-        public long getSize() {
-            return size;
-        }
-
-        public void setSize(long size) {
-            this.size = size;
-        }
-    }
 
     private String url;
     private MetaData metaData;
@@ -59,7 +38,7 @@ public class DevFile implements Serializable {
 
     public String getApkSizeStr(Context context) {
 
-        double size = this.getMetaData().size / 1000.0 / 1000.0;
+        double size = this.getMetaData().getSize() / 1000.0 / 1000.0;
         double sizeFinal = Math.round(size * 100) / 100.0;
         return context.getString(R.string.download) + sizeFinal + "MB)";
     }

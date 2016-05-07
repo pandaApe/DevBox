@@ -54,8 +54,8 @@ public class TypeListModel {
                     }
 
                     @Override
-                    public void onNext(BaseResponse<Type> type) {
-                        callback.onSuccess(type.getResults());
+                    public void onNext(BaseResponse<Type> response) {
+                        callback.onSuccess(response.getResults());
                     }
                 });
     }

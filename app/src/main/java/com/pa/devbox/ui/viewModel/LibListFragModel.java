@@ -8,6 +8,10 @@ import com.pa.devbox.ui.adapter.BaseAdapter;
 import com.pa.devbox.ui.adapter.LibListAdapter;
 import com.pa.devbox.ui.aty.LibDetailActivity;
 import com.pa.devbox.ui.aty.MainActivity;
+import com.pa.devbox.ui.delegate.HttpRequestCallback;
+import com.pa.devbox.ui.modle.LibListModel;
+
+import java.util.List;
 
 /**
  * Description:
@@ -16,21 +20,31 @@ import com.pa.devbox.ui.aty.MainActivity;
  * CreatedAt: 7/5/16 10:01.
  * Email: whailong2010@gmail.com
  */
-public class LibListFragModel extends ListBaseModel<Library> implements BaseAdapter.OnItemClickListener {
+public class LibListFragModel extends ListBaseModel<Library> implements BaseAdapter.OnItemClickListener, HttpRequestCallback<Library> {
+
+    //Start from 1
+    private int currentPageIndex = 1;
 
     private MainActivity context;
 
-    public LibListFragModel(MainActivity context) {
+    private LibListModel libListModel;
+
+    public LibListFragModel(MainActivity context, LibListModel libListModel) {
         super(context);
         swipeRefreshLayoutStatus = true;
         this.context = context;
         adapter = new LibListAdapter(context, data);
         adapter.setItemClickListener(this);
+
+        this.libListModel = libListModel;
+        this.libListModel.setCallback(this);
+
+        onRefresh();
     }
 
     @Override
     public void onRefresh() {
-
+        libListModel.getLibs(1);
     }
 
     @Override
@@ -40,4 +54,20 @@ public class LibListFragModel extends ListBaseModel<Library> implements BaseAdap
         this.context.startActivity(intent);
     }
 
+    @Override
+    public void onCompleted() {
+        this.setSwipeRefreshLayoutRefreshing(false);
+        this.setProgressBarVisible(false);
+    }
+
+    @Override
+    public void onError() {
+        this.setProgressBarVisible(false);
+        this.setSwipeRefreshLayoutRefreshing(false);
+    }
+
+    @Override
+    public void onSuccess(List<Library> data) {
+        this.setData(data);
+    }
 }

@@ -28,6 +28,9 @@ public class ListBaseModel<T> extends BaseObservable implements SwipeRefreshLayo
     boolean swipeRefreshLayoutStatus;
 
     @Bindable
+    boolean swipeRefreshLayoutRefreshing;
+
+    @Bindable
     RecyclerView.LayoutManager layoutManager;
 
     @Bindable
@@ -64,6 +67,15 @@ public class ListBaseModel<T> extends BaseObservable implements SwipeRefreshLayo
     public void setSwipeRefreshLayoutStatus(boolean swipeRefreshLayoutStatus) {
         this.swipeRefreshLayoutStatus = swipeRefreshLayoutStatus;
         notifyPropertyChanged(BR.swipeRefreshLayoutStatus);
+    }
+
+    public boolean isSwipeRefreshLayoutRefreshing() {
+        return swipeRefreshLayoutRefreshing;
+    }
+
+    public void setSwipeRefreshLayoutRefreshing(boolean swipeRefreshLayoutRefreshing) {
+        this.swipeRefreshLayoutRefreshing = swipeRefreshLayoutRefreshing;
+        notifyPropertyChanged(BR.swipeRefreshLayoutRefreshing);
     }
 
     public RecyclerView.LayoutManager getLayoutManager() {

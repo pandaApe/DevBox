@@ -36,6 +36,11 @@ public class DataBindingAdapter {
         swipeRefreshLayout.setOnRefreshListener(listener);
     }
 
+    @BindingAdapter({"refreshing"})
+    public static void bindRefreshingStatus(SwipeRefreshLayout swipeRefreshLayout, boolean status) {
+        swipeRefreshLayout.setRefreshing(status);
+    }
+
     /*
     * ContentLoadingProgressBar
     * */

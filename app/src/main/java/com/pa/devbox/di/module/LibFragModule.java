@@ -1,6 +1,7 @@
 package com.pa.devbox.di.module;
 
 import com.pa.devbox.ui.aty.MainActivity;
+import com.pa.devbox.ui.modle.LibListModel;
 import com.pa.devbox.ui.viewModel.LibListFragModel;
 
 import dagger.Module;
@@ -25,7 +26,7 @@ public class LibFragModule {
 
     @Provides
     LibListFragModel provideLibModel(MainActivity context) {
-        return new LibListFragModel(context);
+        return new LibListFragModel(context, new LibListModel());
     }
 
     @Provides

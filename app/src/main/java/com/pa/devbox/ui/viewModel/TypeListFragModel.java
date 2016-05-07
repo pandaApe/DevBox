@@ -26,16 +26,6 @@ public class TypeListFragModel extends ListBaseModel<Type> implements HttpReques
         this.listModel.setCallback(this);
         swipeRefreshLayoutStatus = false;
         adapter = new TypeListAdapter(context, data);
-
-//        for (int index = 0; index < 10; index++) {
-//
-//            Type type = new Type();
-//            type.setEnDescription("index" + index);
-//            data.add(type);
-//        }
-//
-//        adapter.notifyDataSetChanged();
-
         this.listModel.getTypes();
     }
 

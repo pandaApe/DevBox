@@ -1,5 +1,6 @@
 package com.pa.devbox.domain.entity;
 
+import com.bluelinelabs.logansquare.annotation.JsonObject;
 import com.google.gson.annotations.Until;
 
 import java.io.Serializable;
@@ -7,6 +8,7 @@ import java.io.Serializable;
 /**
  * Created by whailong on 14/1/16.
  */
+@JsonObject(fieldDetectionPolicy = JsonObject.FieldDetectionPolicy.NONPRIVATE_FIELDS_AND_ACCESSORS)
 public class Library implements Serializable {
 
     private String objectId;

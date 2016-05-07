@@ -1,10 +1,14 @@
 package com.pa.devbox.domain.service;
 
+import com.pa.devbox.domain.entity.BaseResponse;
 import com.pa.devbox.domain.entity.Library;
+
+import java.util.Map;
 
 import retrofit2.http.GET;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.QueryMap;
 import rx.Observable;
 
 /**
@@ -28,7 +32,7 @@ public interface LibraryService {
 
 
     @GET("classes/Library")
-    Observable<Library> getLibrary();
+    Observable<BaseResponse<Library>> getLibrary(@QueryMap Map<String,String> parametersMap);
 
 /*
         //If there is no keyword, it means that must is getting libraries by Type.
@@ -52,7 +56,6 @@ public interface LibraryService {
     @PUT("classes/Library/{objId}")
     Observable increaseCount(@Path("objId") String objId);
     /*
-
      HttpParams params = new HttpParams();
         params.putHeaders("X-LC-Sign", generateLCSign());
         params.putHeaders("X-LC-Id", BuildConfig.APPId);
