@@ -18,7 +18,7 @@ import java.util.Arrays;
 
 /**
  * Description:
- *
+ * <p>
  * Author: PandaApe.
  * CreatedAt: 26/4/16 23:23.
  * Email: whailong2010@gmail.com
@@ -41,9 +41,9 @@ public class MainAtyModel extends BaseObservable {
     public MainAtyModel(MainActivity context) {
 
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(TypeListFragment.newInstance(0));
-        fragments.add(LibListFragment.newInstance(1));
-        fragments.add(AccountFragment.newInstance(3));
+        fragments.add(new TypeListFragment());
+        fragments.add(new LibListFragment());
+        fragments.add(new AccountFragment());
 
         ArrayList<String> tabTitles = new ArrayList<>();
         String[] titles = context.getResources().getStringArray(R.array.tabTitles);

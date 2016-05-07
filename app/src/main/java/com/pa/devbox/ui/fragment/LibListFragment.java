@@ -29,11 +29,6 @@ public class LibListFragment extends Fragment {
     @Inject
     LibListFragModel libListFragModel;
 
-    public static LibListFragment newInstance(int num) {
-        LibListFragment f = new LibListFragment();
-        return f;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentLibBinding libBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_lib, container, false);

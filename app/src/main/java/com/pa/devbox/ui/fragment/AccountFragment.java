@@ -35,11 +35,6 @@ public class AccountFragment extends Fragment {
 
     ImageView ivCollection;
 
-    public static AccountFragment newInstance(int num) {
-        AccountFragment f = new AccountFragment();
-        return f;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);

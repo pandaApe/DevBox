@@ -25,11 +25,6 @@ import javax.inject.Inject;
  */
 public class TypeListFragment extends Fragment {
 
-    public static TypeListFragment newInstance(int num) {
-        TypeListFragment f = new TypeListFragment();
-        return f;
-    }
-
     @Inject
     TypeListFragModel typeTypeListFragModel;
 
