@@ -17,7 +17,10 @@ import com.dd.CircularProgressButton;
 import com.pa.devbox.R;
 import com.pa.devbox.domain.entity.ApkItem;
 import com.pa.devbox.domain.entity.Library;
+import com.pa.devbox.ui.viewModel.LibDetailAtyModel;
 import com.pa.devbox.util.OSPluginManager;
+
+import javax.inject.Inject;
 
 
 /**
@@ -25,6 +28,9 @@ import com.pa.devbox.util.OSPluginManager;
  */
 public class LibDetailActivity extends BaseActivity {
 
+
+    @Inject
+    LibDetailAtyModel libDetailAtyModel;
 
     ImageView ivHeader;
 
