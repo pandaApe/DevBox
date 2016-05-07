@@ -3,6 +3,7 @@ package com.pa.devbox.ui.aty;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -15,6 +16,9 @@ import android.widget.TextView;
 
 import com.dd.CircularProgressButton;
 import com.pa.devbox.R;
+import com.pa.devbox.databinding.ActivityLibdetailBinding;
+import com.pa.devbox.di.component.DaggerLibDetailAtyComponent;
+import com.pa.devbox.di.module.LibDetailAtyModule;
 import com.pa.devbox.domain.entity.ApkItem;
 import com.pa.devbox.domain.entity.Library;
 import com.pa.devbox.ui.viewModel.LibDetailAtyModel;
@@ -22,12 +26,14 @@ import com.pa.devbox.util.OSPluginManager;
 
 import javax.inject.Inject;
 
-
 /**
- * Created by whailong on 23/1/16.
+ * Description:
+ * <p>
+ * Author: PandaApe.
+ * CreatedAt: 23/1/16 12:39.
+ * Email: whailong2010@gmail.com
  */
 public class LibDetailActivity extends BaseActivity {
-
 
     @Inject
     LibDetailAtyModel libDetailAtyModel;
@@ -63,7 +69,21 @@ public class LibDetailActivity extends BaseActivity {
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    void initViews(Bundle savedInstanceState) {
+        super.initViews(savedInstanceState);
+
+        DaggerLibDetailAtyComponent
+                .builder()
+                .libDetailAtyModule(new LibDetailAtyModule(this))
+                .build()
+                .inject(this);
+
+        ActivityLibdetailBinding libDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_libdetail);
+        libDetailBinding.setViewModel(libDetailAtyModel);
+
+    }
+
+    public void onCdreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_libdetail);
 
@@ -154,7 +174,7 @@ public class LibDetailActivity extends BaseActivity {
         }
     }
 
-//    @OnClick({R.id.btn_download, R.id.cv_githubAddress})
+    //    @OnClick({R.id.btn_download, R.id.cv_githubAddress})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_download:
