@@ -32,6 +32,7 @@ public class TypeListAdapter extends BaseAdapter<Type, TypeListAdapter.TypeItemH
     @Override
     public void onBindViewHolder(TypeItemHolder holder, int position) {
         holder.bindData(this.data.get(position));
+        super.onBindViewHolder(holder,position);
     }
 
     public static class TypeItemHolder extends RecyclerView.ViewHolder {

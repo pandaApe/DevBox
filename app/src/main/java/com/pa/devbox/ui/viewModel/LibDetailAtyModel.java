@@ -1,8 +1,8 @@
 package com.pa.devbox.ui.viewModel;
 
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.os.Bundle;
 
 import com.pa.devbox.BR;
 import com.pa.devbox.domain.entity.Library;
@@ -30,8 +30,10 @@ public class LibDetailAtyModel extends BaseObservable {
     @Bindable
     String lastCommitMsg;
 
-    public void pushArguments(Bundle bundle) {
-        library = bundle.getParcelable(SELECTEDITEM);
+    public void parseArguments(Intent intent) {
+
+        if (intent != null)
+            library = (Library) intent.getSerializableExtra(SELECTEDITEM);
 
         if (library != null) {
 

@@ -32,6 +32,7 @@ public class LibListAdapter extends BaseAdapter<Library, LibListAdapter.LibItemH
     @Override
     public void onBindViewHolder(LibItemHolder holder, int position) {
         holder.bind(data.get(position));
+        super.onBindViewHolder(holder,position);
     }
 
     public static class LibItemHolder extends RecyclerView.ViewHolder {
