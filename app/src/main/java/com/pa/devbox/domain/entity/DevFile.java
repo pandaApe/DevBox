@@ -9,9 +9,9 @@ import java.io.Serializable;
 /**
  * Description:
  *
- * @Author: PandaApe.
- * @CreatedAt: 13/3/16 14:40.
- * @Email: whailong2010@gmail.com
+ * Author: PandaApe.
+ * CreatedAt: 13/3/16 14:40.
+ * Email: whailong2010@gmail.com
  */
 public class DevFile implements Serializable {
 

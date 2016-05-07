@@ -11,9 +11,9 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 /**
  * Description:
  *
- * @Author: PandaApe.
- * @CreatedAt: 28/4/16 21:32.
- * @Email: whailong2010@gmail.com
+ * Author: PandaApe.
+ * CreatedAt: 28/4/16 21:32.
+ * Email: whailong2010@gmail.com
  */
 public class RetrofitClient {
 

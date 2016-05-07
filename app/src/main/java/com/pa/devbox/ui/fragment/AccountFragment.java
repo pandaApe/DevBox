@@ -14,7 +14,11 @@ import com.pa.devbox.R;
 import com.pa.devbox.ui.aty.CollectionActivity;
 
 /**
- * Created by whailong on 15/1/16.
+ * Description:
+ *
+ * Author: PandaApe.
+ * CreatedAt: 15/1/16 11:39.
+ * Email: whailong2010@gmail.com
  */
 public class AccountFragment extends Fragment {
 

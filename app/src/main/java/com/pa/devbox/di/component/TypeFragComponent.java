@@ -8,9 +8,9 @@ import dagger.Component;
 /**
  * Description:
  *
- * @Author: PandaApe.
- * @CreatedAt: 7/5/16 00:09.
- * @Email: whailong2010@gmail.com
+ * Author: PandaApe.
+ * CreatedAt: 7/5/16 00:09.
+ * Email: whailong2010@gmail.com
  */
 
 @Component(modules = TypeListModel.class)

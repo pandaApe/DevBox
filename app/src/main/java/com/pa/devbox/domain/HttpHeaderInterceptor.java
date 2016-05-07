@@ -13,9 +13,9 @@ import okhttp3.Response;
 /**
  * Description:
  *
- * @Author: PandaApe.
- * @CreatedAt: 30/4/16 10:42.
- * @Email: whailong2010@gmail.com
+ * Author: PandaApe.
+ * CreatedAt: 30/4/16 10:42.
+ * Email: whailong2010@gmail.com
  */
 public class HttpHeaderInterceptor implements Interceptor {
 

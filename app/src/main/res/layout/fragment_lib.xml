@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <data>
-
         <variable
             name="viewModel"
-            type="com.pa.devbox.ui.viewModel.TypeListFragModel" />
+            type="com.pa.devbox.ui.viewModel.ListBaseModel" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -22,6 +20,7 @@
         <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:onRefreshListener ="@{viewModel}"
             app:refreshEnable="@{viewModel.swipeRefreshLayoutStatus}">
 
             <android.support.v7.widget.RecyclerView

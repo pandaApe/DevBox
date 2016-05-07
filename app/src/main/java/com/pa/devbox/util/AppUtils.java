@@ -8,9 +8,9 @@ import java.util.UUID;
 /**
  * Description:
  *
- * @Author: PandaApe.
- * @CreatedAt: 1/4/16 22:24.
- * @Email: whailong2010@gmail.com
+ * Author: PandaApe.
+ * CreatedAt: 1/4/16 22:24.
+ * Email: whailong2010@gmail.com
  */
 public class AppUtils {
 

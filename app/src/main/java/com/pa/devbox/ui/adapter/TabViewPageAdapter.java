@@ -7,7 +7,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.List;
 
 /**
- * Created by whailong on 15/1/16.
+ * Description:
+ * <p>
+ * Author: PandaApe.
+ * CreatedAt: 15/1/16 19:01.
+ * Email: whailong2010@gmail.com
  */
 public class TabViewPageAdapter extends FragmentPagerAdapter {
 

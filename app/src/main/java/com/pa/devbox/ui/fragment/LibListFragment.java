@@ -1,47 +1,34 @@
 package com.pa.devbox.ui.fragment;
 
-import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.ContentLoadingProgressBar;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.pa.devbox.R;
+import com.pa.devbox.databinding.FragmentLibBinding;
 import com.pa.devbox.domain.entity.Library;
-import com.pa.devbox.domain.entity.Type;
-import com.pa.devbox.ui.aty.LibDetailActivity;
-import com.pa.devbox.ui.aty.SpecificTypeActivity;
-import com.pa.devbox.ui.adapter.LibListAdapter;
+import com.pa.devbox.ui.viewModel.LibListFragModel;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.inject.Inject;
 
 /**
- * Created by whailong on 14/1/16.
+ * Description:
+ *
+ * Author: PandaApe.
+ * CreatedAt: 14/1/16 10:01.
+ * Email: whailong2010@gmail.com
  */
-public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
-
-    ContentLoadingProgressBar progressBarContainer;
-
-    RecyclerView recyclerView;
-
-    SwipeRefreshLayout swipeRefreshLayout;
-    private ArrayList<Library> codeLibs = new ArrayList<>();
-
-    private LibListAdapter adapter;
+public class LibListFragment extends Fragment {
 
     private HashMap<String, String> parmMap;
 
     @Inject
-
+    LibListFragModel<Library> libListFragModel;
 
     public static LibListFragment newInstance(int num) {
         LibListFragment f = new LibListFragment();
@@ -50,43 +37,42 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_lib, container, false);
-//        ButterKnife.bind(this, view);
-        Bundle bundle = this.getArguments();
-        parmMap = new HashMap<>();
-        if (bundle != null) {
-            Type currentType = (Type) bundle.getSerializable(SpecificTypeActivity.SELECTEDITEM);
+        FragmentLibBinding libBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_lib, container, false);
+        libBinding.setViewModel(libListFragModel);
+        // TODO: 7/5/16
+//
+//        View view = inflater.inflate(R.layout.fragment_lib, container, false);
+////        ButterKnife.bind(this, view);
+//        Bundle bundle = this.getArguments();
+//        parmMap = new HashMap<>();
+//        if (bundle != null) {
+//            Type currentType = (Type) bundle.getSerializable(SpecificTypeActivity.SELECTEDITEM);
+//
+//            if (currentType != null)
+//                parmMap.put("objId", currentType.getObjectId());
+//        }
 
-            if (currentType != null)
-                parmMap.put("objId", currentType.getObjectId());
-        }
-
-        return view;
+        return libBinding.getRoot();
     }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initeView();
-        requestServerData();
-    }
+//
+//    @Override
+//    public void onViewCreated(View view, Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//        initeView();
+//        requestServerData();
+//    }
 
     private void initeView() {
 
-        adapter = new LibListAdapter(getActivity(), codeLibs);
-        adapter.setItemOnClickListenner(new LibListAdapter.AdapterItemOnClickListenner() {
-
-            @Override
-            public void onClick(View v, int index) {
-                Intent intent = new Intent(getActivity(), LibDetailActivity.class);
-                intent.putExtra(LibDetailActivity.SELECTEDITEM, codeLibs.get(index));
-                getActivity().startActivity(intent);
-            }
-        });
-
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        recyclerView.setAdapter(adapter);
-        swipeRefreshLayout.setOnRefreshListener(this);
+//        adapter.setItemOnClickListenner(new LibListAdapter.AdapterItemOnClickListenner() {
+//
+//            @Override
+//            public void onClick(View v, int index) {
+//                Intent intent = new Intent(getActivity(), LibDetailActivity.class);
+//                intent.putExtra(LibDetailActivity.SELECTEDITEM, codeLibs.get(index));
+//                getActivity().startActivity(intent);
+//            }
+//        });
     }
 
     private void requestServerData() {
@@ -130,7 +116,6 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
     }
 
 
-    @Override
     public void onRefresh() {
         requestServerData();
     }

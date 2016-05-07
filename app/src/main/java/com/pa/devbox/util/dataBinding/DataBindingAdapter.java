@@ -16,9 +16,9 @@ import java.util.List;
 /**
  * Description:
  *
- * @Author: PandaApe.
- * @CreatedAt: 26/4/16 23:29.
- * @Email: whailong2010@gmail.com
+ * Author: PandaApe.
+ * CreatedAt: 26/4/16 23:29.
+ * Email: whailong2010@gmail.com
  */
 public class DataBindingAdapter {
     /*
@@ -27,6 +27,11 @@ public class DataBindingAdapter {
     @BindingAdapter({"refreshEnable"})
     public static void bindStatus(SwipeRefreshLayout swipeRefreshLayout, boolean status) {
         swipeRefreshLayout.setEnabled(status);
+    }
+
+    @BindingAdapter({"onRefreshListener"})
+    public static void bindStatus(SwipeRefreshLayout swipeRefreshLayout, SwipeRefreshLayout.OnRefreshListener listener) {
+        swipeRefreshLayout.setOnRefreshListener(listener);
     }
 
     /*

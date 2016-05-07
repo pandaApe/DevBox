@@ -4,9 +4,9 @@ package com.pa.devbox.domain.entity;
 /**
  * Description:
  *
- * @Author: PandaApe.
- * @CreatedAt: 11/2/16 00:18.
- * @Email: whailong2010@gmail.com
+ * Author: PandaApe.
+ * CreatedAt: 11/2/16 00:18.
+ * Email: whailong2010@gmail.com
  */
 public class User {
 

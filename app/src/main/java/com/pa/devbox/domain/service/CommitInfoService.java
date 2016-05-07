@@ -7,9 +7,9 @@ import rx.Observable;
 /**
  * Description:
  *
- * @Author: PandaApe.
- * @CreatedAt: 28/4/16 23:15.
- * @Email: whailong2010@gmail.com
+ * Author: PandaApe.
+ * CreatedAt: 28/4/16 23:15.
+ * Email: whailong2010@gmail.com
  */
 public interface CommitInfoService {
 

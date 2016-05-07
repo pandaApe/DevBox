@@ -8,13 +8,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.pa.devbox.R;
-import com.pa.devbox.domain.entity.Type;
 
-import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * Created by whailong on 15/1/16.
+ * Description:
+ * <p>
+ * Author: PandaApe.
+ * CreatedAt: 15/1/16 12:39.
+ * Email: whailong2010@gmail.com
  */
 public class TypeListAdapter<T> extends RecyclerView.Adapter<TypeListAdapter.NormalTextViewHolder> {
     private LayoutInflater mLayoutInflater;

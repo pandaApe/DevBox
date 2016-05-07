@@ -19,9 +19,9 @@ import java.util.Arrays;
 /**
  * Description:
  *
- * @Author: PandaApe.
- * @CreatedAt: 26/4/16 23:23.
- * @Email: whailong2010@gmail.com
+ * Author: PandaApe.
+ * CreatedAt: 26/4/16 23:23.
+ * Email: whailong2010@gmail.com
  */
 public class MainAtyModel extends BaseObservable {
 

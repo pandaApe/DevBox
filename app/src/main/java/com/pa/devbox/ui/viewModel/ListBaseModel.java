@@ -2,10 +2,10 @@ package com.pa.devbox.ui.viewModel;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.pa.devbox.ui.adapter.TypeListAdapter;
 import com.pa.devbox.ui.aty.MainActivity;
 
 import java.util.ArrayList;
@@ -14,23 +14,23 @@ import java.util.List;
 /**
  * Description:
  *
- * @Author: PandaApe.
- * @CreatedAt: 7/5/16 10:27.
- * @Email: whailong2010@gmail.com
+ * Author: PandaApe.
+ * CreatedAt: 7/5/16 10:27.
+ * Email: whailong2010@gmail.com
  */
-public class ListBaseModel<T> extends BaseObservable {
+public class ListBaseModel<T> extends BaseObservable implements SwipeRefreshLayout.OnRefreshListener {
     @Bindable
-     boolean progressBarVisible;
+    boolean progressBarVisible;
 
     @Bindable
-     boolean swipeRefreshLayoutStatus;
+    boolean swipeRefreshLayoutStatus;
 
 
     @Bindable
-     RecyclerView.LayoutManager layoutManager;
+    RecyclerView.LayoutManager layoutManager;
 
     @Bindable
-     List<T> data;
+    List<T> data;
 
     public ListBaseModel(MainActivity context) {
 
@@ -38,7 +38,10 @@ public class ListBaseModel<T> extends BaseObservable {
 
         data = new ArrayList<>();
         layoutManager = new GridLayoutManager(context, 2);
+    }
 
+    @Override
+    public void onRefresh() {
 
     }
 }

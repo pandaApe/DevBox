@@ -8,9 +8,9 @@ import com.pa.devbox.ui.aty.MainActivity;
 /**
  * Description:
  *
- * @Author: PandaApe.
- * @CreatedAt: 7/5/16 00:01.
- * @Email: whailong2010@gmail.com
+ * Author: PandaApe.
+ * CreatedAt: 7/5/16 00:01.
+ * Email: whailong2010@gmail.com
  */
 public class TypeListFragModel<T> extends ListBaseModel {
 

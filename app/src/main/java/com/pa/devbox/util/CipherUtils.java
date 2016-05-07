@@ -7,9 +7,9 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Description:
  *
- * @Author: PandaApe.
- * @CreatedAt: 30/4/16 11:01.
- * @Email: whailong2010@gmail.com
+ * Author: PandaApe.
+ * CreatedAt: 30/4/16 11:01.
+ * Email: whailong2010@gmail.com
  */
 public class CipherUtils {
     public static String md5(String string) {

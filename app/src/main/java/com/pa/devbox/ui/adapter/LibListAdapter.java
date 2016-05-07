@@ -14,7 +14,11 @@ import com.pa.devbox.domain.entity.Library;
 import java.util.List;
 
 /**
- * Created by whailong on 23/1/16.
+ * Description:
+ * <p>
+ * Author: PandaApe.
+ * CreatedAt: 23/1/16 12:39.
+ * Email: whailong2010@gmail.com
  */
 public class LibListAdapter<T> extends RecyclerView.Adapter<LibListAdapter.CodeLibViewHolder> {
 
@@ -48,7 +52,7 @@ public class LibListAdapter<T> extends RecyclerView.Adapter<LibListAdapter.CodeL
 
     @Override
     public void onBindViewHolder(LibListAdapter.CodeLibViewHolder holder, int position) {
-        Library codeLib = codeLibs.get(position);
+        Library codeLib = (Library) codeLibs.get(position);
         holder.tvLibName.setText(codeLib.getName());
 
     }

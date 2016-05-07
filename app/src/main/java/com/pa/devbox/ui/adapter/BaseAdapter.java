@@ -10,9 +10,9 @@ import java.util.ArrayList;
 /**
  * Description:
  *
- * @Author: PandaApe.
- * @CreatedAt: 6/3/16 15:56.
- * @Email: whailong2010@gmail.com
+ * Author: PandaApe.
+ * CreatedAt: 6/3/16 15:56.
+ * Email: whailong2010@gmail.com
  */
 public class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

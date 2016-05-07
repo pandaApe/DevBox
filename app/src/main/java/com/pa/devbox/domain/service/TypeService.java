@@ -8,9 +8,9 @@ import rx.Observable;
 /**
  * Description:
  *
- * @Author: PandaApe.
- * @CreatedAt: 27/4/16 23:13.
- * @Email: whailong2010@gmail.com
+ * Author: PandaApe.
+ * CreatedAt: 27/4/16 23:13.
+ * Email: whailong2010@gmail.com
  */
 public interface TypeService {
 

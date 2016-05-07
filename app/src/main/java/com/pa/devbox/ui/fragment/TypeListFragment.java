@@ -17,9 +17,9 @@ import javax.inject.Inject;
 /**
  * Description:
  *
- * @Author: PandaApe.
- * @CreatedAt: 22/1/16 00:03.
- * @Email: whailong2010@gmail.com
+ * Author: PandaApe.
+ * CreatedAt: 22/1/16 00:03.
+ * Email: whailong2010@gmail.com
  */
 public class TypeListFragment extends Fragment {
 
