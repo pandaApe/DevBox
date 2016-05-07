@@ -3,12 +3,12 @@ package com.pa.devbox.ui.viewModel;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 
 import com.pa.devbox.BR;
 import com.pa.devbox.R;
 import com.pa.devbox.ui.adapter.TabViewPageAdapter;
+import com.pa.devbox.ui.aty.MainActivity;
 import com.pa.devbox.ui.fragment.AccountFragment;
 import com.pa.devbox.ui.fragment.LibListFragment;
 import com.pa.devbox.ui.fragment.TypeListFragment;
@@ -38,7 +38,7 @@ public class MainAtyModel extends BaseObservable {
     public ViewPager contentViewPager;
 
 
-    public MainAtyModel(FragmentActivity context) {
+    public MainAtyModel(MainActivity context) {
 
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(TypeListFragment.newInstance(0));
@@ -78,7 +78,6 @@ public class MainAtyModel extends BaseObservable {
 
     public int getOffscreenPageLimit() {
         return offscreenPageLimit;
-
     }
 
     public void setOffscreenPageLimit(int offscreenPageLimit) {

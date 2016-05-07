@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,8 +10,7 @@
             type="com.pa.devbox.domain.entity.Library" />
     </data>
 
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <android.support.v7.widget.CardView
         android:id="@+id/cv_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,12 +37,11 @@
                 android:id="@+id/tv_libName"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_below="@+id/iv_libPreface"
                 android:background="#fff"
                 android:gravity="center"
                 android:lines="2"
-
                 android:text="@{lib.name}" />
+
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </layout>

@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.pa.devbox.ui.adapter.BaseAdapter;
-import com.pa.devbox.ui.adapter.LibListAdapter;
 import com.pa.devbox.ui.adapter.TabViewPageAdapter;
 
 import java.util.List;
@@ -62,7 +61,7 @@ public class DataBindingAdapter {
     * For Recycler View
     * */
     @BindingAdapter({"recyclerViewAdapter"})
-    public static void bindAdapter(RecyclerView recyclerView, LibListAdapter adapter) {
+    public static void bindAdapter(RecyclerView recyclerView, BaseAdapter adapter) {
         recyclerView.setAdapter(adapter);
     }
 
@@ -74,8 +73,10 @@ public class DataBindingAdapter {
     @BindingAdapter({"recyclerViewData"})
     public static void bindData(RecyclerView recyclerView, List data) {
         BaseAdapter adapter = (BaseAdapter) recyclerView.getAdapter();
-        adapter.data = data;
-        adapter.notifyDataSetChanged();
+        if (adapter != null) {
+            adapter.data = data;
+            adapter.notifyDataSetChanged();
+        }
     }
 
     /*
@@ -84,11 +85,16 @@ public class DataBindingAdapter {
     @BindingAdapter({"viewPagerAdapter"})
     public static void bindViewPagerAdapter(ViewPager viewPager, TabViewPageAdapter adapter) {
         viewPager.setAdapter(adapter);
+        asmartTabLayout.setViewPager(viewPager);
     }
+
+    // TODO: 7/5/16 This is not a good idea
+    private static SmartTabLayout asmartTabLayout;
 
     @BindingAdapter({"viewPager"})
     public static void bindViewPager(SmartTabLayout smartTabLayout, ViewPager viewPager) {
         smartTabLayout.setViewPager(viewPager);
+        asmartTabLayout = smartTabLayout;
     }
 
     @BindingAdapter({"offscreenPageLimit"})

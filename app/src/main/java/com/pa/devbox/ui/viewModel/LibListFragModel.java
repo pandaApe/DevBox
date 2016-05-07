@@ -1,7 +1,6 @@
 package com.pa.devbox.ui.viewModel;
 
-import android.databinding.Bindable;
-
+import com.pa.devbox.domain.entity.Library;
 import com.pa.devbox.ui.adapter.LibListAdapter;
 import com.pa.devbox.ui.aty.MainActivity;
 
@@ -12,10 +11,7 @@ import com.pa.devbox.ui.aty.MainActivity;
  * CreatedAt: 7/5/16 10:01.
  * Email: whailong2010@gmail.com
  */
-public class LibListFragModel extends ListBaseModel {
-
-    @Bindable
-    LibListAdapter adapter;
+public class LibListFragModel extends ListBaseModel<Library> {
 
     public LibListFragModel(MainActivity context) {
         super(context);

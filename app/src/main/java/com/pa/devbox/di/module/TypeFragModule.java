@@ -23,8 +23,8 @@ public class TypeFragModule {
     }
 
     @Provides
-    TypeListFragModel provideModle(MainActivity context){
-        return new TypeListFragModel();
+    TypeListFragModel provideModel(MainActivity context){
+        return new TypeListFragModel(context);
     }
 
     @Provides

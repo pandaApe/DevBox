@@ -1,7 +1,6 @@
 package com.pa.devbox.ui.viewModel;
 
-import android.databinding.Bindable;
-
+import com.pa.devbox.domain.entity.Type;
 import com.pa.devbox.ui.adapter.TypeListAdapter;
 import com.pa.devbox.ui.aty.MainActivity;
 
@@ -12,15 +11,23 @@ import com.pa.devbox.ui.aty.MainActivity;
  * CreatedAt: 7/5/16 00:01.
  * Email: whailong2010@gmail.com
  */
-public class TypeListFragModel extends ListBaseModel {
-
-    @Bindable
-    TypeListAdapter adapter;
+public class TypeListFragModel extends ListBaseModel<Type> {
 
     public TypeListFragModel(MainActivity context) {
         super(context);
         swipeRefreshLayoutStatus = false;
         adapter = new TypeListAdapter(context, data);
+
+        for (int index = 0; index < 10; index++) {
+
+            Type type = new Type();
+            type.setEnDescription("index" + index);
+            data.add(type);
+        }
+
+        adapter.notifyDataSetChanged();
+
+
     }
 
 }
