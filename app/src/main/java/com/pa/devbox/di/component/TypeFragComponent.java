@@ -1,6 +1,7 @@
 package com.pa.devbox.di.component;
 
-import com.pa.devbox.ui.modle.TypeListModle;
+import com.pa.devbox.ui.aty.MainActivity;
+import com.pa.devbox.ui.modle.TypeListModel;
 
 import dagger.Component;
 
@@ -12,8 +13,8 @@ import dagger.Component;
  * @Email: whailong2010@gmail.com
  */
 
-@Component(modules = TypeListModle.class)
-public class TypeFragComponent {
+@Component(modules = TypeListModel.class)
+public interface TypeFragComponent {
 
-
+    void inject(MainActivity context);
 }

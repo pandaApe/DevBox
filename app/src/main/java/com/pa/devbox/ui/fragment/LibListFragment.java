@@ -22,6 +22,8 @@ import com.pa.devbox.ui.adapter.LibListAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.inject.Inject;
+
 /**
  * Created by whailong on 14/1/16.
  */
@@ -37,6 +39,9 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
     private LibListAdapter adapter;
 
     private HashMap<String, String> parmMap;
+
+    @Inject
+
 
     public static LibListFragment newInstance(int num) {
         LibListFragment f = new LibListFragment();
@@ -67,7 +72,7 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
     }
 
     private void initeView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         adapter = new LibListAdapter(getActivity(), codeLibs);
         adapter.setItemOnClickListenner(new LibListAdapter.AdapterItemOnClickListenner() {
 
@@ -124,11 +129,6 @@ public class LibListFragment extends Fragment implements SwipeRefreshLayout.OnRe
 //        });
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-//        ButterKnife.unbind(this);
-    }
 
     @Override
     public void onRefresh() {

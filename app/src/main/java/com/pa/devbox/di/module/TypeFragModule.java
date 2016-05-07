@@ -1,7 +1,7 @@
 package com.pa.devbox.di.module;
 
 import com.pa.devbox.ui.aty.MainActivity;
-import com.pa.devbox.ui.viewModel.TypeListFragModle;
+import com.pa.devbox.ui.viewModel.TypeListFragModel;
 
 import dagger.Module;
 import dagger.Provides;
@@ -23,8 +23,8 @@ public class TypeFragModule {
     }
 
     @Provides
-    TypeListFragModle provideModle(MainActivity context){
-        return new TypeListFragModle();
+    TypeListFragModel provideModle(MainActivity context){
+        return new TypeListFragModel();
     }
 
     @Provides

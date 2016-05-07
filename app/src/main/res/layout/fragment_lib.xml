@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
-            name="viewModle"
-            type="com.pa.devbox.ui.viewModel.TypeListFragModle"/>
+            name="viewModel"
+            type="com.pa.devbox.ui.viewModel.TypeListFragModel" />
     </data>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <android.support.v4.widget.ContentLoadingProgressBar
-        android:id="@+id/clprogressBar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_centerInParent="true" />
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclyView"
+        <android.support.v4.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerInParent="true"
+            app:progressBarVisible="@{viewModel.progressBarVisible}" />
+
+        <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true" />
+            android:layout_height="wrap_content"
+            app:refreshEnable="@{viewModel.swipeRefreshLayoutStatus}">
 
-    </android.support.v4.widget.SwipeRefreshLayout>
-</RelativeLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclyView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                app:recyclerViewData = "@{viewModel.typeList}"
+                app:recyclerViewAdapter="@{viewModel.typeListAdapter}"
+                app:recyclerViewLayout="@{viewModel.layoutManager}" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </RelativeLayout>
 </layout>

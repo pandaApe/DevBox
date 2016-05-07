@@ -1,60 +1,41 @@
 package com.pa.devbox.ui.fragment;
 
-import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.ContentLoadingProgressBar;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.pa.devbox.R;
+import com.pa.devbox.databinding.FragmentLibBinding;
 import com.pa.devbox.domain.entity.Type;
-import com.pa.devbox.ui.adapter.TypeListAdapter;
-import com.pa.devbox.ui.aty.SpecificTypeActivity;
+import com.pa.devbox.ui.viewModel.TypeListFragModel;
 
-import java.util.ArrayList;
+import javax.inject.Inject;
 
 /**
- * Created by whailong on 22/1/16.
+ * Description:
+ *
+ * @Author: PandaApe.
+ * @CreatedAt: 22/1/16 00:03.
+ * @Email: whailong2010@gmail.com
  */
 public class TypeListFragment extends Fragment {
-
-    ContentLoadingProgressBar progressBar;
-
-    RecyclerView recyclerView;
-
-    SwipeRefreshLayout swipeRefreshLayout;
-
-    private ArrayList<Type> codeTypes;
-    private TypeListAdapter adapter;
 
     public static TypeListFragment newInstance(int num) {
         TypeListFragment f = new TypeListFragment();
         return f;
     }
 
+    @Inject
+    TypeListFragModel<Type> typeTypeListFragModel;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_lib, container, false);
-//        ButterKnife.bind(this, view);
-
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        codeTypes = new ArrayList<>();
-
-        setupView(view);
-
-        setupServerData();
+        FragmentLibBinding fragBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_lib, container, false);
+        fragBinding.setViewModel(typeTypeListFragModel);
+        return fragBinding.getRoot();
     }
 
     private void setupServerData() {
@@ -87,27 +68,15 @@ public class TypeListFragment extends Fragment {
 //        });
     }
 
-    private void setupView(View view) {
-        swipeRefreshLayout.setEnabled(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new TypeListAdapter(getActivity(), codeTypes);
-
-        adapter.setItemOnClickListenner(new TypeListAdapter.AdapterItemOnClickListenner() {
-            @Override
-            public void onClick(View v, int index) {
-
-                Intent intent = new Intent(getActivity(), SpecificTypeActivity.class);
-                intent.putExtra(SpecificTypeActivity.SELECTEDITEM, codeTypes.get(index));
-                getActivity().startActivity(intent);
-            }
-        });
-
-
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));//这里用线性显示 类似于list view
-        recyclerView.setAdapter(adapter);
-
-        progressBar = (ContentLoadingProgressBar) view.findViewById(R.id.clprogressBar);
-        progressBar.show();
-    }
+//        adapter.setItemOnClickListenner(new TypeListAdapter.AdapterItemOnClickListenner() {
+//            @Override
+//            public void onClick(View v, int index) {
+//
+//                Intent intent = new Intent(getActivity(), SpecificTypeActivity.class);
+//                intent.putExtra(SpecificTypeActivity.SELECTEDITEM, codeTypes.get(index));
+//                getActivity().startActivity(intent);
+//            }
+//        });
+//
 
 }

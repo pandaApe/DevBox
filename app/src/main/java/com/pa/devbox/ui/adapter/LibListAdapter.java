@@ -16,15 +16,15 @@ import java.util.List;
 /**
  * Created by whailong on 23/1/16.
  */
-public class LibListAdapter extends RecyclerView.Adapter<LibListAdapter.CodeLibViewHolder> {
+public class LibListAdapter<T> extends RecyclerView.Adapter<LibListAdapter.CodeLibViewHolder> {
 
     private Context context;
 
-    private List<Library> codeLibs;
+    private List<T> codeLibs;
     private LayoutInflater layoutInflater;
 
 
-    public LibListAdapter(Context context, List<Library> codeLibs) {
+    public LibListAdapter(Context context, List<T> codeLibs) {
 
         this.context = context;
         this.codeLibs = codeLibs;

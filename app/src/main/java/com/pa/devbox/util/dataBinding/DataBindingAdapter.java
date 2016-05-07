@@ -2,6 +2,8 @@ package com.pa.devbox.util.dataBinding;
 
 import android.databinding.BindingAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.ContentLoadingProgressBar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
@@ -19,6 +21,24 @@ import java.util.List;
  * @Email: whailong2010@gmail.com
  */
 public class DataBindingAdapter {
+    /*
+    * SwipeRefreshLayout
+    * */
+    @BindingAdapter({"refreshEnable"})
+    public static void bindStatus(SwipeRefreshLayout swipeRefreshLayout, boolean status) {
+        swipeRefreshLayout.setEnabled(status);
+    }
+
+    /*
+    * ContentLoadingProgressBar
+    * */
+    @BindingAdapter({"progressBarVisible"})
+    public static void bindStatus(ContentLoadingProgressBar progressBar, boolean status) {
+        if (status)
+            progressBar.show();
+        else
+            progressBar.hide();
+    }
 
     /*
     * For Recycler View

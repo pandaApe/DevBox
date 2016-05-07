@@ -11,16 +11,17 @@ import com.pa.devbox.R;
 import com.pa.devbox.domain.entity.Type;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by whailong on 15/1/16.
  */
-public class TypeListAdapter extends RecyclerView.Adapter<TypeListAdapter.NormalTextViewHolder> {
+public class TypeListAdapter<T> extends RecyclerView.Adapter<TypeListAdapter.NormalTextViewHolder> {
     private LayoutInflater mLayoutInflater;
     private Context mContext;
-    private ArrayList<Type> CodeTypes;
+    private List<T> CodeTypes;
 
-    public TypeListAdapter(Context context, ArrayList<Type> CodeTypes) {
+    public TypeListAdapter(Context context, List<T> CodeTypes) {
         this.CodeTypes = CodeTypes;
         this.mContext = context;
         this.mLayoutInflater = LayoutInflater.from(context);
