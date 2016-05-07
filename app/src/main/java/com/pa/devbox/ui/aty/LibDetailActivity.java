@@ -79,6 +79,7 @@ public class LibDetailActivity extends BaseActivity {
                 .inject(this);
 
         ActivityLibdetailBinding libDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_libdetail);
+        libDetailAtyModel.pushArguments(savedInstanceState);
         libDetailBinding.setViewModel(libDetailAtyModel);
 
     }

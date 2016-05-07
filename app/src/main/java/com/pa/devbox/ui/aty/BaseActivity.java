@@ -76,8 +76,7 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void showActivity(Class<?> cls) {
         Intent intent = new Intent();
-        intent.setClass(this, cls);
-        this.startActivity(intent);
+        this.showActivity(intent);
     }
 
 }

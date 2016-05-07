@@ -35,10 +35,15 @@ public class LibListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        DaggerLibFragComponent.builder().libFragModule(new LibFragModule((MainActivity) getActivity())).build().inject(this);
+        DaggerLibFragComponent
+                .builder()
+                .libFragModule(new LibFragModule((MainActivity) getActivity()))
+                .build()
+                .inject(this);
 
         FragmentLibBinding libBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_lib, container, false);
         libBinding.setViewModel(libListFragModel);
+
         // TODO: 7/5/16
 //
 //        View view = inflater.inflate(R.layout.fragment_lib, container, false);

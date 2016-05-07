@@ -8,10 +8,14 @@
         <variable
             name="lib"
             type="com.pa.devbox.domain.entity.Library" />
+        <variable
+            name="viewModel"
+            type="com.pa.devbox.ui.viewModel.LibListFragModel"/>
     </data>
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv_item"
+        android:onClick="viewModel.showLibDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"

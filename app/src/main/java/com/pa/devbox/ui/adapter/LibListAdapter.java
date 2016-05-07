@@ -47,4 +47,6 @@ public class LibListAdapter extends BaseAdapter<Library, LibListAdapter.LibItemH
             itemBinding.setLib(library);
         }
     }
+
+
 }

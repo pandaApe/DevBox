@@ -2,6 +2,7 @@ package com.pa.devbox.ui.viewModel;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Bundle;
 
 import com.pa.devbox.BR;
 import com.pa.devbox.domain.entity.Library;
@@ -16,11 +17,9 @@ import com.pa.devbox.ui.aty.LibDetailActivity;
  */
 public class LibDetailAtyModel extends BaseObservable {
 
-    private LibDetailActivity context;
+    public static final String SELECTEDITEM = "selectedItem";
 
-    public LibDetailAtyModel(LibDetailActivity context) {
-        this.context = context;
-    }
+    private LibDetailActivity context;
 
     @Bindable
     Library library;
@@ -30,6 +29,24 @@ public class LibDetailAtyModel extends BaseObservable {
 
     @Bindable
     String lastCommitMsg;
+
+    public void pushArguments(Bundle bundle) {
+        library = bundle.getParcelable(SELECTEDITEM);
+
+        if (library != null) {
+
+        }
+
+    }
+
+    public LibDetailAtyModel(LibDetailActivity context) {
+        this.context = context;
+    }
+
+    public void setLibrary(Library library) {
+        this.library = library;
+        notifyPropertyChanged(BR.library);
+    }
 
     public String getDescription() {
         return library.getEnDescription();
