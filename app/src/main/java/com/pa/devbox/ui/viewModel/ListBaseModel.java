@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.pa.devbox.BR;
 import com.pa.devbox.ui.adapter.BaseAdapter;
 import com.pa.devbox.ui.aty.MainActivity;
 
@@ -53,6 +54,7 @@ public class ListBaseModel<T> extends BaseObservable implements SwipeRefreshLayo
 
     public void setProgressBarVisible(boolean progressBarVisible) {
         this.progressBarVisible = progressBarVisible;
+        notifyPropertyChanged(BR.progressBarVisible);
     }
 
     public boolean isSwipeRefreshLayoutStatus() {
@@ -61,6 +63,7 @@ public class ListBaseModel<T> extends BaseObservable implements SwipeRefreshLayo
 
     public void setSwipeRefreshLayoutStatus(boolean swipeRefreshLayoutStatus) {
         this.swipeRefreshLayoutStatus = swipeRefreshLayoutStatus;
+        notifyPropertyChanged(BR.swipeRefreshLayoutStatus);
     }
 
     public RecyclerView.LayoutManager getLayoutManager() {
@@ -69,6 +72,7 @@ public class ListBaseModel<T> extends BaseObservable implements SwipeRefreshLayo
 
     public void setLayoutManager(RecyclerView.LayoutManager layoutManager) {
         this.layoutManager = layoutManager;
+        notifyPropertyChanged(BR.layoutManager);
     }
 
     public BaseAdapter getAdapter() {
@@ -77,6 +81,7 @@ public class ListBaseModel<T> extends BaseObservable implements SwipeRefreshLayo
 
     public void setAdapter(BaseAdapter adapter) {
         this.adapter = adapter;
+        notifyPropertyChanged(BR.adapter);
     }
 
     public List<T> getData() {
@@ -85,5 +90,6 @@ public class ListBaseModel<T> extends BaseObservable implements SwipeRefreshLayo
 
     public void setData(List<T> data) {
         this.data = data;
+        notifyPropertyChanged(BR.data);
     }
 }

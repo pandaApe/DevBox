@@ -37,45 +37,4 @@ public class TypeListFragment extends Fragment {
         return fragBinding.getRoot();
     }
 
-    private void setupServerData() {
-
-//        new WebActionImpl(getActivity()).getTypeList(new HttpCallback<List<Type>>() {
-//            @Override
-//            public void onSucess(List<Type> list) {
-//
-//                codeTypes.clear();
-//                codeTypes.addAll(list);
-//                adapter.notifyDataSetChanged();
-//
-//                progressBar.hide();
-//            }
-//
-//            @Override
-//            public void onFailure(final AppException e) {
-//                if (e.getCode() == AppException.NETWORK_ERROR) {
-//
-//                    new Timer().schedule(new TimerTask() {
-//                        @Override
-//                        public void run() {
-//                            Snackbar.make(recyclerView, e.getMessage(), Snackbar.LENGTH_LONG).show();
-//                        }
-//                    }, 500);
-//                }
-//
-//                progressBar.hide();
-//            }
-//        });
-    }
-
-//        adapter.setItemOnClickListenner(new TypeListAdapter.AdapterItemOnClickListenner() {
-//            @Override
-//            public void onClick(View v, int index) {
-//
-//                Intent intent = new Intent(getActivity(), SpecificTypeActivity.class);
-//                intent.putExtra(SpecificTypeActivity.SELECTEDITEM, codeTypes.get(index));
-//                getActivity().startActivity(intent);
-//            }
-//        });
-//
-
 }

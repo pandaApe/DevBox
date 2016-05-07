@@ -61,7 +61,7 @@ dependencies {
     compile compiles.gson
     compile compiles.dagger
     compile compiles.eventbus
-//    compile compiles.rxandroid
+    compile compiles.rxandroid
     compile compiles.rxjava
     compile compiles.okhttpLog
     compile compiles.glide
@@ -72,6 +72,6 @@ dependencies {
     provided provides.annotation
 
     apt apts.dataBindingCompiler
-//    apt apts.logansquareCompiler
+    apt apts.logansquareCompiler
 
 }

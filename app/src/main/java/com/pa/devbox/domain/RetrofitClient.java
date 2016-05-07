@@ -22,7 +22,7 @@ public class RetrofitClient {
 
     private static RetrofitClient singleton = new RetrofitClient();
 
-    public RetrofitClient shareInstance() {
+    public static  RetrofitClient shareInstance() {
         return singleton;
     }
 
