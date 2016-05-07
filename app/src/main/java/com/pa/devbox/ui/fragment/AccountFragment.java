@@ -1,45 +1,42 @@
 package com.pa.devbox.ui.fragment;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.pa.devbox.R;
+import com.pa.devbox.databinding.FragmentAccountBinding;
+import com.pa.devbox.di.component.DaggerAccountFragComponent;
+import com.pa.devbox.di.module.AccountFragModule;
 import com.pa.devbox.ui.aty.CollectionActivity;
+import com.pa.devbox.ui.aty.MainActivity;
+import com.pa.devbox.ui.viewModel.AccountFragModel;
+
+import javax.inject.Inject;
 
 /**
  * Description:
- *
+ * <p>
  * Author: PandaApe.
  * CreatedAt: 15/1/16 11:39.
  * Email: whailong2010@gmail.com
  */
 public class AccountFragment extends Fragment {
 
-
-    CardView cvFeedback;
-
-    CardView cvCollection;
-
-    ImageView ivAvatar;
-
-    TextView tvNickName;
-
-    TextView tvOtherDetail;
-
-    ImageView ivCollection;
+    @Inject
+    AccountFragModel accountFragModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_account, container, false);
-//        ButterKnife.bind(this, view);
-        return view;
+        DaggerAccountFragComponent.builder().accountFragModule(new AccountFragModule((MainActivity) getActivity())).build().inject(this);
+
+        FragmentAccountBinding accountBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_account, container, false);
+        accountBinding.setViewModel(accountFragModel);
+        return accountBinding.getRoot();
     }
 
     //    @OnClick({R.id.cv_collction, R.id.cv_feedback})
@@ -53,12 +50,6 @@ public class AccountFragment extends Fragment {
 
                 break;
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-//        ButterKnife.unbind(this);
     }
 
     @Override

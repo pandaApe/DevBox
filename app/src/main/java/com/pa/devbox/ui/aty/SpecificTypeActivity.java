@@ -25,7 +25,7 @@ public class SpecificTypeActivity extends BaseActivity {
         Type type = (Type) (getIntent().getSerializableExtra(SELECTEDITEM));
         this.setToolbarTitle(type.getEnDescription());
 
-        LibListFragment listFrament = LibListFragment.newInstance(0);
+        LibListFragment listFrament = new LibListFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.type_fragment, listFrament).commit();
         Bundle bundle = new Bundle();
         bundle.putSerializable(SELECTEDITEM, type);
