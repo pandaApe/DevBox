@@ -7,12 +7,12 @@ import com.pa.devbox.ui.aty.MainActivity;
 
 /**
  * Description:
- *
+ * <p>
  * Author: PandaApe.
  * CreatedAt: 7/5/16 10:01.
  * Email: whailong2010@gmail.com
  */
-public class LibListFragModel<T> extends ListBaseModel {
+public class LibListFragModel extends ListBaseModel {
 
     @Bindable
     LibListAdapter adapter;
@@ -20,7 +20,7 @@ public class LibListFragModel<T> extends ListBaseModel {
     public LibListFragModel(MainActivity context) {
         super(context);
         swipeRefreshLayoutStatus = true;
-        adapter = new LibListAdapter<T>(context, data);
+        adapter = new LibListAdapter(context, data);
     }
 
     @Override

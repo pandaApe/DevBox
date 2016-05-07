@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import com.pa.devbox.R;
 import com.pa.devbox.databinding.FragmentLibBinding;
-import com.pa.devbox.domain.entity.Library;
 import com.pa.devbox.ui.viewModel.LibListFragModel;
 
 import java.util.HashMap;
@@ -28,7 +27,7 @@ public class LibListFragment extends Fragment {
     private HashMap<String, String> parmMap;
 
     @Inject
-    LibListFragModel<Library> libListFragModel;
+    LibListFragModel libListFragModel;
 
     public static LibListFragment newInstance(int num) {
         LibListFragment f = new LibListFragment();

@@ -1,34 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cv_item"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    card_view:cardCornerRadius="3dp">
+<layout xmlns:app="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+
+        <variable
+            name="lib"
+            type="com.pa.devbox.domain.entity.Library" />
+    </data>
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cv_item"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        card_view:cardCornerRadius="3dp">
 
-        <ImageView
-            android:id="@+id/iv_libPreface"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="270dp"
-            android:layout_gravity="center_horizontal"
-            android:scaleType="fitXY"
-            android:src="@mipmap/temp" />
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:tag="@{lib}">
 
-        <TextView
-            android:id="@+id/tv_libName"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_below="@+id/iv_libPreface"
-            android:background="#fff"
-            android:gravity="center"
-            android:lines="2"
-            android:text="HLPlaceHolderHolder" />
-    </LinearLayout>
-</android.support.v7.widget.CardView>
+            <ImageView
+                android:id="@+id/iv_libPreface"
+                android:layout_width="match_parent"
+                android:layout_height="270dp"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="fitXY"
+                android:src="@mipmap/temp"
+                app:imgUrl="@{lib.image.url}" />
+
+            <TextView
+                android:id="@+id/tv_libName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/iv_libPreface"
+                android:background="#fff"
+                android:gravity="center"
+                android:lines="2"
+
+                android:text="@{lib.name}" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</layout>

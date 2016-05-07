@@ -64,6 +64,7 @@ dependencies {
 //    compile compiles.rxandroid
     compile compiles.rxjava
     compile compiles.okhttpLog
+    compile compiles.glide
     compile compiles.retrofitAdapter
     compile compiles.retrofit
 

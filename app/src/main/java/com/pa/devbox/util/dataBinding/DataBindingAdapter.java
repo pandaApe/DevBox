@@ -5,9 +5,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
-import com.pa.devbox.domain.entity.Library;
+import com.pa.devbox.ui.adapter.BaseAdapter;
 import com.pa.devbox.ui.adapter.LibListAdapter;
 import com.pa.devbox.ui.adapter.TabViewPageAdapter;
 
@@ -15,7 +18,7 @@ import java.util.List;
 
 /**
  * Description:
- *
+ * <p>
  * Author: PandaApe.
  * CreatedAt: 26/4/16 23:29.
  * Email: whailong2010@gmail.com
@@ -46,6 +49,16 @@ public class DataBindingAdapter {
     }
 
     /*
+    * ImageView
+    * */
+    @BindingAdapter({"imgUrl"})
+    public static void bindImgUrl(ImageView imageView, String imgUrl) {
+        if (!TextUtils.isEmpty(imgUrl))
+            Glide.with(imageView.getContext()).load(imgUrl).into(imageView);
+    }
+
+
+    /*
     * For Recycler View
     * */
     @BindingAdapter({"recyclerViewAdapter"})
@@ -59,9 +72,9 @@ public class DataBindingAdapter {
     }
 
     @BindingAdapter({"recyclerViewData"})
-    public static void bindData(RecyclerView recyclerView, List<Library> data) {
-        LibListAdapter adapter = (LibListAdapter) recyclerView.getAdapter();
-        adapter.setCodeLibs(data);
+    public static void bindData(RecyclerView recyclerView, List data) {
+        BaseAdapter adapter = (BaseAdapter) recyclerView.getAdapter();
+        adapter.data = data;
         adapter.notifyDataSetChanged();
     }
 

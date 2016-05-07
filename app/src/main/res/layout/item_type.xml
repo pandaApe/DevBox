@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:id="@+id/cv_item"
-    card_view:cardCornerRadius="4dp">
+<layout>
 
-    <TextView
-        android:id="@+id/tv_type"
-        android:gravity="center_vertical"
-        android:layout_marginLeft="15dp"
-        android:textSize="17sp"
+    <data>
+
+        <variable
+            name="type"
+            type="com.pa.devbox.domain.entity.Type" />
+    </data>
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cv_item"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        card_view:cardCornerRadius="4dp">
 
-</android.support.v7.widget.CardView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="@{type.enDescription}"
+            android:textSize="17sp" />
+
+    </android.support.v7.widget.CardView>
+</layout>

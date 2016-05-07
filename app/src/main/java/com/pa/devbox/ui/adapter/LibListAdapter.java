@@ -2,13 +2,11 @@ package com.pa.devbox.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.pa.devbox.R;
+import com.pa.devbox.databinding.ItemLibBinding;
 import com.pa.devbox.domain.entity.Library;
 
 import java.util.List;
@@ -20,90 +18,33 @@ import java.util.List;
  * CreatedAt: 23/1/16 12:39.
  * Email: whailong2010@gmail.com
  */
-public class LibListAdapter<T> extends RecyclerView.Adapter<LibListAdapter.CodeLibViewHolder> {
+public class LibListAdapter extends BaseAdapter<Library, LibListAdapter.LibItemHolder> {
 
-    private Context context;
-
-    private List<T> codeLibs;
-    private LayoutInflater layoutInflater;
-
-
-    public LibListAdapter(Context context, List<T> codeLibs) {
-
-        this.context = context;
-        this.codeLibs = codeLibs;
-        layoutInflater = LayoutInflater.from(context);
-
+    public LibListAdapter(Context context, List<Library> codeLibs) {
+        super(context, codeLibs);
     }
 
     @Override
-    public LibListAdapter.CodeLibViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        CodeLibViewHolder viewHolder = new CodeLibViewHolder(layoutInflater.inflate(R.layout.item_lib, parent, false));
-        viewHolder.setOnClickListenner(new CodeLibViewHolder.ItemOnClickListenner() {
-            @Override
-            public void onClick(View v, int position) {
-                if (itemOnClickListenner != null)
-                    itemOnClickListenner.onClick(v, position);
-
-            }
-        });
-        return viewHolder;
+    public LibItemHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+        return new LibItemHolder(this.layoutInflater.inflate(R.layout.item_lib, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(LibListAdapter.CodeLibViewHolder holder, int position) {
-        Library codeLib = (Library) codeLibs.get(position);
-        holder.tvLibName.setText(codeLib.getName());
-
+    public void onBindViewHolder(LibItemHolder holder, int position) {
+        holder.bind(data.get(position));
     }
 
-    @Override
-    public int getItemCount() {
-        return this.codeLibs.size();
-    }
+    public static class LibItemHolder extends RecyclerView.ViewHolder {
 
-    public static class CodeLibViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private ItemLibBinding itemBinding;
 
-        ImageView ivLibPreFace;
-        TextView tvLibName;
-        private ItemOnClickListenner onClickListenner;
-
-        public CodeLibViewHolder(View itemView) {
+        public LibItemHolder(View itemView) {
             super(itemView);
-            ivLibPreFace = (ImageView) itemView.findViewById(R.id.iv_libPreface);
-            tvLibName = (TextView) itemView.findViewById(R.id.tv_libName);
-            ivLibPreFace.setOnClickListener(this);
-            tvLibName.setOnClickListener(this);
+            itemBinding = ItemLibBinding.bind(itemView);
         }
 
-        public void setOnClickListenner(ItemOnClickListenner onClickListenner) {
-            this.onClickListenner = onClickListenner;
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (onClickListenner != null)
-                onClickListenner.onClick(v, getAdapterPosition());
-        }
-
-        public interface ItemOnClickListenner {
-            void onClick(View v, int index);
+        public void bind(Library library) {
+            itemBinding.setLib(library);
         }
     }
-
-    private AdapterItemOnClickListenner itemOnClickListenner;
-
-    public void setItemOnClickListenner(AdapterItemOnClickListenner itemOnClickListenner) {
-        this.itemOnClickListenner = itemOnClickListenner;
-    }
-
-    public interface AdapterItemOnClickListenner {
-        void onClick(View v, int index);
-    }
-
-
-    public void setCodeLibs(List<Library> codeLibs) {
-        this.codeLibs = codeLibs;
-    }
-
 }

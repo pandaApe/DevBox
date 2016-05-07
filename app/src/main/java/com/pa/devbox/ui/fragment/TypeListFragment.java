@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import com.pa.devbox.R;
 import com.pa.devbox.databinding.FragmentLibBinding;
-import com.pa.devbox.domain.entity.Type;
 import com.pa.devbox.ui.viewModel.TypeListFragModel;
 
 import javax.inject.Inject;
@@ -29,7 +28,7 @@ public class TypeListFragment extends Fragment {
     }
 
     @Inject
-    TypeListFragModel<Type> typeTypeListFragModel;
+    TypeListFragModel typeTypeListFragModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

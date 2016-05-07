@@ -7,20 +7,20 @@ import com.pa.devbox.ui.aty.MainActivity;
 
 /**
  * Description:
- *
+ * <p>
  * Author: PandaApe.
  * CreatedAt: 7/5/16 00:01.
  * Email: whailong2010@gmail.com
  */
-public class TypeListFragModel<T> extends ListBaseModel {
+public class TypeListFragModel extends ListBaseModel {
 
     @Bindable
-    TypeListAdapter<T> adapter;
+    TypeListAdapter adapter;
 
     public TypeListFragModel(MainActivity context) {
         super(context);
         swipeRefreshLayoutStatus = false;
-        adapter = new TypeListAdapter<T>(context, data);
+        adapter = new TypeListAdapter(context, data);
     }
 
 }
