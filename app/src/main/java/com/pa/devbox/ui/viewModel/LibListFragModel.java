@@ -29,14 +29,14 @@ public class LibListFragModel extends ListBaseModel<Library> implements BaseAdap
 
     private LibListModel libListModel;
 
-    public LibListFragModel(MainActivity context, LibListModel libListModel) {
+    public LibListFragModel(MainActivity context) {
         super(context);
         swipeRefreshLayoutStatus = true;
         this.context = context;
         adapter = new LibListAdapter(context, data);
         adapter.setItemClickListener(this);
 
-        this.libListModel = libListModel;
+        this.libListModel = new LibListModel();
         this.libListModel.setCallback(this);
 
         onRefresh();

@@ -19,10 +19,10 @@ public class TypeListFragModel extends ListBaseModel<Type> implements HttpReques
 
     private TypeListModel listModel;
 
-    public TypeListFragModel(MainActivity context, TypeListModel listModel) {
+    public TypeListFragModel(MainActivity context) {
         super(context);
 
-        this.listModel = listModel;
+        this.listModel = new TypeListModel();
         this.listModel.setCallback(this);
         swipeRefreshLayoutStatus = false;
         adapter = new TypeListAdapter(context, data);

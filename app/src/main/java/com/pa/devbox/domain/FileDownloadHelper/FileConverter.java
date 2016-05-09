@@ -28,7 +28,7 @@ public class FileConverter implements Converter<ResponseBody, File> {
     @Override
     public File convert(ResponseBody value) throws IOException {
         String saveFilePath = getSaveFilePath(value);
-        return FileUtils.writeResponseBodyToDisk(value, saveFilePath);
+        return HttpFileUtils.writeResponseBodyToDisk(value, saveFilePath);
     }
 
     @Nullable

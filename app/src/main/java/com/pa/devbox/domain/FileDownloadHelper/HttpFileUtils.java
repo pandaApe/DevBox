@@ -11,7 +11,7 @@ import okhttp3.ResponseBody;
 /**
  * Created by Cmad on 2016/5/3.
  */
-public class FileUtils {
+public class HttpFileUtils {
 
     /**
      * 将文件写入本地

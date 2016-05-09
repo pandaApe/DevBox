@@ -1,8 +1,6 @@
 package com.pa.devbox.di.module;
 
 import com.pa.devbox.ui.aty.MainActivity;
-import com.pa.devbox.ui.modle.LibListModel;
-import com.pa.devbox.ui.modle.TypeListModel;
 import com.pa.devbox.ui.viewModel.AccountFragModel;
 import com.pa.devbox.ui.viewModel.LibListFragModel;
 import com.pa.devbox.ui.viewModel.TypeListFragModel;
@@ -28,7 +26,7 @@ public class FragmentModule {
 
     @Provides
     TypeListFragModel provideModel(MainActivity context){
-        return new TypeListFragModel(context,new TypeListModel());
+        return new TypeListFragModel(context);
     }
 
     @Provides
@@ -38,7 +36,7 @@ public class FragmentModule {
 
     @Provides
     LibListFragModel provideLibModel(MainActivity context) {
-        return new LibListFragModel(context, new LibListModel());
+        return new LibListFragModel(context);
     }
 
     @Provides

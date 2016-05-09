@@ -7,6 +7,7 @@ import android.databinding.Bindable;
 import com.pa.devbox.BR;
 import com.pa.devbox.domain.entity.Library;
 import com.pa.devbox.ui.aty.LibDetailActivity;
+import com.pa.devbox.ui.modle.LibDetailModel;
 
 /**
  * Description:
@@ -30,6 +31,8 @@ public class LibDetailAtyModel extends BaseObservable {
     @Bindable
     String lastCommitMsg;
 
+    private LibDetailModel libDetailModel;
+
     public void parseArguments(Intent intent) {
 
         if (intent != null)
@@ -38,11 +41,11 @@ public class LibDetailAtyModel extends BaseObservable {
         if (library != null) {
 
         }
-
     }
 
     public LibDetailAtyModel(LibDetailActivity context) {
         this.context = context;
+        this.libDetailModel = new LibDetailModel();
     }
 
     public void setLibrary(Library library) {
