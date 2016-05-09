@@ -1,4 +1,4 @@
-package com.pa.devbox.ui.delegate;
+package com.pa.devbox.domain.delegate;
 
 import java.io.File;
 

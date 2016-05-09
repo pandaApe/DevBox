@@ -1,9 +1,9 @@
 package com.pa.devbox.ui.viewModel;
 
+import com.pa.devbox.domain.delegate.HttpRequestCallback;
 import com.pa.devbox.domain.entity.Type;
 import com.pa.devbox.ui.adapter.TypeListAdapter;
 import com.pa.devbox.ui.aty.MainActivity;
-import com.pa.devbox.ui.delegate.HttpRequestCallback;
 import com.pa.devbox.ui.modle.TypeListModel;
 
 import java.util.List;

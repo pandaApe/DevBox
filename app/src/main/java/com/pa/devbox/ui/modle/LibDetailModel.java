@@ -2,8 +2,8 @@ package com.pa.devbox.ui.modle;
 
 import com.pa.devbox.domain.FileDownloadHelper.body.ProgressResponseListener;
 import com.pa.devbox.domain.RetrofitClient;
+import com.pa.devbox.domain.delegate.FileDownloadCallback;
 import com.pa.devbox.domain.service.FileDownloadService;
-import com.pa.devbox.ui.delegate.FileDownloadCallback;
 import com.pa.devbox.util.FileUtils;
 
 import java.io.File;

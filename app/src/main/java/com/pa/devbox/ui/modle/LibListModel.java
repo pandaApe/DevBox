@@ -1,10 +1,10 @@
 package com.pa.devbox.ui.modle;
 
 import com.pa.devbox.domain.RetrofitClient;
+import com.pa.devbox.domain.delegate.HttpRequestCallback;
 import com.pa.devbox.domain.entity.BaseResponse;
 import com.pa.devbox.domain.entity.Library;
 import com.pa.devbox.domain.service.LibraryService;
-import com.pa.devbox.ui.delegate.HttpRequestCallback;
 
 import java.util.HashMap;
 import java.util.Map;

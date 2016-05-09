@@ -3,12 +3,12 @@ package com.pa.devbox.ui.viewModel;
 import android.content.Intent;
 import android.view.View;
 
+import com.pa.devbox.domain.delegate.HttpRequestCallback;
 import com.pa.devbox.domain.entity.Library;
 import com.pa.devbox.ui.adapter.BaseAdapter;
 import com.pa.devbox.ui.adapter.LibListAdapter;
 import com.pa.devbox.ui.aty.LibDetailActivity;
 import com.pa.devbox.ui.aty.MainActivity;
-import com.pa.devbox.ui.delegate.HttpRequestCallback;
 import com.pa.devbox.ui.modle.LibListModel;
 
 import java.util.List;
