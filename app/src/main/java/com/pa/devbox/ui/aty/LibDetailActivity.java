@@ -60,7 +60,6 @@ public class LibDetailActivity extends BaseActivity {
 
     TextView tvLicense;
 
-    public static final String SELECTEDITEM = "selectedItem";
     private Library codeLib;
     private ApkItem apkItem;
     private OSPluginManager operator;
@@ -82,22 +81,15 @@ public class LibDetailActivity extends BaseActivity {
         libDetailAtyModel.parseArguments(getIntent());
         libDetailBinding.setViewModel(libDetailAtyModel);
 
+        setToolbarDisplayHomeAsUpEnabledAndClickListenner(true, (v) -> {
+            LibDetailActivity.this.finish();
+        });
+
     }
 
     public void onCdreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_libdetail);
 
-
-        setToolbarDisplayHomeAsUpEnabledAndClickListenner(true, new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                LibDetailActivity.this.finish();
-            }
-        });
-
-        codeLib = (Library) getIntent().getSerializableExtra(SELECTEDITEM);
 
 //        kjdb = KJDB.create(this);
 //        localLibCode = kjdb.findById(codeLib.getObjectId(), LocalAVObject.class);
@@ -110,15 +102,6 @@ public class LibDetailActivity extends BaseActivity {
             btnDownload.setProgress(0);
             btnDownload.setText(codeLib.getApk().getApkSizeStr(this));
         }
-
-        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle(codeLib.getName());
-
-        tvLibDiscription.setText(codeLib.getEnDescription());
-        tvGithubAddress.setText(codeLib.getGithubAddress());
-        tvVersion.setText("API " + codeLib.getMinSdkVersion());
-        tvAuthor.setText(codeLib.getAuthor());
-        tvLicense.setText(codeLib.getLicense());
 
         operator = new OSPluginManager(this);
 //        new WebActionImpl(this).getLastCommitInfo(codeLib.getGithubAddress(), new GetLastCommitInfoCallback() {

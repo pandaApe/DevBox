@@ -1,6 +1,9 @@
 package com.pa.devbox.domain;
 
 import com.github.aurae.retrofit2.LoganSquareConverterFactory;
+import com.pa.devbox.domain.FileDownloadHelper.FileConverterFactory;
+import com.pa.devbox.domain.FileDownloadHelper.body.HttpClientHelper;
+import com.pa.devbox.domain.FileDownloadHelper.body.ProgressResponseListener;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -10,7 +13,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 
 /**
  * Description:
- *
+ * <p>
  * Author: PandaApe.
  * CreatedAt: 28/4/16 21:32.
  * Email: whailong2010@gmail.com
@@ -22,9 +25,14 @@ public class RetrofitClient {
 
     private static RetrofitClient singleton = new RetrofitClient();
 
-    public static  RetrofitClient shareInstance() {
+    public static RetrofitClient shareInstance() {
         return singleton;
     }
+
+    public static RetrofitClient downloadClient() {
+        return singleton;
+    }
+
 
     private Retrofit retrofit;
 
@@ -48,8 +56,18 @@ public class RetrofitClient {
                 .build();
     }
 
-    public <T> T create(Class<?> clazz) {
-        return (T) retrofit.create(clazz);
+    public <T> T create(Class<T> clazz) {
+        return retrofit.create(clazz);
+    }
+
+    public <T> T createDownloadService(Class<T> clazz, ProgressResponseListener listener) {
+        OkHttpClient client = HttpClientHelper.addProgressResponseListener(new OkHttpClient.Builder(), listener).build();
+
+        return new Retrofit.Builder()
+                .client(client)
+                .baseUrl(this.BASE_URL)
+                .addConverterFactory(FileConverterFactory.create())
+                .build().create(clazz);
     }
 
     private Interceptor getLoggingInterceptor() {

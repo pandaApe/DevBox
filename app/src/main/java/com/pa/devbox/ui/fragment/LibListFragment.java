@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 
 import com.pa.devbox.R;
 import com.pa.devbox.databinding.FragmentLibBinding;
-import com.pa.devbox.di.component.DaggerLibFragComponent;
-import com.pa.devbox.di.module.LibFragModule;
+import com.pa.devbox.di.component.DaggerFragmentComponent;
+import com.pa.devbox.di.module.FragmentModule;
 import com.pa.devbox.ui.aty.MainActivity;
 import com.pa.devbox.ui.viewModel.LibListFragModel;
 
@@ -35,11 +35,12 @@ public class LibListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        DaggerLibFragComponent
-                .builder()
-                .libFragModule(new LibFragModule((MainActivity) getActivity()))
-                .build()
-                .inject(this);
+//        DaggerLibFragComponent
+//                .builder()
+//                .libFragModule(new LibFragModule((MainActivity) getActivity()))
+//                .build()
+//                .inject(this);
+        DaggerFragmentComponent.builder().fragmentModule(new FragmentModule((MainActivity) getActivity())).build().inject(this);
 
         FragmentLibBinding libBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_lib, container, false);
         libBinding.setViewModel(libListFragModel);

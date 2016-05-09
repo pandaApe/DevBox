@@ -87,7 +87,7 @@ public class DataBindingAdapter {
     /*
     *
     **/
-    @BindingAdapter({"viewPagerAdapter"})
+    @BindingAdapter({"aViewPagerAdapter"})
     public static void bindViewPagerAdapter(ViewPager viewPager, TabViewPageAdapter adapter) {
         viewPager.setAdapter(adapter);
         asmartTabLayout.setViewPager(viewPager);

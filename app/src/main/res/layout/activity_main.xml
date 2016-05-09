@@ -44,10 +44,11 @@
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:aViewPagerAdapter="@{viewModel.viewPagerAdapter}"
             app:currentItemIndex="@{viewModel.currentItemIndex}"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:offscreenPageLimit="@{viewModel.offscreenPageLimit}"
-            app:viewPagerAdapter="@{viewModel.viewPagerAdapter}" />
+            />
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

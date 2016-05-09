@@ -50,8 +50,26 @@ public class LibDetailAtyModel extends BaseObservable {
         notifyPropertyChanged(BR.library);
     }
 
+    public void setLastCommitDate(String lastCommitDate) {
+        this.lastCommitDate = lastCommitDate;
+        notifyPropertyChanged(BR.lastCommitDate);
+    }
+
+    public void setLastCommitMsg(String lastCommitMsg) {
+        this.lastCommitMsg = lastCommitMsg;
+        notifyPropertyChanged(BR.lastCommitMsg);
+    }
+
+    public String getLastCommitMsg() {
+        return lastCommitMsg;
+    }
+
     public String getDescription() {
         return library.getEnDescription();
+    }
+
+    public String getTitle() {
+        return library.getName();
     }
 
     public String getMinSdkVersion() {
@@ -73,46 +91,6 @@ public class LibDetailAtyModel extends BaseObservable {
     public String getLastCommitDate() {
         return lastCommitDate;
     }
-
-    public void setLastCommitDate(String lastCommitDate) {
-        this.lastCommitDate = lastCommitDate;
-        notifyPropertyChanged(BR.lastCommitDate);
-    }
-
-    public String getLastCommitMsg() {
-        return lastCommitMsg;
-    }
-
-    public void setLastCommitMsg(String lastCommitMsg) {
-        this.lastCommitMsg = lastCommitMsg;
-        notifyPropertyChanged(BR.lastCommitMsg);
-    }
-/*
-     ImageView ivHeader;
-
-    CollapsingToolbarLayout collapsingToolbar;
-
-    TextView tvLibDiscription;
-
-    TextView tvVersion;
-
-    CircularProgressButton btnDownload;
-
-    TextView tvGithubAddress;
-
-    CardView cvGithubAddress;
-
-    TextView tvLastUpdateDate;
-
-    TextView tvLastUpdateMsg;
-
-    TextView tvAuthor;
-
-    TextView tvLicense;
-
-
-
-    */
 
 
 }
