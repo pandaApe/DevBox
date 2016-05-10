@@ -29,8 +29,6 @@ public class LibDetailModel implements ProgressResponseListener {
                 .createDownloadService(FileDownloadService.class, this);
     }
 
-//    RetrofitClient
-//            .createDownloadService(FileDownloadService.class, this)
     public void download(String url, String filePath) {
 
         Call<File> call = downloadService.download(url, filePath);

@@ -1,28 +1,17 @@
 package com.pa.devbox.ui.aty;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.widget.CardView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.dd.CircularProgressButton;
 import com.pa.devbox.R;
 import com.pa.devbox.databinding.ActivityLibdetailBinding;
 import com.pa.devbox.di.component.DaggerLibDetailAtyComponent;
 import com.pa.devbox.di.module.LibDetailAtyModule;
-import com.pa.devbox.domain.entity.ApkItem;
-import com.pa.devbox.domain.entity.Library;
 import com.pa.devbox.ui.viewModel.LibDetailAtyModel;
-import com.pa.devbox.util.OSPluginManager;
 
 import javax.inject.Inject;
 
@@ -38,33 +27,7 @@ public class LibDetailActivity extends BaseActivity {
     @Inject
     LibDetailAtyModel libDetailAtyModel;
 
-    ImageView ivHeader;
-
-    CollapsingToolbarLayout collapsingToolbar;
-
-    TextView tvLibDiscription;
-
-    TextView tvVersion;
-
-    CircularProgressButton btnDownload;
-
-    TextView tvGithubAddress;
-
-    CardView cvGithubAddress;
-
-    TextView tvLastUpdateDate;
-
-    TextView tvLastUpdateMsg;
-
-    TextView tvAuthor;
-
-    TextView tvLicense;
-
-    private Library codeLib;
-    private ApkItem apkItem;
-    private OSPluginManager operator;
-
-    private final int REQUEST_CODE_ASK_STORAGE_PERMISSIONS = 123;
+    private PermissionRequestCallback permissionRequestCallback;
 
 
     @Override
@@ -85,6 +48,11 @@ public class LibDetailActivity extends BaseActivity {
             LibDetailActivity.this.finish();
         });
 
+
+    }
+
+    public void setPermissionRequestCallback(PermissionRequestCallback permissionRequestCallback) {
+        this.permissionRequestCallback = permissionRequestCallback;
     }
 
     public void onCdreate(Bundle savedInstanceState) {
@@ -94,16 +62,16 @@ public class LibDetailActivity extends BaseActivity {
 //        kjdb = KJDB.create(this);
 //        localLibCode = kjdb.findById(codeLib.getObjectId(), LocalAVObject.class);
 
-        apkItem = new ApkItem(this, codeLib);
-        if (apkItem.exists()) {
-            btnDownload.setProgress(100);
-            btnDownload.setCompleteText(getString(R.string.launch));
-        } else {
-            btnDownload.setProgress(0);
-            btnDownload.setText(codeLib.getApk().getApkSizeStr(this));
-        }
+//        apkItem = new ApkItem(this, codeLib);
+//        if (apkItem.exists()) {
+//            btnDownload.setProgress(100);
+//            btnDownload.setCompleteText(getString(R.string.launch));
+//        } else {
+//            btnDownload.setProgress(0);
+//            btnDownload.setText(codeLib.getApk().getApkSizeStr(this));
+//        }
 
-        operator = new OSPluginManager(this);
+//        operator = new OSPluginManager(this);
 //        new WebActionImpl(this).getLastCommitInfo(codeLib.getGithubAddress(), new GetLastCommitInfoCallback() {
 //
 //            @Override
@@ -147,15 +115,7 @@ public class LibDetailActivity extends BaseActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_CODE_ASK_STORAGE_PERMISSIONS:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    downloadApk();
-                else
-                    showSnackbar(getString(R.string.refusePermission));
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
+        permissionRequestCallback.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     //    @OnClick({R.id.btn_download, R.id.cv_githubAddress})
@@ -163,32 +123,36 @@ public class LibDetailActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.btn_download:
 
-                if (apkItem.exists()) {
+//                if (apkItem.exists()) {
 //                    operator.openApk(apkItem);
-                    return;
-                }
-
-                int hasWriteContactsPermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            REQUEST_CODE_ASK_STORAGE_PERMISSIONS);
-                    return;
-                }
+//                    return;
+//                }
+//
+//                int hasWriteContactsPermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+//                if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
+//                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+//                            REQUEST_CODE_ASK_STORAGE_PERMISSIONS);
+//                    return;
+//                }
 
 //                codeLib.increaseDownloadCount();
 //                codeLib.saveInBackground();
 
-                downloadApk();
+//                downloadApk();
 
                 break;
             case R.id.cv_githubAddress:
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(codeLib.getGithubAddress()));
-                startActivity(browserIntent);
+//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(codeLib.getGithubAddress()));
+//                startActivity(browserIntent);
         }
     }
 
+    public interface PermissionRequestCallback {
+        void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults);
+    }
+
     private void downloadApk() {
-        btnDownload.setProgress(1);
+//        btnDownload.setProgress(1);
 //        new WebActionImpl(this).downloadApkFile(this.codeLib, new HttpCallback<String>() {
 //            @Override
 //            public void onSucess(String filePath) {
