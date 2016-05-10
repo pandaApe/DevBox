@@ -1,7 +1,9 @@
 package com.pa.devbox.domain.entity;
 
+import android.content.Context;
+
 import com.bluelinelabs.logansquare.annotation.JsonObject;
-import com.google.gson.annotations.Until;
+import com.pa.devbox.R;
 
 import java.io.Serializable;
 
@@ -25,6 +27,7 @@ public class Library implements Serializable {
     private int viewCount;
 
     private DevFile apk;
+
     private DevFile image;
 
     public Library() {
@@ -33,15 +36,59 @@ public class Library implements Serializable {
         this.viewCount = 0;
     }
 
-    @Until(0.1)
-    private boolean isCollected;
+    @JsonObject(fieldDetectionPolicy = JsonObject.FieldDetectionPolicy.NONPRIVATE_FIELDS_AND_ACCESSORS)
+    public static class DevFile implements Serializable {
 
-    public boolean isCollected() {
-        return isCollected;
-    }
+        private String url;
 
-    public void setIsCollected(boolean isCollected) {
-        this.isCollected = isCollected;
+        private MetaData metaData;
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public MetaData getMetaData() {
+            return metaData;
+        }
+
+        public void setMetaData(MetaData metaData) {
+            this.metaData = metaData;
+        }
+
+        public String getApkSizeStr(Context context) {
+
+            double size = this.getMetaData().getSize() / 1000.0 / 1000.0;
+            double sizeFinal = Math.round(size * 100) / 100.0;
+            return context.getString(R.string.download) + sizeFinal + "MB)";
+        }
+
+        @JsonObject(fieldDetectionPolicy = JsonObject.FieldDetectionPolicy.NONPRIVATE_FIELDS_AND_ACCESSORS)
+        public static class MetaData implements Serializable {
+
+
+            private String owner;
+            private long size;
+
+            public String getOwner() {
+                return owner;
+            }
+
+            public void setOwner(String owner) {
+                this.owner = owner;
+            }
+
+            public long getSize() {
+                return size;
+            }
+
+            public void setSize(long size) {
+                this.size = size;
+            }
+        }
     }
 
     public String getObjectId() {
