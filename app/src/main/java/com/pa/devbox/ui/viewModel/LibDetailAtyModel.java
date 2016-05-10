@@ -45,7 +45,12 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
     String lastCommitMsg;
 
     @Bindable
+    boolean indeterminateProgressMode;
+
+    @Bindable
     String btnText;
+
+    private String savePath;
 
     private final int REQUEST_CODE_ASK_STORAGE_PERMISSIONS = 123;
 
@@ -58,6 +63,11 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
 
         if (library != null) {
             this.setBtnText(getApkSizeStr());
+            savePath = FileUtils.getSdCardPath()
+                    + "DevBox" + File.separator
+                    + library.getName() + ".apk";
+            if (new File(savePath).exists())
+                this.setCircularProgress(100);
         }
     }
 
@@ -65,7 +75,6 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(this.library.getGithubAddress()));
         context.startActivity(browserIntent);
     }
-
 
     public void circularBtnOnClick(View view) {
 
@@ -79,16 +88,11 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
     }
 
     private void download() {
-
-        String savePath = FileUtils.getSdCardPath()
-                + "DevBox" + File.separator
-                + library.getName() + ".apk";
-
-        if (new File(savePath).exists()) {
-
-        } else {
+        if (!new File(savePath).exists()) {
             libDetailModel.download(library.getApk().getUrl(), savePath);
+            this.setIndeterminateProgressMode(true);
         }
+
     }
 
     public LibDetailAtyModel(LibDetailActivity context) {
@@ -97,7 +101,16 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
         this.libDetailModel = new LibDetailModel();
         this.libDetailModel.setFileDownloadCallback(this);
         this.setCircularProgress(0);
+    }
 
+
+    public boolean isIndeterminateProgressMode() {
+        return indeterminateProgressMode;
+    }
+
+    public void setIndeterminateProgressMode(boolean indeterminateProgressMode) {
+        this.indeterminateProgressMode = indeterminateProgressMode;
+        notifyPropertyChanged(BR.swipeRefreshLayoutStatus);
     }
 
     public void setBtnText(String btnText) {

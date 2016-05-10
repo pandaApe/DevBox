@@ -42,7 +42,7 @@ public class CollectionActivity extends BaseActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        adapter = new LibListAdapter(this, codeLibs);
+//        adapter = new LibListAdapter(this, codeLibs);
         recyclerView.setAdapter(adapter);
     }
 
