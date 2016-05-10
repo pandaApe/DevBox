@@ -22,7 +22,6 @@ public class RetrofitClient {
 
     private String BASE_URL = "https://api.leancloud.cn/1.1/";
 
-
     private static RetrofitClient singleton = new RetrofitClient();
 
     public static RetrofitClient shareInstance() {

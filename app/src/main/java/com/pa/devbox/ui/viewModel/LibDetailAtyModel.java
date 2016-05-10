@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.pa.devbox.BR;
+import com.pa.devbox.R;
 import com.pa.devbox.domain.delegate.FileDownloadCallback;
 import com.pa.devbox.domain.entity.Library;
 import com.pa.devbox.ui.aty.LibDetailActivity;
@@ -52,7 +53,7 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
             library = (Library) intent.getSerializableExtra(SELECTEDITEM);
 
         if (library != null) {
-
+            this.setBtnText(getApkSizeStr());
         }
 
     }
@@ -75,7 +76,7 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
         this.libDetailModel = new LibDetailModel();
         this.libDetailModel.setFileDownloadCallback(this);
         this.setCircularProgress(0);
-        this.setBtnText(getApkSizeStr());
+
     }
 
     public void setBtnText(String btnText) {
@@ -167,9 +168,9 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
 
     public String getApkSizeStr() {
 
-//        double size = this.library.getApk().getMetaData().getSize() / 1000.0 / 1000.0;
-//        double sizeFinal = Math.round(size * 100) / 100.0;
-//        return context.getString(R.string.download) + sizeFinal + "MB)";
-        return "haha";
+        double size = this.library.getApk().getMetaData().getSize() / 1000.0 / 1000.0;
+        double sizeFinal = Math.round(size * 100) / 100.0;
+        return context.getString(R.string.download) + sizeFinal + "MB)";
+
     }
 }

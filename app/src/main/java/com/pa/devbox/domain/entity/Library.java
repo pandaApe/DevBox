@@ -8,7 +8,11 @@ import com.pa.devbox.R;
 import java.io.Serializable;
 
 /**
- * Created by whailong on 14/1/16.
+ * Description:
+ * <p>
+ * Author: PandaApe.
+ * CreatedAt: 14/1/16 21:32.
+ * Email: whailong2010@gmail.com
  */
 @JsonObject(fieldDetectionPolicy = JsonObject.FieldDetectionPolicy.NONPRIVATE_FIELDS_AND_ACCESSORS)
 public class Library implements Serializable {
