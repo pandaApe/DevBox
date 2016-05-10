@@ -147,6 +147,7 @@
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/cv_githubAddress"
+                    android:onClick="viewModel.githubAddressOnClick"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"

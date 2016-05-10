@@ -7,17 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.pa.devbox.R;
-import com.pa.devbox.domain.entity.Library;
 import com.pa.devbox.ui.adapter.LibListAdapter;
-
-import java.util.ArrayList;
 
 public class CollectionActivity extends BaseActivity {
 
     RecyclerView recyclerView;
 
     private LibListAdapter adapter;
-    private ArrayList<Library> codeLibs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

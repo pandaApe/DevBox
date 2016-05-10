@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 
@@ -58,8 +59,13 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
         if (library != null) {
             this.setBtnText(getApkSizeStr());
         }
-
     }
+
+    public void githubAddressOnClick(View view) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(this.library.getGithubAddress()));
+        context.startActivity(browserIntent);
+    }
+
 
     public void circularBtnOnClick(View view) {
 
@@ -176,7 +182,7 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
     public void onProgress(long bytesRead, long contentLength, boolean done) {
 
         int percentage = (int) (1.0f * bytesRead / contentLength * 100);
-        Log.e("-->", "onProgress-" +percentage);
+        Log.e("-->", "onProgress-" + percentage);
         if (done)
             this.setCircularProgress(100);
         else
