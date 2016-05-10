@@ -4,7 +4,6 @@ import com.pa.devbox.domain.FileDownloadHelper.body.ProgressResponseListener;
 import com.pa.devbox.domain.RetrofitClient;
 import com.pa.devbox.domain.delegate.FileDownloadCallback;
 import com.pa.devbox.domain.service.FileDownloadService;
-import com.pa.devbox.util.FileUtils;
 
 import java.io.File;
 
@@ -27,24 +26,20 @@ public class LibDetailModel implements ProgressResponseListener {
 
     public LibDetailModel() {
         downloadService = RetrofitClient
-                .shareInstance()
                 .createDownloadService(FileDownloadService.class, this);
     }
 
+//    RetrofitClient
+//            .createDownloadService(FileDownloadService.class, this)
+    public void download(String url, String filePath) {
 
-    private void download(String url, String fileName) {
-
-        String savePath = FileUtils.getSdCardPath() + "DevBox" + File.separator + fileName + ".apk";
-
-        Call<File> call = downloadService.download(url, savePath);
+        Call<File> call = downloadService.download(url, filePath);
 
         call.enqueue(new Callback<File>() {
             @Override
             public void onResponse(Call<File> call, Response<File> response) {
-                if (response.isSuccessful() && response.body() != null) {
-//                    Log.e("onResponse", "file path:" + response.body().getPath());
+                if (response.isSuccessful() && response.body() != null)
                     fileDownloadCallback.onSuccess(response.body());
-                }
             }
 
             @Override
@@ -53,7 +48,6 @@ public class LibDetailModel implements ProgressResponseListener {
             }
         });
     }
-
 
     @Override
     public void onResponseProgress(long bytesRead, long contentLength, boolean done) {

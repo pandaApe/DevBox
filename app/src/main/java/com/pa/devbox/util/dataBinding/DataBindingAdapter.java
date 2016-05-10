@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.dd.CircularProgressButton;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.pa.devbox.ui.adapter.BaseAdapter;
 import com.pa.devbox.ui.adapter.TabViewPageAdapter;
@@ -83,6 +84,18 @@ public class DataBindingAdapter {
             adapter.notifyDataSetChanged();
         }
     }
+
+    /*
+    normal state [0]
+    progress state [1-99]
+    success state [100]
+    error state [-1]
+    */
+    @BindingAdapter({"circularProgress"})
+    public static void bindProgress(CircularProgressButton circularBtn, int progress) {
+        circularBtn.setProgress(progress);
+    }
+
 
     /*
     *

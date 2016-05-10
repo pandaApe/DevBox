@@ -29,11 +29,6 @@ public class RetrofitClient {
         return singleton;
     }
 
-    public static RetrofitClient downloadClient() {
-        return singleton;
-    }
-
-
     private Retrofit retrofit;
 
     public RetrofitClient() {
@@ -60,12 +55,12 @@ public class RetrofitClient {
         return retrofit.create(clazz);
     }
 
-    public <T> T createDownloadService(Class<T> clazz, ProgressResponseListener listener) {
+    public static <T> T createDownloadService(Class<T> clazz, ProgressResponseListener listener) {
         OkHttpClient client = HttpClientHelper.addProgressResponseListener(new OkHttpClient.Builder(), listener).build();
 
         return new Retrofit.Builder()
                 .client(client)
-                .baseUrl(this.BASE_URL)
+                .baseUrl("https://api.leancloud.cn/1.1/")
                 .addConverterFactory(FileConverterFactory.create())
                 .build().create(clazz);
     }
