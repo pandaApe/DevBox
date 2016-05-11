@@ -1,6 +1,6 @@
 package com.pa.devbox.ui.modle;
 
-import com.pa.devbox.domain.FileDownloadHelper.body.ProgressResponseListener;
+import com.cm.retrofit2.converter.file.body.ProgressResponseListener;
 import com.pa.devbox.domain.RetrofitClient;
 import com.pa.devbox.domain.delegate.FileDownloadCallback;
 import com.pa.devbox.domain.service.FileDownloadService;

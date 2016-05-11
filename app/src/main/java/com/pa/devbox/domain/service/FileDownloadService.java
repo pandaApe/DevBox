@@ -1,6 +1,7 @@
 package com.pa.devbox.domain.service;
 
-import com.pa.devbox.domain.FileDownloadHelper.FileConverter;
+
+import com.cm.retrofit2.converter.file.FileConverter;
 
 import java.io.File;
 

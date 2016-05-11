@@ -67,7 +67,7 @@ dependencies {
     compile compiles.glide
     compile compiles.retrofitAdapter
     compile compiles.retrofit
-
+    compile compiles.retrofitFileConverter
     provided provides.daggerCompiler
     provided provides.annotation
 

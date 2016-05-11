@@ -1,9 +1,9 @@
 package com.pa.devbox.domain;
 
+import com.cm.retrofit2.converter.file.FileConverterFactory;
+import com.cm.retrofit2.converter.file.body.HttpClientHelper;
+import com.cm.retrofit2.converter.file.body.ProgressResponseListener;
 import com.github.aurae.retrofit2.LoganSquareConverterFactory;
-import com.pa.devbox.domain.FileDownloadHelper.FileConverterFactory;
-import com.pa.devbox.domain.FileDownloadHelper.body.HttpClientHelper;
-import com.pa.devbox.domain.FileDownloadHelper.body.ProgressResponseListener;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
