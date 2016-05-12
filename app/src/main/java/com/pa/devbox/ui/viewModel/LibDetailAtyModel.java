@@ -1,6 +1,7 @@
 package com.pa.devbox.ui.viewModel;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.BaseObservable;
@@ -61,14 +62,17 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
         if (intent != null)
             library = (Library) intent.getSerializableExtra(SELECTEDITEM);
 
-        if (library != null) {
-            this.setBtnText(getApkSizeStr());
-            savePath = FileUtils.getSdCardPath()
-                    + "DevBox" + File.separator
-                    + library.getName() + ".apk";
-            if (new File(savePath).exists())
-                this.setCircularProgress(100);
-        }
+        this.setBtnText(getApkSizeStr());
+        savePath = FileUtils.getSdCardPath()
+                + "DevBox" + File.separator
+                + library.getName() + ".apk";
+
+        if (new File(savePath).exists())
+            this.setCircularProgress(100);
+
+        this.libDetailModel = new LibDetailModel(library.getObjectId());
+        this.libDetailModel.setFileDownloadCallback(this);
+
     }
 
     public void githubAddressOnClick(View view) {
@@ -76,14 +80,19 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
         context.startActivity(browserIntent);
     }
 
+    @TargetApi(23)
     public void circularBtnOnClick(View view) {
 
-        int hasWriteContactsPermission = context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
-            context.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    REQUEST_CODE_ASK_STORAGE_PERMISSIONS);
-            return;
+        if (android.os.Build.VERSION.SDK_INT >= 23) {     // Do something for froyo and above versions } else{     // do something for phones running an SDK before froyo }
+
+            int hasWriteContactsPermission = context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
+                context.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        REQUEST_CODE_ASK_STORAGE_PERMISSIONS);
+                return;
+            }
         }
+
         download();
     }
 
@@ -98,8 +107,6 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
     public LibDetailAtyModel(LibDetailActivity context) {
         this.context = context;
         this.context.setPermissionRequestCallback(this);
-        this.libDetailModel = new LibDetailModel();
-        this.libDetailModel.setFileDownloadCallback(this);
         this.setCircularProgress(0);
     }
 

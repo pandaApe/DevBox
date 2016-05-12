@@ -14,8 +14,6 @@ import java.io.Serializable;
 @JsonObject(fieldDetectionPolicy = JsonObject.FieldDetectionPolicy.NONPRIVATE_FIELDS_AND_ACCESSORS)
 public class Type implements Serializable {
 
-//    private int numCount;
-
     private String objectId;
 
     public String getObjectId() {
@@ -27,16 +25,8 @@ public class Type implements Serializable {
     }
 
     private String enDescription;
-//    private String cnDescription;
-    private String parentType;
 
-//    public int getNumCount() {
-//        return numCount;
-//    }
-//
-//    public void setNumCount(int numCount) {
-//        this.numCount = numCount;
-//    }
+    private String parentType;
 
     public String getEnDescription() {
         return enDescription;
@@ -45,14 +35,6 @@ public class Type implements Serializable {
     public void setEnDescription(String enDescription) {
         this.enDescription = enDescription;
     }
-
-//    public String getCnDescription() {
-//        return cnDescription;
-//    }
-
-//    public void setCnDescription(String cnDescription) {
-//        this.cnDescription = cnDescription;
-//    }
 
     public String getParentType() {
         return parentType;

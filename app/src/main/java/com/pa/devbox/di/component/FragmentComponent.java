@@ -20,5 +20,5 @@ public interface FragmentComponent {
 
     void inject(LibListFragment libListFragment);
     void inject(AccountFragment accountFragment);
-    void inject(TypeListFragment context);
+    void inject(TypeListFragment typeListFragment);
 }

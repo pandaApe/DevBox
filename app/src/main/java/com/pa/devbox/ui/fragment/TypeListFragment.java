@@ -30,7 +30,11 @@ public class TypeListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        DaggerFragmentComponent.builder().fragmentModule(new FragmentModule((MainActivity) getActivity())).build().inject(this);
+        DaggerFragmentComponent
+                .builder()
+                .fragmentModule(new FragmentModule((MainActivity) getActivity()))
+                .build()
+                .inject(this);
 
         FragmentLibBinding fragBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_lib, container, false);
         fragBinding.setViewModel(typeTypeListFragModel);

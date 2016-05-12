@@ -54,7 +54,6 @@ public class LibDetailActivity extends BaseActivity {
         permissionRequestCallback.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-
     public interface PermissionRequestCallback {
         void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults);
     }

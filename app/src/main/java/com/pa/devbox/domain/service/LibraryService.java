@@ -2,9 +2,12 @@ package com.pa.devbox.domain.service;
 
 import com.pa.devbox.domain.entity.BaseResponse;
 import com.pa.devbox.domain.entity.Library;
+import com.pa.devbox.domain.entity.rest.CountIncrement;
 
 import java.util.Map;
 
+import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -13,7 +16,7 @@ import rx.Observable;
 
 /**
  * Description:
- *
+ * <p>
  * Author: PandaApe.
  * CreatedAt: 28/4/16 23:03.
  * Email: whailong2010@gmail.com
@@ -30,44 +33,19 @@ public interface LibraryService {
 
      */
 
-
     @GET("classes/Library")
-    Observable<BaseResponse<Library>> getLibrary(@QueryMap Map<String,String> parametersMap);
-
-/*
-        //If there is no keyword, it means that must is getting libraries by Type.
-        if (!TextUtils.isEmpty(paramMap.get("objId"))) {
-            params.put("where", "{\"$relatedTo\":{\"object\":{\"__type\":\"Pointer\",\"className\":\"Type\",\"objectId\":\"" + paramMap.get("objId") + "\"},\"key\":\"libraries\"}}");
-            params.put("order", "-createdAt");
-//            params.put("limit", "6");
-//            params.put("skip", "" + 6 * (currentPage - 1));
-
-        } else if (!TextUtils.isEmpty(paramMap.get("keyword"))) {
-            params.put("cql", "select * from Library where name like ? order by createdAt");
-            params.put("pvalues", "[\"%" + paramMap.get("keyword") + "%\"]");
-
-        } else {
-            params.put("order", "-createdAt");
-//            params.put("limit", "6");
-//            params.put("skip", "" + 6 * (currentPage - 1));
-        }
-*/
+    Observable<BaseResponse<Library>> getLibrary(@QueryMap Map<String, String> parametersMap);
 
     @PUT("classes/Library/{objId}")
-    Observable increaseCount(@Path("objId") String objId);
-    /*
-     HttpParams params = new HttpParams();
-        params.putHeaders("X-LC-Sign", generateLCSign());
-        params.putHeaders("X-LC-Id", BuildConfig.APPId);
-        params.putHeaders("Content-Type", "application/json");
-        params.putJsonParams("{\"viewCount\":{\"__op\":\"Increment\",\"amount\":1}}");
+    Observable<ResponseBody> increaseCount(@Path("objId") String objId, @Body CountIncrement countIncrement);
 
-        Map map = params.getHeaders();
-        String requestBody = params.getJsonParams();
-        RequestBody body = RequestBody.create(null, params.getJsonParams());
-     */
-
-    //Download apk file
-
-
+/*
+curl -X PUT \
+  -H "X-LC-Id: OOhkF87ffBYBHmvph465ApmV-gzGzoHsz" \
+  -H "X-LC-Key: OkaU2qxpo1fbHPtc9o7yQVgM" \
+  -H "Content-Type: application/json" \
+  -d '{"upvotes":{"__op":"Increment","amount":1}}' \
+  https://api.leancloud.cn/1.1/classes/Post/558e20cbe4b060308e3eb36c
+*/
+    
 }

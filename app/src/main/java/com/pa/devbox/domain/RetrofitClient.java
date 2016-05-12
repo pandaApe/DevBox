@@ -67,7 +67,7 @@ public class RetrofitClient {
     private Interceptor getLoggingInterceptor() {
 
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return httpLoggingInterceptor;
     }
 
