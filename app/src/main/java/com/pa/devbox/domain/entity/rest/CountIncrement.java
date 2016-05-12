@@ -1,5 +1,6 @@
 package com.pa.devbox.domain.entity.rest;
 
+import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.bluelinelabs.logansquare.annotation.JsonObject;
 
 /**
@@ -9,9 +10,11 @@ import com.bluelinelabs.logansquare.annotation.JsonObject;
  * CreatedAt: 12/5/16 22:08.
  * Email: whailong2010@gmail.com
  */
-@JsonObject
+@JsonObject(fieldDetectionPolicy = JsonObject.FieldDetectionPolicy.NONPRIVATE_FIELDS_AND_ACCESSORS)
 public class CountIncrement {
+    @JsonField
     private Inner downloadCount;
+    @JsonField
     private Inner viewCount;
 
     public Inner getDownloadCount() {

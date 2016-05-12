@@ -31,6 +31,7 @@ public class LibDetailModel implements ProgressResponseListener {
     private FileDownloadService downloadService;
     private FileDownloadCallback fileDownloadCallback;
     private LibraryService libraryService;
+    private String objId;
 
     public LibDetailModel(String objId) {
 
@@ -38,13 +39,16 @@ public class LibDetailModel implements ProgressResponseListener {
                 .createDownloadService(FileDownloadService.class, this);
 
         libraryService = RetrofitClient.shareInstance().create(LibraryService.class);
+        CountIncrement increment = new CountIncrement();
 
-        increaseViewCount(objId);
+        this.objId = objId;
+        increment.setViewCount(new Inner());
+        increaseCount(objId, increment);
+
     }
 
-    private void increaseViewCount(String objId) {
-        CountIncrement increment = new CountIncrement();
-        increment.setViewCount(new Inner());
+    private void increaseCount(String objId, CountIncrement increment) {
+
         Observable<ResponseBody> observable = libraryService.increaseCount(objId, increment);
         observable.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -71,6 +75,10 @@ public class LibDetailModel implements ProgressResponseListener {
 
     //File download
     public void download(String url, String filePath) {
+
+        CountIncrement increment = new CountIncrement();
+        increment.setDownloadCount(new Inner());
+        increaseCount(objId, increment);
 
         Call<File> call = downloadService.download(url, filePath);
 

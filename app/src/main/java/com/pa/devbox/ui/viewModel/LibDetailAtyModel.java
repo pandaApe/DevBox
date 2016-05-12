@@ -202,7 +202,7 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
     public void onProgress(long bytesRead, long contentLength, boolean done) {
 
         int percentage = (int) (1.0f * bytesRead / contentLength * 100);
-        Log.e("-->", "onProgress-" + percentage);
+//        Log.e("-->", "onProgress-" + percentage);
         if (done)
             this.setCircularProgress(100);
         else
