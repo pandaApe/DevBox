@@ -36,16 +36,16 @@ public interface LibraryService {
     @GET("classes/Library")
     Observable<BaseResponse<Library>> getLibrary(@QueryMap Map<String, String> parametersMap);
 
+    /*
+    curl -X PUT \
+      -H "X-LC-Id: OOhkF87ffBYBHmvph465ApmV-gzGzoHsz" \
+      -H "X-LC-Key: OkaU2qxpo1fbHPtc9o7yQVgM" \
+      -H "Content-Type: application/json" \
+      -d '{"upvotes":{"__op":"Increment","amount":1}}' \
+      https://api.leancloud.cn/1.1/classes/Post/558e20cbe4b060308e3eb36c
+    */
     @PUT("classes/Library/{objId}")
     Observable<ResponseBody> increaseCount(@Path("objId") String objId, @Body CountIncrement countIncrement);
 
-/*
-curl -X PUT \
-  -H "X-LC-Id: OOhkF87ffBYBHmvph465ApmV-gzGzoHsz" \
-  -H "X-LC-Key: OkaU2qxpo1fbHPtc9o7yQVgM" \
-  -H "Content-Type: application/json" \
-  -d '{"upvotes":{"__op":"Increment","amount":1}}' \
-  https://api.leancloud.cn/1.1/classes/Post/558e20cbe4b060308e3eb36c
-*/
     
 }

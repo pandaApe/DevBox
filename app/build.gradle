@@ -46,6 +46,7 @@ dependencies {
     def apts = ext.apts
 
     testCompile 'junit:junit:4.12'
+    compile project(path: ':DroidPlugin')
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -73,5 +74,6 @@ dependencies {
 
     apt apts.dataBindingCompiler
     apt apts.logansquareCompiler
+
 
 }
