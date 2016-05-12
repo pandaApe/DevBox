@@ -17,6 +17,8 @@ public class DevBoxApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+
         PluginHelper.getInstance().applicationOnCreate(getBaseContext());
     }
 
