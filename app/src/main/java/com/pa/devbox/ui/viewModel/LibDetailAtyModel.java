@@ -83,7 +83,7 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
     @TargetApi(23)
     public void circularBtnOnClick(View view) {
 
-        if (android.os.Build.VERSION.SDK_INT >= 23) {     // Do something for froyo and above versions } else{     // do something for phones running an SDK before froyo }
+        if (android.os.Build.VERSION.SDK_INT >= 23) {     // Do something for M and above versions } else{     // do something for phones running an SDK before froyo }
 
             int hasWriteContactsPermission = context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
             if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
@@ -189,6 +189,8 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
     @Override
     public void onSuccess(File file) {
 // TODO: 10/5/16 Need to install apk to plugin system in sub thread
+
+
 
         Log.e("-->", "Seccess" + file.getPath());
     }

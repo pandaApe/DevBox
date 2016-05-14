@@ -9,8 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.RemoteException;
 
-import com.pa.devbox.domain.entity.ApkItem;
-
+import java.io.File;
 import java.util.List;
 
 public class PluginManager {
@@ -21,23 +20,17 @@ public class PluginManager {
         mActivity = activity;
     }
 
-    /**
-     * 安装Apk, 耗时较长, 需要使用异步线程
-     *
-     * @param item Apk项
-     * @return [0:成功, 1:已安装, -1:连接失败, -2:权限不足, -3:安装失败]
-     */
-    public String installApk(final ApkItem item) {
+    public String installApk(File apkFile) {
         if (!com.morgoo.droidplugin.pm.PluginManager.getInstance().isConnected()) {
             return "连接失败"; // 连接失败
         }
 
-        if (isApkInstall(item)) {
+        if (isApkInstall(apkFile)) {
             return "已安装"; // 已安装
         }
 
         try {
-            int result = com.morgoo.droidplugin.pm.PluginManager.getInstance().installPackage(item.apkFilePath, 0);
+            int result = com.morgoo.droidplugin.pm.PluginManager.getInstance().installPackage(apkFile.getAbsolutePath(), 0);
             boolean isRequestPermission = (result == com.morgoo.droidplugin.pm.PluginManager.INSTALL_FAILED_NO_REQUESTEDPERMISSION);
             if (isRequestPermission) {
                 return "权限不足";
@@ -51,10 +44,10 @@ public class PluginManager {
     }
 
     // Apk是否安装
-    private boolean isApkInstall(ApkItem apkItem) {
+    private boolean isApkInstall(File apkFile) {
         PackageInfo info = null;
         try {
-            info = com.morgoo.droidplugin.pm.PluginManager.getInstance().getPackageInfo(apkItem.getPackageInfo().packageName, 0);
+            info = com.morgoo.droidplugin.pm.PluginManager.getInstance().getPackageInfo(getPackageName(apkFile), 0);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -62,27 +55,23 @@ public class PluginManager {
     }
 
     // 打开Apk
-    public void openApk(final ApkItem item) {
-
-//        if (!isApkInstall(item))
-//            LogUtils.log(installApk(item));
+    public void openApk(File apkFile) {
 
         PackageManager pm = mActivity.getPackageManager();
 
-        String pn = item.getPackageInfo().packageName;
-        Intent intent = pm.getLaunchIntentForPackage(item.getPackageInfo().packageName);
+        Intent intent = pm.getLaunchIntentForPackage(getPackageName(apkFile));
 
         //如果返回的intent为空
         if (intent == null) {
 //findActivitiesForPackage是备选方案,当getLaunchIntentForPackage没有正确得到intent时
-            ResolveInfo r = findActivitiesForPackage(pm, item.getPackageInfo().packageName);
+            ResolveInfo r = findActivitiesForPackage(pm, getPackageName(apkFile));
             if (r != null) {
                 intent = new Intent();
-                intent.setComponent(new ComponentName(item.getPackageInfo().packageName, r.activityInfo.name));
+                intent.setComponent(new ComponentName(getPackageName(apkFile), r.activityInfo.name));
             }
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        item.context.startActivity(intent);
+        mActivity.startActivity(intent);
     }
 
     private static ResolveInfo findActivitiesForPackage(PackageManager packageManager,
@@ -106,9 +95,21 @@ public class PluginManager {
                 }
             }
         }
+
         if (!isfinded) {
             return null;
         }
         return info;
+
+
     }
+
+    private String getPackageName(File apkFile) {
+
+        PackageManager pm = mActivity.getPackageManager();
+        PackageInfo pi = pm.getPackageArchiveInfo(apkFile.getPath(), PackageManager.GET_SIGNATURES);
+        return pi.packageName;
+    }
+
+
 }
