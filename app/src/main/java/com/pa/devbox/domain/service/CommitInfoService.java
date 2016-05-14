@@ -1,5 +1,6 @@
 package com.pa.devbox.domain.service;
 
+import okhttp3.ResponseBody;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import rx.Observable;
@@ -14,10 +15,10 @@ import rx.Observable;
 public interface CommitInfoService {
 
     @GET("https://api.github.com/repos/{author}/{name}/branches")
-    Observable getRepositoryInfo(@Path("author") String author, @Path("name") String name);
+    Observable<ResponseBody> getRepositoryInfo(@Path("author") String author, @Path("name") String name);
 
     @GET("https://api.github.com/repos/{author}/{name}/git/commits/{shaValue}")
-    Observable getLastCommitInfo(@Path("author") String author, @Path("name") String name, @Path("shaValue") String shaValue);
+    Observable<ResponseBody> getLastCommitInfo(@Path("author") String author, @Path("name") String name, @Path("shaValue") String shaValue);
 }
 /*
  String[] infoArray = gitHubAddress.split("/");

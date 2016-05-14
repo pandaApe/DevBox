@@ -70,7 +70,7 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
         if (new File(savePath).exists())
             this.setCircularProgress(100);
 
-        this.libDetailModel = new LibDetailModel(library.getObjectId());
+        this.libDetailModel = new LibDetailModel(library);
         this.libDetailModel.setFileDownloadCallback(this);
 
     }
@@ -189,7 +189,6 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
     @Override
     public void onSuccess(File file) {
 // TODO: 10/5/16 Need to install apk to plugin system in sub thread
-
 
 
         Log.e("-->", "Seccess" + file.getPath());

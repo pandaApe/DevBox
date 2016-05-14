@@ -1,10 +1,14 @@
 package com.pa.devbox.ui.modle;
 
+import android.util.Log;
+
 import com.cm.retrofit2.converter.file.body.ProgressResponseListener;
 import com.pa.devbox.domain.RetrofitClient;
 import com.pa.devbox.domain.delegate.FileDownloadCallback;
+import com.pa.devbox.domain.entity.Library;
 import com.pa.devbox.domain.entity.rest.CountIncrement;
 import com.pa.devbox.domain.entity.rest.Inner;
+import com.pa.devbox.domain.service.CommitInfoService;
 import com.pa.devbox.domain.service.FileDownloadService;
 import com.pa.devbox.domain.service.LibraryService;
 
@@ -30,10 +34,12 @@ public class LibDetailModel implements ProgressResponseListener {
 
     private FileDownloadService downloadService;
     private FileDownloadCallback fileDownloadCallback;
-    private LibraryService libraryService;
-    private String objId;
+    private CommitInfoService commitInfoService;
 
-    public LibDetailModel(String objId) {
+    private LibraryService libraryService;
+    private Library library;
+
+    public LibDetailModel(Library library) {
 
         downloadService = RetrofitClient
                 .createDownloadService(FileDownloadService.class, this);
@@ -41,15 +47,46 @@ public class LibDetailModel implements ProgressResponseListener {
         libraryService = RetrofitClient.shareInstance().create(LibraryService.class);
         CountIncrement increment = new CountIncrement();
 
-        this.objId = objId;
+        this.library = library;
         increment.setViewCount(new Inner());
-        increaseCount(objId, increment);
+        increaseCount(increment);
 
+        commitInfoService = RetrofitClient.shareInstance().create(CommitInfoService.class);
+
+        getCommitInfo();
     }
 
-    private void increaseCount(String objId, CountIncrement increment) {
+    private void getCommitInfo() {
 
-        Observable<ResponseBody> observable = libraryService.increaseCount(objId, increment);
+        String[] infoArray = this.library.getGithubAddress().split("/");
+        final String author = infoArray[infoArray.length - 2];
+        final String reposName = infoArray[infoArray.length - 1];
+
+        Observable<ResponseBody> observable = commitInfoService.getRepositoryInfo(author, reposName);
+        observable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseBody>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(ResponseBody responseBody) {
+                        Log.e("------->", responseBody.toString());
+                    }
+                });
+    }
+
+    private void increaseCount(CountIncrement increment) {
+
+        Observable<ResponseBody> observable = libraryService.increaseCount(this.library.getObjectId(), increment);
         observable.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBody>() {
@@ -78,7 +115,7 @@ public class LibDetailModel implements ProgressResponseListener {
 
         CountIncrement increment = new CountIncrement();
         increment.setDownloadCount(new Inner());
-        increaseCount(objId, increment);
+        increaseCount(increment);
 
         Call<File> call = downloadService.download(url, filePath);
 
