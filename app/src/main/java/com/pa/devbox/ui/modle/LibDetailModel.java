@@ -127,23 +127,7 @@ public class LibDetailModel implements ProgressResponseListener {
         Observable<ResponseBody> observable = libraryService.increaseCount(this.library.getObjectId(), increment);
         observable.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<ResponseBody>() {
-
-                    @Override
-                    public void onCompleted() {
-//                        Log.e("--->", "onCompleted");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-//                        Log.e("--->onError", e.toString());
-                    }
-
-                    @Override
-                    public void onNext(ResponseBody responseBody) {
-//                        Log.e("--->", responseBody.toString());
-                    }
-                });
+                .subscribe();
 
     }
 

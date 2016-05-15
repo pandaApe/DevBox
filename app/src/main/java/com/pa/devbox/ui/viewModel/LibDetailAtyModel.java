@@ -22,7 +22,6 @@ import com.pa.devbox.util.PluginManager;
 
 import java.io.File;
 
-
 /**
  * Description:
  * <p>
@@ -38,19 +37,14 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
 
     @Bindable
     Library library;
-
     @Bindable
     int circularProgress;
-
     @Bindable
     String lastCommitDate;
-
     @Bindable
     String lastCommitMsg;
-
     @Bindable
     boolean indeterminateProgressMode;
-
     @Bindable
     String btnText;
 
@@ -60,19 +54,25 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
 
     private LibDetailModel libDetailModel;
 
+    public LibDetailAtyModel(LibDetailActivity context) {
+        this.context = context;
+        this.context.setPermissionRequestCallback(this);
+        this.setCircularProgress(0);
+    }
+
     public void parseArguments(Intent intent) {
 
         if (intent != null)
             library = (Library) intent.getSerializableExtra(SELECTEDITEM);
 
         this.setBtnText(getApkSizeStr());
-        savePath = FileUtils.getSdCardPath()
-                + "DevBox" + File.separator
-                + library.getName() + ".apk";
 
         if (new File(savePath).exists())
             this.setCircularProgress(100);
 
+        savePath = FileUtils.getSdCardPath()
+                + "DevBox" + File.separator
+                + library.getName() + ".apk";
         this.libDetailModel = new LibDetailModel(library);
         this.libDetailModel.setFileDownloadCallback(this);
         this.libDetailModel.setLastCommitInfoCallback(this);
@@ -102,23 +102,72 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
         } else {
             new PluginManager(context).openApk(apkFile);
         }
-
-
     }
 
     private void download() {
 
-
         libDetailModel.download(library.getApk().getUrl(), savePath);
         this.setIndeterminateProgressMode(true);
+    }
 
+    @Override
+    public void onSuccess(File file) {
+
+        PluginManager pm = new PluginManager(context);
+        pm.installApk(file);
 
     }
 
-    public LibDetailAtyModel(LibDetailActivity context) {
-        this.context = context;
-        this.context.setPermissionRequestCallback(this);
-        this.setCircularProgress(0);
+    @Override
+    public void onFailure(Throwable t) {
+        Log.e("-->", "onFailure");
+    }
+
+    @Override
+    public void onProgress(long bytesRead, long contentLength, boolean done) {
+
+        int percentage = (int) (1.0f * bytesRead / contentLength * 100);
+        if (done)
+            this.setCircularProgress(100);
+        else
+            this.setCircularProgress(percentage);
+    }
+
+    public String getApkSizeStr() {
+
+        double size = this.library.getApk().getMetaData().getSize() / 1000.0 / 1000.0;
+        double sizeFinal = Math.round(size * 100) / 100.0;
+        return context.getString(R.string.download) + sizeFinal + "MB)";
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_STORAGE_PERMISSIONS:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    download();
+//                else
+//                    showSnackbar(getString(R.string.refusePermission));
+//            default:
+//                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
+    public void onCompleted() {
+
+    }
+
+    @Override
+    public void onError() {
+
+    }
+
+    @Override
+    public void onSuccess(String name, String msg) {
+        this.setLastCommitDate(name);
+        this.setLastCommitMsg(msg);
     }
 
 
@@ -196,66 +245,4 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
         return lastCommitDate;
     }
 
-
-    @Override
-    public void onSuccess(File file) {
-// TODO: 10/5/16 Need to install apk to plugin system in sub thread
-        PluginManager pm = new PluginManager(context);
-        pm.installApk(file);
-
-        Log.e("-->", "Seccess" + file.getPath());
-    }
-
-    @Override
-    public void onFailure(Throwable t) {
-        Log.e("-->", "onFailure");
-    }
-
-    @Override
-    public void onProgress(long bytesRead, long contentLength, boolean done) {
-
-        int percentage = (int) (1.0f * bytesRead / contentLength * 100);
-//        Log.e("-->", "onProgress-" + percentage);
-        if (done)
-            this.setCircularProgress(100);
-        else
-            this.setCircularProgress(percentage);
-    }
-
-    public String getApkSizeStr() {
-
-        double size = this.library.getApk().getMetaData().getSize() / 1000.0 / 1000.0;
-        double sizeFinal = Math.round(size * 100) / 100.0;
-        return context.getString(R.string.download) + sizeFinal + "MB)";
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_CODE_ASK_STORAGE_PERMISSIONS:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    download();
-//                else
-//                    showSnackbar(getString(R.string.refusePermission));
-//            default:
-//                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
-
-    @Override
-    public void onCompleted() {
-
-    }
-
-    @Override
-    public void onError() {
-
-    }
-
-    @Override
-    public void onSuccess(String name, String msg) {
-        this.setLastCommitDate(name);
-        this.setLastCommitMsg(msg);
-    }
 }
