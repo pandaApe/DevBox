@@ -147,21 +147,21 @@ public class LibDetailModel implements ProgressResponseListener {
 
     }
 
-
     //File download
     public void download(String url, String filePath) {
-
-        CountIncrement increment = new CountIncrement();
-        increment.setDownloadCount(new Inner());
-        increaseCount(increment);
 
         Call<File> call = downloadService.download(url, filePath);
 
         call.enqueue(new Callback<File>() {
             @Override
             public void onResponse(Call<File> call, Response<File> response) {
-                if (response.isSuccessful() && response.body() != null)
+                if (response.isSuccessful() && response.body() != null) {
                     fileDownloadCallback.onSuccess(response.body());
+                    CountIncrement increment = new CountIncrement();
+                    increment.setDownloadCount(new Inner());
+                    increaseCount(increment);
+
+                }
             }
 
             @Override

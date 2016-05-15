@@ -18,6 +18,7 @@ import com.pa.devbox.domain.entity.Library;
 import com.pa.devbox.ui.aty.LibDetailActivity;
 import com.pa.devbox.ui.modle.LibDetailModel;
 import com.pa.devbox.util.FileUtils;
+import com.pa.devbox.util.PluginManager;
 
 import java.io.File;
 
@@ -95,15 +96,22 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
                 return;
             }
         }
+        File apkFile = new File(savePath);
+        if (!apkFile.exists()) {
+            download();
+        } else {
+            new PluginManager(context).openApk(apkFile);
+        }
 
-        download();
+
     }
 
     private void download() {
-        if (!new File(savePath).exists()) {
-            libDetailModel.download(library.getApk().getUrl(), savePath);
-            this.setIndeterminateProgressMode(true);
-        }
+
+
+        libDetailModel.download(library.getApk().getUrl(), savePath);
+        this.setIndeterminateProgressMode(true);
+
 
     }
 
@@ -192,7 +200,8 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
     @Override
     public void onSuccess(File file) {
 // TODO: 10/5/16 Need to install apk to plugin system in sub thread
-
+        PluginManager pm = new PluginManager(context);
+        pm.installApk(file);
 
         Log.e("-->", "Seccess" + file.getPath());
     }
