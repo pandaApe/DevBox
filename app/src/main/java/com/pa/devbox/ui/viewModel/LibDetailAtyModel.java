@@ -49,6 +49,7 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
     String btnText;
 
     private String savePath;
+    private String appFolder;
 
     private final int REQUEST_CODE_ASK_STORAGE_PERMISSIONS = 123;
 
@@ -67,8 +68,11 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
 
         this.setBtnText(getApkSizeStr());
 
-        savePath = FileUtils.getSdCardPath()
-                + "DevBox" + File.separator
+        appFolder = FileUtils.getSdCardPath()
+                + "DevBox";
+
+
+        savePath = appFolder + File.separator
                 + library.getName() + ".apk";
 
         if (new File(savePath).exists())
@@ -97,6 +101,7 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
                 return;
             }
         }
+        new File(appFolder).mkdirs();
         File apkFile = new File(savePath);
         if (!apkFile.exists()) {
             download();
@@ -122,6 +127,7 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
     @Override
     public void onFailure(Throwable t) {
         Log.e("-->", "onFailure");
+        this.setCircularProgress(-1);
     }
 
     @Override
@@ -178,7 +184,7 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
 
     public void setIndeterminateProgressMode(boolean indeterminateProgressMode) {
         this.indeterminateProgressMode = indeterminateProgressMode;
-        notifyPropertyChanged(BR.swipeRefreshLayoutStatus);
+        notifyPropertyChanged(BR.indeterminateProgressMode);
     }
 
     public void setBtnText(String btnText) {
