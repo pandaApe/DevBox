@@ -1,13 +1,17 @@
 package com.pa.devbox.domain.service;
 
-import okhttp3.ResponseBody;
+import com.pa.devbox.domain.entity.rest.Branch;
+import com.pa.devbox.domain.entity.rest.LastCommitInfo;
+
+import java.util.List;
+
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import rx.Observable;
 
 /**
  * Description:
- *
+ * <p>
  * Author: PandaApe.
  * CreatedAt: 28/4/16 23:15.
  * Email: whailong2010@gmail.com
@@ -15,10 +19,10 @@ import rx.Observable;
 public interface CommitInfoService {
 
     @GET("https://api.github.com/repos/{author}/{name}/branches")
-    Observable<ResponseBody> getRepositoryInfo(@Path("author") String author, @Path("name") String name);
+    Observable<List<Branch>> getRepositoryInfo(@Path("author") String author, @Path("name") String name);
 
     @GET("https://api.github.com/repos/{author}/{name}/git/commits/{shaValue}")
-    Observable<ResponseBody> getLastCommitInfo(@Path("author") String author, @Path("name") String name, @Path("shaValue") String shaValue);
+    Observable<LastCommitInfo> getLastCommitInfo(@Path("author") String author, @Path("name") String name, @Path("shaValue") String shaValue);
 }
 /*
  String[] infoArray = gitHubAddress.split("/");

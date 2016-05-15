@@ -13,12 +13,14 @@ import android.view.View;
 import com.pa.devbox.BR;
 import com.pa.devbox.R;
 import com.pa.devbox.domain.delegate.FileDownloadCallback;
+import com.pa.devbox.domain.delegate.LastCommitInfoCallback;
 import com.pa.devbox.domain.entity.Library;
 import com.pa.devbox.ui.aty.LibDetailActivity;
 import com.pa.devbox.ui.modle.LibDetailModel;
 import com.pa.devbox.util.FileUtils;
 
 import java.io.File;
+
 
 /**
  * Description:
@@ -27,7 +29,7 @@ import java.io.File;
  * CreatedAt: 7/5/16 15:22.
  * Email: whailong2010@gmail.com
  */
-public class LibDetailAtyModel extends BaseObservable implements FileDownloadCallback, LibDetailActivity.PermissionRequestCallback {
+public class LibDetailAtyModel extends BaseObservable implements FileDownloadCallback, LibDetailActivity.PermissionRequestCallback, LastCommitInfoCallback {
 
     public static final String SELECTEDITEM = "selectedItem";
 
@@ -72,6 +74,7 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
 
         this.libDetailModel = new LibDetailModel(library);
         this.libDetailModel.setFileDownloadCallback(this);
+        this.libDetailModel.setLastCommitInfoCallback(this);
 
     }
 
@@ -229,5 +232,21 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
 //            default:
 //                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    @Override
+    public void onCompleted() {
+
+    }
+
+    @Override
+    public void onError() {
+
+    }
+
+    @Override
+    public void onSuccess(String name, String msg) {
+        this.setLastCommitDate(name);
+        this.setLastCommitMsg(msg);
     }
 }

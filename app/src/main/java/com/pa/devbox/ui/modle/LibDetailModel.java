@@ -5,14 +5,18 @@ import android.util.Log;
 import com.cm.retrofit2.converter.file.body.ProgressResponseListener;
 import com.pa.devbox.domain.RetrofitClient;
 import com.pa.devbox.domain.delegate.FileDownloadCallback;
+import com.pa.devbox.domain.delegate.LastCommitInfoCallback;
 import com.pa.devbox.domain.entity.Library;
+import com.pa.devbox.domain.entity.rest.Branch;
 import com.pa.devbox.domain.entity.rest.CountIncrement;
 import com.pa.devbox.domain.entity.rest.Inner;
+import com.pa.devbox.domain.entity.rest.LastCommitInfo;
 import com.pa.devbox.domain.service.CommitInfoService;
 import com.pa.devbox.domain.service.FileDownloadService;
 import com.pa.devbox.domain.service.LibraryService;
 
 import java.io.File;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -34,6 +38,9 @@ public class LibDetailModel implements ProgressResponseListener {
 
     private FileDownloadService downloadService;
     private FileDownloadCallback fileDownloadCallback;
+
+    private LastCommitInfoCallback lastCommitInfoCallback;
+
     private CommitInfoService commitInfoService;
 
     private LibraryService libraryService;
@@ -62,11 +69,11 @@ public class LibDetailModel implements ProgressResponseListener {
         final String author = infoArray[infoArray.length - 2];
         final String reposName = infoArray[infoArray.length - 1];
 
-        Observable<ResponseBody> observable = commitInfoService.getRepositoryInfo(author, reposName);
+        Observable<List<Branch>> observable = commitInfoService.getRepositoryInfo(author, reposName);
         observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResponseBody>() {
+                .subscribe(new Observer<List<Branch>>() {
                     @Override
                     public void onCompleted() {
 
@@ -78,8 +85,39 @@ public class LibDetailModel implements ProgressResponseListener {
                     }
 
                     @Override
-                    public void onNext(ResponseBody responseBody) {
-                        Log.e("------->", responseBody.toString());
+                    public void onNext(List<Branch> branches) {
+                        Log.e("------->", "" + branches.size());
+
+                        String shaValue = "";
+
+                        for (Branch item : branches) {
+                            if (item.getName().equals("master")) {
+                                shaValue = item.getCommit().getSha();
+                                break;
+                            }
+                        }
+
+                        Observable<LastCommitInfo> observable = commitInfoService.getLastCommitInfo(author, reposName, shaValue);
+                        observable.subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Observer<LastCommitInfo>() {
+                                    @Override
+                                    public void onCompleted() {
+
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+
+                                    }
+
+                                    @Override
+                                    public void onNext(LastCommitInfo lastCommitInfo) {
+                                        String msg = lastCommitInfo.getCommitter().getName() + ": " + lastCommitInfo.getMessage();
+
+                                        lastCommitInfoCallback.onSuccess(lastCommitInfo.getCommitter().getDate(), msg);
+                                    }
+                                });
                     }
                 });
     }
@@ -142,5 +180,8 @@ public class LibDetailModel implements ProgressResponseListener {
         this.fileDownloadCallback = fileDownloadCallback;
     }
 
+    public void setLastCommitInfoCallback(LastCommitInfoCallback lastCommitInfoCallback) {
+        this.lastCommitInfoCallback = lastCommitInfoCallback;
+    }
 
 }
