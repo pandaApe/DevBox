@@ -1,5 +1,6 @@
 package com.pa.devbox.ui.viewModel;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -8,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.pa.devbox.BR;
 import com.pa.devbox.ui.adapter.BaseAdapter;
-import com.pa.devbox.ui.aty.MainActivity;
+import com.pa.devbox.ui.aty.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +40,10 @@ public class ListBaseModel<T> extends BaseObservable implements SwipeRefreshLayo
     @Bindable
     List<T> data;
 
-    public ListBaseModel(MainActivity context) {
+    protected Context context;
 
+    public ListBaseModel(BaseActivity context) {
+        this.context = context;
         progressBarVisible = true;
         data = new ArrayList<>();
         layoutManager = new GridLayoutManager(context, 2);

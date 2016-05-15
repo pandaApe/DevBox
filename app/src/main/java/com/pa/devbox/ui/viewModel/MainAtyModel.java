@@ -8,7 +8,7 @@ import android.support.v4.view.ViewPager;
 import com.pa.devbox.BR;
 import com.pa.devbox.R;
 import com.pa.devbox.ui.adapter.TabViewPageAdapter;
-import com.pa.devbox.ui.aty.MainActivity;
+import com.pa.devbox.ui.aty.BaseActivity;
 import com.pa.devbox.ui.fragment.AccountFragment;
 import com.pa.devbox.ui.fragment.LibListFragment;
 import com.pa.devbox.ui.fragment.TypeListFragment;
@@ -38,7 +38,7 @@ public class MainAtyModel extends BaseObservable {
     public ViewPager contentViewPager;
 
 
-    public MainAtyModel(MainActivity context) {
+    public MainAtyModel(BaseActivity context) {
 
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new TypeListFragment());

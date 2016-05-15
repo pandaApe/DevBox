@@ -1,6 +1,8 @@
 package com.pa.devbox.di.module;
 
-import com.pa.devbox.ui.aty.MainActivity;
+import android.os.Bundle;
+
+import com.pa.devbox.ui.aty.BaseActivity;
 import com.pa.devbox.ui.viewModel.AccountFragModel;
 import com.pa.devbox.ui.viewModel.LibListFragModel;
 import com.pa.devbox.ui.viewModel.TypeListFragModel;
@@ -10,7 +12,7 @@ import dagger.Provides;
 
 /**
  * Description:
- *
+ * <p>
  * Author: PandaApe.
  * CreatedAt: 7/5/16 00:09.
  * Email: whailong2010@gmail.com
@@ -18,29 +20,31 @@ import dagger.Provides;
 @Module
 public class FragmentModule {
 
-    private MainActivity context;
+    private BaseActivity context;
+    private Bundle savedInstanceState;
 
-    public FragmentModule(MainActivity context) {
+    public FragmentModule(BaseActivity context, Bundle savedInstanceState) {
         this.context = context;
+        this.savedInstanceState = savedInstanceState;
     }
 
     @Provides
-    TypeListFragModel provideModel(MainActivity context){
+    TypeListFragModel provideModel() {
         return new TypeListFragModel(context);
     }
 
     @Provides
-    AccountFragModel provideAccountModel(MainActivity context) {
-        return new AccountFragModel(context);
+    AccountFragModel provideAccountModel() {
+        return new AccountFragModel(this.context);
     }
 
     @Provides
-    LibListFragModel provideLibModel(MainActivity context) {
-        return new LibListFragModel(context);
+    LibListFragModel provideLibModel() {
+        return new LibListFragModel(context,this.savedInstanceState);
     }
 
     @Provides
-    MainActivity provideContext(){
+    BaseActivity provideContext() {
         return this.context;
     }
 }

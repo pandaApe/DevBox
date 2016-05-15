@@ -32,7 +32,7 @@ public class AccountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         DaggerFragmentComponent
                 .builder()
-                .fragmentModule(new FragmentModule((MainActivity) getActivity()))
+                .fragmentModule(new FragmentModule((MainActivity) getActivity(),savedInstanceState))
                 .build()
                 .inject(this);
 

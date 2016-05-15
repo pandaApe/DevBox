@@ -33,47 +33,39 @@ public class LibListModel {
 
 
     public void getLibsByType(String typeId, int currentPageIndex) {
-        Map<String,String> paramsMap = new HashMap<>();
-        paramsMap.put("where","{\"$relatedTo\":" +
-                        "{\"object\":" +
-                        "{\"__type\":\"Pointer\",\"className\":\"Type\",\"objectId\":\"" + typeId + "\"" +
-                        "}," +
-                        "\"key\":\"libraries\"" +
-                        "}" +
-                        "}");
-        paramsMap.put("order","-createdAt");
-        paramsMap.put("limit","10");
-        paramsMap.put("skip",""+10 * (currentPageIndex - 1));
-
-
-        String paramStr = "where=" +
-                "{\"$relatedTo\":" +
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("where", "{\"$relatedTo\":" +
                 "{\"object\":" +
                 "{\"__type\":\"Pointer\",\"className\":\"Type\",\"objectId\":\"" + typeId + "\"" +
                 "}," +
                 "\"key\":\"libraries\"" +
                 "}" +
-                "} && " +
+                "}");
+        paramsMap.put("order", "-createdAt");
+        paramsMap.put("limit", "10");
+        paramsMap.put("skip", "" + 10 * (currentPageIndex - 1));
 
-                "order = -createdAt && " +
-                "limit = 10 && " +
+        request(paramsMap);
+    }
 
-                "skip = " + 10 * (currentPageIndex - 1) + "&&";
-
+    public void getLibsBySearch(String keyword, int currentPageIndex) {
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("cql", "select * from Library where name like ? order by createdAt");
+        paramsMap.put("pvalues", "[\"%" + keyword + "%\"]");
         request(paramsMap);
     }
 
     public void getLibs(int currentPageIndex) {
-        Map<String,String> paramsMap = new HashMap<>();
-        paramsMap.put("order","-createdAt");
-        paramsMap.put("limit","10");
-        paramsMap.put("skip",""+10 * (currentPageIndex - 1));
+        Map<String, String> paramsMap = new HashMap<>();
+        paramsMap.put("order", "-createdAt");
+        paramsMap.put("limit", "10");
+        paramsMap.put("skip", "" + 10 * (currentPageIndex - 1));
 
         request(paramsMap);
     }
 
 
-    private void request(Map<String,String> paramStr) {
+    private void request(Map<String, String> paramStr) {
         Observable<BaseResponse<Library>> observable = libraryService.getLibrary(paramStr);
 
         observable

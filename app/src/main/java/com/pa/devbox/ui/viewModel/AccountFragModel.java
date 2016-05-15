@@ -1,6 +1,6 @@
 package com.pa.devbox.ui.viewModel;
 
-import com.pa.devbox.ui.aty.MainActivity;
+import com.pa.devbox.ui.aty.BaseActivity;
 
 /**
  * Description:
@@ -10,9 +10,9 @@ import com.pa.devbox.ui.aty.MainActivity;
  * Email: whailong2010@gmail.com
  */
 public class AccountFragModel {
-    private MainActivity context;
+    private BaseActivity context;
 
-    public AccountFragModel(MainActivity context) {
+    public AccountFragModel(BaseActivity context) {
         this.context = context;
     }
 }

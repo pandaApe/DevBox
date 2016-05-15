@@ -1,14 +1,17 @@
 package com.pa.devbox.ui.viewModel;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 
 import com.pa.devbox.domain.delegate.HttpRequestCallback;
 import com.pa.devbox.domain.entity.Library;
+import com.pa.devbox.domain.entity.Type;
 import com.pa.devbox.ui.adapter.BaseAdapter;
 import com.pa.devbox.ui.adapter.LibListAdapter;
+import com.pa.devbox.ui.aty.BaseActivity;
 import com.pa.devbox.ui.aty.LibDetailActivity;
-import com.pa.devbox.ui.aty.MainActivity;
+import com.pa.devbox.ui.aty.SpecificTypeActivity;
 import com.pa.devbox.ui.modle.LibListModel;
 
 import java.util.List;
@@ -22,29 +25,37 @@ import java.util.List;
  */
 public class LibListFragModel extends ListBaseModel<Library> implements BaseAdapter.OnItemClickListener, HttpRequestCallback<Library> {
 
+    private Type currentType;
     //Start from 1
     private int currentPageIndex = 1;
 
-    private MainActivity context;
 
     private LibListModel libListModel;
 
-    public LibListFragModel(MainActivity context) {
+    public LibListFragModel(BaseActivity context, Bundle savedInstanceState) {
         super(context);
+
         swipeRefreshLayoutStatus = true;
-        this.context = context;
+
         adapter = new LibListAdapter(context, data);
         adapter.setItemClickListener(this);
+
+        if (savedInstanceState != null)
+            currentType = (Type) savedInstanceState.getSerializable(SpecificTypeActivity.SELECTEDITEM);
 
         this.libListModel = new LibListModel();
         this.libListModel.setCallback(this);
 
         onRefresh();
+
     }
 
     @Override
     public void onRefresh() {
-        libListModel.getLibs(1);
+        if (currentType == null)
+            libListModel.getLibs(1);
+        else
+            libListModel.getLibsByType(this.currentType.getObjectId(), 1);
     }
 
     @Override

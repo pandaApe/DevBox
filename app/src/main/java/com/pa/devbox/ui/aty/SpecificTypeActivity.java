@@ -1,7 +1,6 @@
 package com.pa.devbox.ui.aty;
 
 import android.os.Bundle;
-import android.view.View;
 
 import com.pa.devbox.R;
 import com.pa.devbox.domain.entity.Type;
@@ -14,22 +13,20 @@ public class SpecificTypeActivity extends BaseActivity {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         super.initViews(savedInstanceState);
+
         setContentView(R.layout.activity_specific_type);
-        setToolbarDisplayHomeAsUpEnabledAndClickListenner(true, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SpecificTypeActivity.this.finish();
-            }
-        });
+        setToolbarDisplayHomeAsUpEnabledAndClickListenner(true, v ->
+                SpecificTypeActivity.this.finish()
+        );
 
         Type type = (Type) (getIntent().getSerializableExtra(SELECTEDITEM));
         this.setToolbarTitle(type.getEnDescription());
 
-        LibListFragment listFrament = new LibListFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.type_fragment, listFrament).commit();
+        LibListFragment listFragment = new LibListFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.type_fragment, listFragment).commit();
         Bundle bundle = new Bundle();
         bundle.putSerializable(SELECTEDITEM, type);
 
-        listFrament.setArguments(bundle);
+        listFragment.setArguments(bundle);
     }
 }

@@ -11,7 +11,7 @@ import com.pa.devbox.R;
 import com.pa.devbox.databinding.FragmentLibBinding;
 import com.pa.devbox.di.component.DaggerFragmentComponent;
 import com.pa.devbox.di.module.FragmentModule;
-import com.pa.devbox.ui.aty.MainActivity;
+import com.pa.devbox.ui.aty.BaseActivity;
 import com.pa.devbox.ui.viewModel.LibListFragModel;
 
 import javax.inject.Inject;
@@ -33,7 +33,7 @@ public class LibListFragment extends Fragment {
 
         DaggerFragmentComponent
                 .builder()
-                .fragmentModule(new FragmentModule((MainActivity) getActivity()))
+                .fragmentModule(new FragmentModule((BaseActivity) getActivity(), this.getArguments()))
                 .build()
                 .inject(this);
 
