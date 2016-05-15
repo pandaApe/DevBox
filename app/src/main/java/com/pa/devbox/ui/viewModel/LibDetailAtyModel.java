@@ -67,12 +67,13 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
 
         this.setBtnText(getApkSizeStr());
 
-        if (new File(savePath).exists())
-            this.setCircularProgress(100);
-
         savePath = FileUtils.getSdCardPath()
                 + "DevBox" + File.separator
                 + library.getName() + ".apk";
+
+        if (new File(savePath).exists())
+            this.setCircularProgress(100);
+
         this.libDetailModel = new LibDetailModel(library);
         this.libDetailModel.setFileDownloadCallback(this);
         this.libDetailModel.setLastCommitInfoCallback(this);
