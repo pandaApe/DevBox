@@ -1,1 +1,2 @@
-include ':app', ':DroidPlugin', ':ShareSDK'
+include ':app', ':DroidPlugin',':ShareSDK'
+
