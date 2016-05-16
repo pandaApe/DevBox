@@ -30,7 +30,7 @@ public class TypeListFragModel extends ListBaseModel<Type> implements HttpReques
 
         this.listModel = new TypeListModel();
         this.listModel.setCallback(this);
-        swipeRefreshLayoutStatus = false;
+        swipeRefreshLayoutStatus = true;
         adapter = new TypeListAdapter(context, data);
         adapter.setItemClickListener(this);
 
