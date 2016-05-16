@@ -15,4 +15,6 @@ public class AccountFragModel {
     public AccountFragModel(BaseActivity context) {
         this.context = context;
     }
+
+
 }
