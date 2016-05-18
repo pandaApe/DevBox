@@ -14,6 +14,10 @@ public class AccountFragModel {
 
     public AccountFragModel(BaseActivity context) {
         this.context = context;
+
+//        Platform qQLogin = ShareSDK.getPlatform(QQ.NAME);
+//
+//        qQLogin.authorize();
     }
 
 
