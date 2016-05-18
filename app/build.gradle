@@ -47,6 +47,7 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
     compile project(path: ':DroidPlugin')
+    compile project(path: ':ShareSDK')
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
 

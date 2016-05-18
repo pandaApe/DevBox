@@ -5,6 +5,8 @@ import android.content.Context;
 
 import com.morgoo.droidplugin.PluginHelper;
 
+import cn.sharesdk.framework.ShareSDK;
+
 /**
  * Description:
  *
@@ -17,7 +19,7 @@ public class DevBoxApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        ShareSDK.initSDK(getApplicationContext());
 
         PluginHelper.getInstance().applicationOnCreate(getBaseContext());
     }
