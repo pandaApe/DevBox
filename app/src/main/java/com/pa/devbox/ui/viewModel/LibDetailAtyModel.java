@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 
@@ -21,6 +20,10 @@ import com.pa.devbox.util.FileUtils;
 import com.pa.devbox.util.PluginManager;
 
 import java.io.File;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.tencent.qq.QQ;
 
 /**
  * Description:
@@ -85,8 +88,12 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
     }
 
     public void githubAddressOnClick(View view) {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(this.library.getGithubAddress()));
-        context.startActivity(browserIntent);
+//        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(this.library.getGithubAddress()));
+//        context.startActivity(browserIntent);
+        Platform wechat = ShareSDK.getPlatform(context, QQ.NAME);
+//        wechat.setPlatformActionListener(paListener);
+        wechat.authorize();
+
     }
 
     @TargetApi(23)
