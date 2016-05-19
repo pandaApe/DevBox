@@ -2,6 +2,10 @@ package com.pa.devbox.ui.viewModel;
 
 import com.pa.devbox.ui.aty.BaseActivity;
 
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.tencent.qq.QQ;
+
 /**
  * Description:
  * <p>
@@ -15,9 +19,10 @@ public class AccountFragModel {
     public AccountFragModel(BaseActivity context) {
         this.context = context;
 
-//        Platform qQLogin = ShareSDK.getPlatform(QQ.NAME);
-//
-//        qQLogin.authorize();
+        Platform qqLogin = ShareSDK.getPlatform(QQ.NAME);
+
+//        qqLogin.authorize();
+
     }
 
 

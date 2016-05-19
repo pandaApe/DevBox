@@ -98,10 +98,12 @@ public class DataBindingAdapter {
 
     @BindingAdapter({"indeterminateProgressMode"})
     public static void bindProgressMode(CircularProgressButton circularBtn, boolean status) {
-        if (!status)
-            return;
-        circularBtn.setIndeterminateProgressMode(true);
-        circularBtn.setProgress(50);
+        if (status) {
+            circularBtn.setIndeterminateProgressMode(true);
+            circularBtn.setProgress(50);
+        }else {
+            circularBtn.setIndeterminateProgressMode(false);
+        }
     }
 
     /*
