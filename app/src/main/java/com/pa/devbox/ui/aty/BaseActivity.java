@@ -1,5 +1,6 @@
 package com.pa.devbox.ui.aty;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ public class BaseActivity extends AppCompatActivity {
     protected DevBoxApplication application;
     protected Toolbar toolbar;
     private android.support.v7.app.ActionBar mActionBar;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,14 @@ public class BaseActivity extends AppCompatActivity {
     protected void showActivity(Class<?> cls) {
         Intent intent = new Intent();
         this.showActivity(intent);
+    }
+
+    public void showProgressDialog(String msg) {
+        this.dialog = ProgressDialog.show(this, "", msg, true,true);
+    }
+
+    public void hideProgressDialog() {
+        this.dialog.hide();
     }
 
 }

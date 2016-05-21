@@ -17,7 +17,7 @@ import com.pa.devbox.domain.delegate.LastCommitInfoCallback;
 import com.pa.devbox.domain.entity.Library;
 import com.pa.devbox.ui.aty.LibDetailActivity;
 import com.pa.devbox.ui.modle.LibDetailModel;
-import com.pa.devbox.util.FileUtils;
+import com.pa.devbox.util.PersistenceUtils;
 import com.pa.devbox.util.PluginManager;
 
 import java.io.File;
@@ -68,7 +68,7 @@ public class LibDetailAtyModel extends BaseObservable implements FileDownloadCal
 
         this.setBtnText(getApkSizeStr());
 
-        appFolder = FileUtils.getSdCardPath()
+        appFolder = PersistenceUtils.getSdCardPath()
                 + "DevBox";
 
 

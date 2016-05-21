@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.morgoo.droidplugin.PluginHelper;
+import com.pa.devbox.util.PersistenceUtils;
 
 import cn.sharesdk.framework.ShareSDK;
 
@@ -21,6 +22,7 @@ public class DevBoxApplication extends Application {
         super.onCreate();
         ShareSDK.initSDK(getApplicationContext());
 
+        PersistenceUtils.shareInstance().setContext(getBaseContext());
         PluginHelper.getInstance().applicationOnCreate(getBaseContext());
     }
 
@@ -28,6 +30,10 @@ public class DevBoxApplication extends Application {
     protected void attachBaseContext(Context base) {
         PluginHelper.getInstance().applicationAttachBaseContext(base);
         super.attachBaseContext(base);
+    }
+
+    public Context getContext(){
+        return  getBaseContext();
     }
 
 }

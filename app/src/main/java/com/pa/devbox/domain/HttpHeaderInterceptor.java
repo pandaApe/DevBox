@@ -1,6 +1,7 @@
 package com.pa.devbox.domain;
 
 import com.pa.devbox.util.CipherUtils;
+import com.pa.devbox.util.PersistenceUtils;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -12,7 +13,7 @@ import okhttp3.Response;
 
 /**
  * Description:
- *
+ * <p>
  * Author: PandaApe.
  * CreatedAt: 30/4/16 10:42.
  * Email: whailong2010@gmail.com
@@ -30,16 +31,23 @@ public class HttpHeaderInterceptor implements Interceptor {
 
         //If it isn't leancloud request, like github/clouddn, I just return it without any handling.
         if (!request.url().toString().contains("leancloud"))
-            return  chain.proceed(request);
+            return chain.proceed(request);
 
         Request newRequest = request
                 .newBuilder()
                 .header("X-LC-Id", APPId)
                 .header("Content-Type", "application/json")
                 .header("X-LC-Sign", generateLCSign())
+                //Only updating user needs this field.
+                .header("X-LC-Session", getSessionToken())
                 .build();
 
         return chain.proceed(newRequest);
+    }
+
+    private String getSessionToken() {
+        String sessionToken = PersistenceUtils.shareInstance().readString("DevBox", "sessionToken");
+        return sessionToken == null ? "" : sessionToken;
     }
 
     private String generateLCSign() {
