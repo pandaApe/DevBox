@@ -2,6 +2,7 @@ package com.pa.devbox.ui.viewModel;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 
@@ -48,11 +49,13 @@ public class AccountFragModel extends BaseObservable implements PlatformActionLi
         Platform qqLogin = ShareSDK.getPlatform(QQ.NAME);
         qqLogin.setPlatformActionListener(this);
         qqLogin.authorize();
-
+        context.showProgressDialog("登录中...");
     }
 
     @Override
     public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+        //This method is called in sub thread.
+
         Log.d("onComplete", ": " + platform.getDb().get("nickname"));
 
         String accessToken = platform.getDb().getToken(); // 获取授权token
@@ -66,9 +69,10 @@ public class AccountFragModel extends BaseObservable implements PlatformActionLi
 
         Auth auth = new Auth();
         auth.setAuthData(new Auth.AuthData().setQq(qqAuth));
-//        context.showProgressDialog("登录中...");
+
         accountModel.login(auth);
 
+        Log.e("currentThread: ", "" + (Looper.myLooper() == Looper.getMainLooper()));
     }
 
     @Override
@@ -83,13 +87,13 @@ public class AccountFragModel extends BaseObservable implements PlatformActionLi
 
     @Override
     public void onCompleted() {
-//        context.hideProgressDialog();
+        context.hideProgressDialog();
         this.setNickName("haha");
     }
 
     @Override
     public void onError() {
-
+        context.showSnackBar("登录出现问题了");
     }
 
     @Override

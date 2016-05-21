@@ -66,7 +66,7 @@ public class BaseActivity extends AppCompatActivity {
         this.mActionBar.setTitle(text);
     }
 
-    public void showSnackbar(String msg) {
+    public void showSnackBar(String msg) {
         View rootView = findViewById(android.R.id.content);
         if (rootView != null)
             Snackbar.make(rootView, msg, Snackbar.LENGTH_LONG).show();
@@ -82,7 +82,10 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void showProgressDialog(String msg) {
-        this.dialog = ProgressDialog.show(this, "", msg, true,true);
+        if (this.dialog != null) {
+            this.dialog.setMessage(msg);
+        } else
+            this.dialog = ProgressDialog.show(this, "", msg, true, true);
     }
 
     public void hideProgressDialog() {
