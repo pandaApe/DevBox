@@ -69,7 +69,6 @@ public class LibDetailActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         optionsItemSelectedCallback.onOptionsItemSelected(item);
-
         return super.onOptionsItemSelected(item);
     }
 
