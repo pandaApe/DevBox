@@ -72,7 +72,6 @@ public class LibDetailActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     public void setPermissionRequestCallback(PermissionRequestCallback permissionRequestCallback) {
         this.permissionRequestCallback = permissionRequestCallback;
     }

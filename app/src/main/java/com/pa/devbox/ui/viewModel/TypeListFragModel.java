@@ -34,17 +34,26 @@ public class TypeListFragModel extends ListBaseModel<Type> implements HttpReques
         adapter = new TypeListAdapter(context, data);
         adapter.setItemClickListener(this);
 
+        onRefresh();
+    }
+
+
+    @Override
+    public void onRefresh() {
         this.listModel.getTypes();
     }
+
 
     @Override
     public void onCompleted() {
         this.setProgressBarVisible(false);
+        this.setSwipeRefreshLayoutRefreshing(false);
     }
 
     @Override
     public void onError() {
         this.setProgressBarVisible(false);
+        this.setSwipeRefreshLayoutRefreshing(false);
     }
 
     @Override
