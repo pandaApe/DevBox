@@ -28,4 +28,6 @@
     <string name="author">作者：</string>
     <string name="license">开源协议：</string>
     <string name="feedback">反馈</string>
+    <string name="about">关于</string>
+    <string name="toLogin">点此登录</string>
 </resources>

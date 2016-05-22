@@ -45,7 +45,12 @@
             android:name=".ui.aty.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.aty.SpecificTypeActivity"
+        <activity
+            android:name=".ui.aty.SpecificTypeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.aty.AboutActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />>
     </application>

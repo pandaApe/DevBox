@@ -1,5 +1,6 @@
 package com.pa.devbox.ui.viewModel;
 
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Looper;
@@ -10,6 +11,7 @@ import com.pa.devbox.BR;
 import com.pa.devbox.domain.delegate.HttpRequestCallback;
 import com.pa.devbox.domain.entity.rest.Auth;
 import com.pa.devbox.domain.entity.rest.QQAuth;
+import com.pa.devbox.ui.aty.AboutActivity;
 import com.pa.devbox.ui.aty.BaseActivity;
 import com.pa.devbox.ui.modle.AccountModel;
 
@@ -33,7 +35,6 @@ public class AccountFragModel extends BaseObservable implements PlatformActionLi
     private BaseActivity context;
     private AccountModel accountModel;
 
-
     @Bindable
     private String nickName;
 
@@ -52,15 +53,19 @@ public class AccountFragModel extends BaseObservable implements PlatformActionLi
         context.showProgressDialog("登录中...");
     }
 
+    public void aboutViewOnClick(View v) {
+        context.startActivity(new Intent(context, AboutActivity.class));
+    }
+
     @Override
     public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
         //This method is called in sub thread.
 
-        Log.d("onComplete", ": " + platform.getDb().get("nickname"));
+        this.nickName = platform.getDb().get("nickname");
 
         String accessToken = platform.getDb().getToken(); // 获取授权token
         String openId = platform.getDb().getUserId(); // 获取用户在此平台的ID
-        long expiresIn = platform.getDb().getExpiresIn(); // 获取用户在此平台的ID
+        long expiresIn = platform.getDb().getExpiresIn();
 
         QQAuth qqAuth = new QQAuth();
         qqAuth.setAccess_token(accessToken);
@@ -88,7 +93,7 @@ public class AccountFragModel extends BaseObservable implements PlatformActionLi
     @Override
     public void onCompleted() {
         context.hideProgressDialog();
-        this.setNickName("haha");
+        this.setNickName(nickName);
     }
 
     @Override
