@@ -37,7 +37,6 @@ public class TypeListFragModel extends ListBaseModel<Type> implements HttpReques
         onRefresh();
     }
 
-
     @Override
     public void onRefresh() {
         this.listModel.getTypes();

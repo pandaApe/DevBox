@@ -33,6 +33,15 @@ public class AccountModel {
         loginService = RetrofitClient.shareInstance().create(LoginService.class);
     }
 
+
+    public User getCurrentUser() {
+        User user = new User();
+        user.setNickName(PersistenceUtils.shareInstance().readString("DevBox", "nickName"));
+        user.setSessionToken(PersistenceUtils.shareInstance().readString("DevBox", "sessionToken"));
+
+        return user;
+    }
+
     public void login(Auth auth) {
 
         Observable<User> observable = loginService.login(auth);
@@ -46,7 +55,7 @@ public class AccountModel {
 
                                @Override
                                public void onError(Throwable e) {
-                                   Log.e("onError", ": "+e);
+                                   Log.e("onError", ": " + e);
                                }
 
                                @Override

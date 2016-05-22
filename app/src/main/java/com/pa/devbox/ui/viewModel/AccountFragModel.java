@@ -9,11 +9,13 @@ import android.view.View;
 
 import com.pa.devbox.BR;
 import com.pa.devbox.domain.delegate.HttpRequestCallback;
+import com.pa.devbox.domain.entity.User;
 import com.pa.devbox.domain.entity.rest.Auth;
 import com.pa.devbox.domain.entity.rest.QQAuth;
 import com.pa.devbox.ui.aty.AboutActivity;
 import com.pa.devbox.ui.aty.BaseActivity;
 import com.pa.devbox.ui.modle.AccountModel;
+import com.pa.devbox.util.PersistenceUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,25 +34,35 @@ import cn.sharesdk.tencent.qq.QQ;
  * Email: whailong2010@gmail.com
  */
 public class AccountFragModel extends BaseObservable implements PlatformActionListener, HttpRequestCallback {
+    private User user;
     private BaseActivity context;
     private AccountModel accountModel;
 
     @Bindable
     private String nickName;
+    @Bindable
+    private String subTitle;
 
     public AccountFragModel(BaseActivity context) {
         this.context = context;
 
         accountModel = new AccountModel();
         accountModel.setHttpRequestCallback(this);
+        user = accountModel.getCurrentUser();
+        if (user.getNickName() != null) {
+            this.setNickName(user.getNickName());
+            this.setSubTitle("来自QQ");
+        }
     }
 
     public void accountViewOnClick(View view) {
+        if (user == null) {
 
-        Platform qqLogin = ShareSDK.getPlatform(QQ.NAME);
-        qqLogin.setPlatformActionListener(this);
-        qqLogin.authorize();
-        context.showProgressDialog("登录中...");
+            Platform qqLogin = ShareSDK.getPlatform(QQ.NAME);
+            qqLogin.setPlatformActionListener(this);
+            qqLogin.authorize();
+            context.showProgressDialog("登录中...");
+        }
     }
 
     public void aboutViewOnClick(View v) {
@@ -93,7 +105,11 @@ public class AccountFragModel extends BaseObservable implements PlatformActionLi
     @Override
     public void onCompleted() {
         context.hideProgressDialog();
+
+        PersistenceUtils.shareInstance().write("DevBox", "nickName", nickName);
+
         this.setNickName(nickName);
+        this.setSubTitle("来自QQ");
     }
 
     @Override
@@ -114,5 +130,14 @@ public class AccountFragModel extends BaseObservable implements PlatformActionLi
     public void setNickName(String nickName) {
         this.nickName = nickName;
         notifyPropertyChanged(BR.nickName);
+    }
+
+    public String getSubTitle() {
+        return subTitle;
+    }
+
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
+        notifyPropertyChanged(BR.subTitle);
     }
 }
