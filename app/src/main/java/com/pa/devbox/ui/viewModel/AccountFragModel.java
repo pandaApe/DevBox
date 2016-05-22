@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.pa.devbox.BR;
+import com.pa.devbox.R;
 import com.pa.devbox.domain.delegate.HttpRequestCallback;
 import com.pa.devbox.domain.entity.User;
 import com.pa.devbox.domain.entity.rest.Auth;
@@ -51,7 +52,7 @@ public class AccountFragModel extends BaseObservable implements PlatformActionLi
         user = accountModel.getCurrentUser();
         if (user.getNickName() != null) {
             this.setNickName(user.getNickName());
-            this.setSubTitle("来自QQ");
+            this.setSubTitle(context.getString(R.string.fromQQ));
         }
     }
 
@@ -61,7 +62,7 @@ public class AccountFragModel extends BaseObservable implements PlatformActionLi
             Platform qqLogin = ShareSDK.getPlatform(QQ.NAME);
             qqLogin.setPlatformActionListener(this);
             qqLogin.authorize();
-            context.showProgressDialog("登录中...");
+            context.showProgressDialog(context.getString(R.string.loggingIn));
         }
     }
 
@@ -109,7 +110,7 @@ public class AccountFragModel extends BaseObservable implements PlatformActionLi
         PersistenceUtils.shareInstance().write("DevBox", "nickName", nickName);
 
         this.setNickName(nickName);
-        this.setSubTitle("来自QQ");
+        this.setSubTitle(context.getString(R.string.fromQQ));
     }
 
     @Override

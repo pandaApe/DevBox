@@ -31,6 +31,8 @@
     <string name="feedback">Feedback</string>
     <string name="about">About</string>
     <string name="toLogin">Click to login</string>
+    <string name="fromQQ">Come from QQ</string>
+    <string name="loggingIn">loading</string>
 
 
 </resources>
