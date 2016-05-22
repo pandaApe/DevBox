@@ -3,6 +3,7 @@ package com.pa.devbox.ui.aty;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.pa.devbox.R;
 import com.pa.devbox.databinding.ActivityLibdetailBinding;
@@ -25,6 +26,7 @@ public class LibDetailActivity extends BaseActivity {
     LibDetailAtyModel libDetailAtyModel;
 
     private PermissionRequestCallback permissionRequestCallback;
+    private OptionsItemSelectedCallback optionsItemSelectedCallback;
 
     @Override
     void initViews(Bundle savedInstanceState) {
@@ -45,10 +47,6 @@ public class LibDetailActivity extends BaseActivity {
         });
     }
 
-    public void setPermissionRequestCallback(PermissionRequestCallback permissionRequestCallback) {
-        this.permissionRequestCallback = permissionRequestCallback;
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         permissionRequestCallback.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -58,9 +56,30 @@ public class LibDetailActivity extends BaseActivity {
         void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults);
     }
 
+    public interface OptionsItemSelectedCallback {
+        void onOptionsItemSelected(MenuItem item);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_detail_aty, menu);
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        optionsItemSelectedCallback.onOptionsItemSelected(item);
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    public void setPermissionRequestCallback(PermissionRequestCallback permissionRequestCallback) {
+        this.permissionRequestCallback = permissionRequestCallback;
+    }
+
+    public void setOptionsItemSelectedCallback(OptionsItemSelectedCallback optionsItemSelectedCallback) {
+        this.optionsItemSelectedCallback = optionsItemSelectedCallback;
+    }
+
 }
