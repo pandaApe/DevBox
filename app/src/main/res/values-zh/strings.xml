@@ -29,6 +29,7 @@
     <string name="license">开源协议：</string>
     <string name="feedback">反馈</string>
     <string name="about">关于</string>
+    <string name="aboutContent">Dev Box 是本人业余时间学习Android时的练习作品。</string>
     <string name="toLogin">点此登录</string>
     <string name="fromQQ">使用QQ登录</string>
     <string name="loggingIn">登录中...</string>

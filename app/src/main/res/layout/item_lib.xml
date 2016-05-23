@@ -33,7 +33,7 @@
                 android:layout_height="270dp"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                android:src="@mipmap/temp"
+
                 app:imgUrl="@{lib.image.url}" />
 
             <TextView

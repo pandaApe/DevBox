@@ -152,8 +152,7 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/temp" />
+                        android:scaleType="fitXY" />
 
                     <TextView
                         android:layout_width="wrap_content"

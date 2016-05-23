@@ -73,6 +73,7 @@ public class AccountFragModel extends BaseObservable implements PlatformActionLi
     @Override
     public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
         //This method is called in sub thread.
+        Log.e("currentThread: ", "" + (Looper.myLooper() == Looper.getMainLooper()));
 
         this.nickName = platform.getDb().get("nickname");
 
@@ -90,7 +91,7 @@ public class AccountFragModel extends BaseObservable implements PlatformActionLi
 
         accountModel.login(auth);
 
-        Log.e("currentThread: ", "" + (Looper.myLooper() == Looper.getMainLooper()));
+
     }
 
     @Override
